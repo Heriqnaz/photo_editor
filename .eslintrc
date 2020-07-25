@@ -19,6 +19,20 @@
     "no-underscore-dangle": "warn",
     "no-use-before-define": "warn",
     "no-unused-vars": "warn",
-    "no-undef": "warn"
+    "no-undef": "warn",
+    "func-call-spacing": "error",
+    "no-lonely-if": "error",
+    "space-before-blocks": "error",
+    "block-spacing": "error",
+    "arrow-spacing": "error",
+    "camelcase": "error",
+    "no-var": "error",
+    "no-empty-function": "error",
+    "comma-spacing": "error",
+    "space-before-function-paren": ["error", "never"],
+    "quotes": ["error", "single"],
+    "guard-for-in": "error",
+    "indent": ["error", 2],
+    "keyword-spacing": "error"
   }
 }
