@@ -39,7 +39,7 @@ const ImagesList = ({photos, isFetching, isSearched, selectedPhoto, onPhotoSelec
     }
     if(isSearched && !photosToShow.length){
         return (
-            <div className='mt-5 mx'>
+            <div className='mt-5 no_res'>
                 <svg className="svg-icon" viewBox="0 0 20 20">
                     <path fill="none" d="M19.129,18.164l-4.518-4.52c1.152-1.373,1.852-3.143,1.852-5.077c0-4.361-3.535-7.896-7.896-7.896
 								c-4.361,0-7.896,3.535-7.896,7.896s3.535,7.896,7.896,7.896c1.934,0,3.705-0.698,5.078-1.853l4.52,4.519

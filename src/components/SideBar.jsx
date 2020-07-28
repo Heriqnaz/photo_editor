@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import '../css/sidebar.css'
-import {Card, CardColumns, Nav} from 'react-bootstrap';
-import {Download, Image, Search, Upload} from 'react-bootstrap-icons';
-import '../css/sidebar.css';
-import GoogleSearchPanel from "../containers/GoogleSearchPanel/GoogleSearchPanel.jsx";
+import {Nav} from 'react-bootstrap';
+import {Download, Image, Upload} from 'react-bootstrap-icons';
+import GoogleSearchPanel from '../containers/GoogleSearchPanel/GoogleSearchPanel.jsx';
 
-
-function SideBar() {
+const SideBar = () => {
     const [ isRightMenuOpen, setOpenMenu ] = useState(false);
 
     const handleClick = () => {
@@ -26,14 +24,13 @@ function SideBar() {
 
     return (
         <Nav className="sidebar">
-            <div className="menu-left-part" style={{marginLeft: (isRightMenuOpen) ? '0' : '-505px'}}>
-                <GoogleSearchPanel />
-
+            <div className="menu-left-part" style={{marginLeft: isRightMenuOpen ? '0' : '-30vw'}}>
+                <GoogleSearchPanel/>
             </div>
             <div className='menu-right-part'>
                 <Nav.Link className="sidebar-nav-item">
                     <Upload color='#999' size={29}/>
-                    <p>Uploads</p>
+                    <p>Upload</p>
                 </Nav.Link>
                 <Nav.Link
                     className={`sidebar-nav-item ${isRightMenuOpen && 'open'}`}
@@ -48,6 +45,6 @@ function SideBar() {
             </div>
         </Nav>
     )
-}
+};
 
 export default SideBar;

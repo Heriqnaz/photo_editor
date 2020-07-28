@@ -1,12 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import SearchPanel from '../../components/SearchPanel/SearchPanel';
 import ImagesList from '../../components/ImagesList/ImagesList';
-import { selectPhoto, fetchPhotos } from '../../redux/actions';
+import {fetchPhotos, selectPhoto} from '../../redux/actions';
 import './GoogleSearchPanel.css';
 
-const GoogleSearchPanel = ({ onSearch, onPhotoSelect, photos, isFetchingPhotos, selectedPhoto, isSearched }) =>  (
+const GoogleSearchPanel = ({onSearch, onPhotoSelect, photos, isFetchingPhotos, selectedPhoto, isSearched}) => (
     <div className='d-flex'>
         <div className='search_panel_container pt-3'>
             <SearchPanel
