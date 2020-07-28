@@ -32,7 +32,7 @@
     "space-before-function-paren": ["error", "never"],
     "quotes": ["error", "single"],
     "guard-for-in": "error",
-    "indent": ["error", 2],
+    "indent": ["error", 4],
     "keyword-spacing": "error"
   }
 }
