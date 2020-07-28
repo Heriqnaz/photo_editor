@@ -11,7 +11,7 @@ const ImagesList = ({photos, isFetching, isSearched, selectedPhoto, onPhotoSelec
 
     useEffect(() => {
         setPhotosToShow(photos.slice(0, firstLoadCount));
-    }, [photos]);
+    }, [photos, firstLoadCount]);
 
     const handleScroll = (e) => {
         if(photos.length === photosToShow.length) {

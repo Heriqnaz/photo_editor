@@ -3,8 +3,9 @@ import '../css/sidebar.css'
 import {Nav} from 'react-bootstrap';
 import {Download, Image, Upload} from 'react-bootstrap-icons';
 import GoogleSearchPanel from '../containers/GoogleSearchPanel/GoogleSearchPanel.jsx';
+import PropTypes from 'prop-types';
 
-const SideBar = () => {
+const SideBar = ({onPhotoSelect}) => {
     const [ isRightMenuOpen, setOpenMenu ] = useState(false);
 
     const handleClick = () => {
@@ -21,6 +22,10 @@ const SideBar = () => {
             window.removeEventListener('hideSidebar', handleHide);
         }
     });
+    const onFileChange = (e) => {
+        const url = URL.createObjectURL(e.target.files[0]);
+        onPhotoSelect(url);
+    };
 
     return (
         <Nav className="sidebar">
@@ -28,13 +33,24 @@ const SideBar = () => {
                 <GoogleSearchPanel/>
             </div>
             <div className='menu-right-part'>
-                <Nav.Link className="sidebar-nav-item">
-                    <Upload color='#999' size={29}/>
-                    <p>Upload</p>
-                </Nav.Link>
+                <form>
+                    <label htmlFor="imgInput" className='sidebar-nav-item' style={{cursor: 'pointer'}}>
+                        <Upload color='#999' size={29}/>
+                        <p>Upload</p>
+                        <input
+                            type="file"
+                            name='imgInput'
+                            id="imgInput"
+                            accept='image/*'
+                            onChange={onFileChange}
+                            style={{display: 'none'}}
+                        />
+                    </label>
+                </form>
                 <Nav.Link
                     className={`sidebar-nav-item ${isRightMenuOpen && 'open'}`}
-                    onClick={handleClick}>
+                    onClick={handleClick}
+                >
                     <Image color='#999' size={29}/>
                     <p>Search</p>
                 </Nav.Link>
@@ -45,6 +61,10 @@ const SideBar = () => {
             </div>
         </Nav>
     )
+};
+
+SideBar.propTypes = {
+    onPhotoSelect: PropTypes.func.isRequired
 };
 
 export default SideBar;

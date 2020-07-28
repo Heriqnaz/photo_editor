@@ -6,7 +6,6 @@ const SearchPanel = ({ onSearch }) => {
     let input;
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('smth')
         const searchText = input.value.replace(/ +/g, '+');
         onSearch(searchText);
         input.value = '';

@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import '../css/content.css'
 import {Nav, Navbar, NavDropdown} from 'react-bootstrap';
 
-export function Content() {
+const Content = ({selectedPhoto}) => {
     const handleClick = () => {
         const event = new CustomEvent('hideSidebar');
         dispatchEvent(event);
@@ -39,11 +40,18 @@ export function Content() {
                 </Navbar.Collapse>
             </Navbar>
             <div className="img-box">
-                <div className='edit-img'/>
+                <div className='edit-img'>
+                    {
+                        selectedPhoto && <img src={selectedPhoto} style={{width: '100%', height: '100%'}} alt='Not found'/>
+                    }
+                </div>
             </div>
         </div>
     )
 }
 
+Content.propTypes = {
+    selectedPhoto: PropTypes.string.isRequired
+}
 
-
+export default Content;
