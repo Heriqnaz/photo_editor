@@ -16,16 +16,17 @@ const SideBar = ({onPhotoSelect}) => {
         setOpenMenu(false)
     };
 
+    const onFileChange = (e) => {
+        const url = URL.createObjectURL(e.target.files[0]);
+        onPhotoSelect(url);
+    };
+
     useEffect(() => {
         window.addEventListener('hideSidebar', handleHide);
         return () => {
             window.removeEventListener('hideSidebar', handleHide);
         }
     });
-    const onFileChange = (e) => {
-        const url = URL.createObjectURL(e.target.files[0]);
-        onPhotoSelect(url);
-    };
 
     return (
         <Nav className="sidebar">

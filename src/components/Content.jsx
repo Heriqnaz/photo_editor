@@ -8,6 +8,7 @@ const Content = ({selectedPhoto}) => {
         const event = new CustomEvent('hideSidebar');
         dispatchEvent(event);
     };
+
     return (
         <div className='content' onClick={handleClick}>
             <Navbar bg="light" variant="light" expand="lg">
