@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import SideBar from '../components/SideBar';
 import Content from '../components/Content';
-import {selectPhoto} from "../redux/actions";
+import {selectPhoto} from '../redux/actions';
 
 const Home = ({onPhotoSelect, selectedPhoto}) => {
     return (

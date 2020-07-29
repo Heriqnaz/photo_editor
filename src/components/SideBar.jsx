@@ -14,6 +14,7 @@ const SideBar = ({onPhotoSelect}) => {
 
     const handleHide = () => {
         setOpenMenu(false)
+        setOpenMenu(false)
     };
 
     const onFileChange = (e) => {

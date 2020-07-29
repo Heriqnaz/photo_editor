@@ -30,7 +30,8 @@ GoogleSearchPanel.propTypes = {
     onPhotoSelect: PropTypes.func.isRequired,
     photos: PropTypes.arrayOf(PropTypes.string.isRequired),
     isFetchingPhotos: PropTypes.bool.isRequired,
-    selectedPhoto: PropTypes.string.isRequired
+    selectedPhoto: PropTypes.string.isRequired,
+    isSearched: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = (state) => ({

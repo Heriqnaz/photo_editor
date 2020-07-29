@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import './ImageRow.css';
 
 const ImageRow = ({ imagePair, onPhotoClick }) => (
-    <div className={`img_pair_cont mb-1 d-flex ${imagePair.length === 2 ? 'justify-content-between' : 'justify-content-center'}`}>
+    <div
+        className={`img_pair_cont mb-1 d-flex 
+                    ${imagePair.length === 2 ? 'justify-content-between' : 'justify-content-center'}`}>
         <img
             onDoubleClick={() => onPhotoClick(imagePair[0])}
             src={imagePair[0]}

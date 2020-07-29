@@ -43,7 +43,8 @@ const Content = ({selectedPhoto}) => {
             <div className="img-box">
                 <div className='edit-img'>
                     {
-                        selectedPhoto && <img src={selectedPhoto} style={{width: '100%', height: '100%'}} alt='Not found'/>
+                        selectedPhoto &&
+                        <img src={selectedPhoto} style={{width: '100%', height: '100%'}} alt='Not found'/>
                     }
                 </div>
             </div>
