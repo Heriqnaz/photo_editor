@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import '../css/sidebar.css'
-import {Card, CardColumns, Nav} from 'react-bootstrap';
-import {Download, Image, Search, Upload} from 'react-bootstrap-icons';
+import {Nav} from 'react-bootstrap';
+import {Download, Image, Upload} from 'react-bootstrap-icons';
+import GoogleSearchPanel from '../containers/GoogleSearchPanel/GoogleSearchPanel.jsx';
+import PropTypes from 'prop-types';
 
-
-function SideBar() {
+const SideBar = ({onPhotoSelect}) => {
     const [ isRightMenuOpen, setOpenMenu ] = useState(false);
 
     const handleClick = () => {
@@ -13,6 +14,12 @@ function SideBar() {
 
     const handleHide = () => {
         setOpenMenu(false)
+        setOpenMenu(false)
+    };
+
+    const onFileChange = (e) => {
+        const url = URL.createObjectURL(e.target.files[0]);
+        onPhotoSelect(url);
     };
 
     useEffect(() => {
@@ -24,52 +31,28 @@ function SideBar() {
 
     return (
         <Nav className="sidebar">
-            <div className="menu-left-part" style={{marginLeft: (isRightMenuOpen) ? '0' : '-505px'}}>
-                <div className="form-group has-search">
-                    <span className="fa fa-search form-control-feedback"> <Search color='#999' size={15}/></span>
-                    <input type="text" className="form-control" placeholder="Search"/>
-                </div>
-                <p className='sidebar-title'>Images</p>
-                <CardColumns>
-                    <Card>
-                        <Card.Img
-                            variant="top"
-                            src="http://bragthemes.com/demo/pinstrap/files/2012/10/clown-220x255.jpeg"/>
-                    </Card>
-                    <Card>
-                        <Card.Img
-                            variant="top"
-                            src="http://bragthemes.com/demo/pinstrap/files/2012/10/white-house.jpeg"/>
-                    </Card>
-                    <Card>
-                        <Card.Img
-                            variant="top"
-                            src="http://bragthemes.com/demo/pinstrap/files/2012/10/red-rolls-220x148.jpeg"/>
-                    </Card>
-                    <Card>
-                        <Card.Img variant="top" src="http://bragthemes.com/demo/pinstrap/files/2012/10/rat-rod.jpeg"/>
-                    </Card>
-                    <Card>
-                        <Card.Img
-                            variant="top"
-                            src="http://bragthemes.com/demo/pinstrap/files/2012/10/pink-rolls-royce.jpeg"/>
-                    </Card>
-                    <Card>
-                        <Card.Img variant="top" src="http://bragthemes.com/demo/pinstrap/files/2012/10/rat-rod.jpeg"/>
-                    </Card>
-                    <Card>
-                        <Card.Img variant="top" src="http://bragthemes.com/demo/pinstrap/files/2012/10/rat-rod.jpeg"/>
-                    </Card>
-                </CardColumns>
+            <div className="menu-left-part" style={{marginLeft: isRightMenuOpen ? '0' : '-30vw'}}>
+                <GoogleSearchPanel/>
             </div>
             <div className='menu-right-part'>
-                <Nav.Link className="sidebar-nav-item">
-                    <Upload color='#999' size={29}/>
-                    <p>Uploads</p>
-                </Nav.Link>
+                <form>
+                    <label htmlFor="imgInput" className='sidebar-nav-item' style={{cursor: 'pointer'}}>
+                        <Upload color='#999' size={29}/>
+                        <p>Upload</p>
+                        <input
+                            type="file"
+                            name='imgInput'
+                            id="imgInput"
+                            accept='image/*'
+                            onChange={onFileChange}
+                            style={{display: 'none'}}
+                        />
+                    </label>
+                </form>
                 <Nav.Link
                     className={`sidebar-nav-item ${isRightMenuOpen && 'open'}`}
-                    onClick={handleClick}>
+                    onClick={handleClick}
+                >
                     <Image color='#999' size={29}/>
                     <p>Search</p>
                 </Nav.Link>
@@ -80,6 +63,10 @@ function SideBar() {
             </div>
         </Nav>
     )
-}
+};
+
+SideBar.propTypes = {
+    onPhotoSelect: PropTypes.func.isRequired
+};
 
 export default SideBar;
