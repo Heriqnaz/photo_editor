@@ -13,7 +13,7 @@
 .sidebar {
     background-color: #000;
     transition: all 1s;
-    max-width: 605px;
+    max-width: 44vw;
     height: 100% !important;
     display: flex;
     flex-shrink: 0;
@@ -45,7 +45,6 @@
     background: #293039;
     transition: all 0.25s;
     width: 30vw;
-    padding: 25px 25px;
 }
 
 .sidebar-nav-item.open {
