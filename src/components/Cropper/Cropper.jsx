@@ -153,7 +153,7 @@ const Cropper = ({ canvasCords, handleCrop }) => {
             ;
 
             if (clicked.onLeftEdge && e.clientX > canvasCords.left) {
-                let currentWidth = Math.max(clicked.cx - 3 - e.clientX + clicked.w, minWidth);
+                let currentWidth = Math.max(clicked.cx - e.clientX + clicked.w, minWidth);
                 if (currentWidth > minWidth) {
                     crop.current.style.width = currentWidth + 'px';
                     crop.current.style.left = e.clientX + 'px';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import ImageContainer from '../ImageContainer/ImageContainer';
@@ -17,6 +17,10 @@ const Editor = ({ selectedPhoto }) => {
         dispatchEvent(event);
     };
 
+    useEffect(() => {
+        setActiveTool(null)
+    }, [selectedPhoto])
+
     const handleSetTool = (name) => {
         if (selectedPhoto) {
             if (activeTool === name) {
@@ -34,6 +38,7 @@ const Editor = ({ selectedPhoto }) => {
         }
     };
 
+    console.log(selectedPhoto);
 
     return (
         <div className='content' onClick={handleContentClick}>

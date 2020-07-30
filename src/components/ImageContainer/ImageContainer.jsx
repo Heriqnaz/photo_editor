@@ -20,16 +20,16 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
     };
 
     function draw(src) {
+        console.log(src)
         const ctx = canvas.current.getContext('2d');
         const img = new Image();
         img.src = src;
+        img.crossOrigin = 'anonymous';
         img.onload = () => {
             const ratio = img.width / img.height;
             canvas.current.height = 500;
             canvas.current.width = 500 * ratio;
-
             ctx.drawImage(img, 0, 0, canvas.current.width, canvas.current.height);
-
             setCanvasCords(provideCord(canvas.current))
         };
     }
@@ -62,6 +62,7 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
         }
     }
 
+    console.log(canvasCords)
 
     return (
         <div className="img-box">

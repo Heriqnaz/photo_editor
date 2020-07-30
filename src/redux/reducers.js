@@ -1,11 +1,11 @@
-import {combineReducers} from "redux";
+import { combineReducers } from "redux";
 import {
     REQUEST_PHOTOS,
     RECEIVE_PHOTOS,
     SELECT_PHOTO
 } from "./actions";
 
-function selectedPhoto(state = '', action){
+function selectedPhoto(state = '', action) {
     switch (action.type) {
         case SELECT_PHOTO:
             return action.url;
@@ -16,7 +16,7 @@ function selectedPhoto(state = '', action){
     }
 }
 
-function isFetchingPhotos(state = false, action){
+function isFetchingPhotos(state = false, action) {
     switch (action.type) {
         case REQUEST_PHOTOS:
             return true;
@@ -27,7 +27,7 @@ function isFetchingPhotos(state = false, action){
     }
 }
 
-function photos(state = [], action){
+function photos(state = [], action) {
     switch (action.type) {
         case RECEIVE_PHOTOS:
             return action.photos;
@@ -36,7 +36,7 @@ function photos(state = [], action){
     }
 }
 
-function isSearched(state = false, action){
+function isSearched(state = false, action) {
     switch (action.type) {
         case REQUEST_PHOTOS:
             return state ? state : true;
