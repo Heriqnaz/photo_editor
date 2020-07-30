@@ -8,7 +8,7 @@ const SearchPanel = ({ onSearch }) => {
         e.preventDefault();
         const searchText = input.value.replace(/ +/g, '+');
         onSearch(searchText);
-        input.value = '';
+        // input.value = '';
     }
 
     return (

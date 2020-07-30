@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../css/content.css'
+import '../css/content.css';
 import {Nav, Navbar, NavDropdown} from 'react-bootstrap';
 
 const Content = ({selectedPhoto}) => {
@@ -49,11 +49,11 @@ const Content = ({selectedPhoto}) => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 Content.propTypes = {
     selectedPhoto: PropTypes.string.isRequired
-}
+};
 
 export default Content;

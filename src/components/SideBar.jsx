@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import '../css/sidebar.css'
+import '../css/sidebar.css';
 import {Nav} from 'react-bootstrap';
 import {Download, Image, Upload} from 'react-bootstrap-icons';
 import GoogleSearchPanel from '../containers/GoogleSearchPanel/GoogleSearchPanel.jsx';
@@ -9,12 +9,12 @@ const SideBar = ({onPhotoSelect}) => {
     const [ isRightMenuOpen, setOpenMenu ] = useState(false);
 
     const handleClick = () => {
-        setOpenMenu(!isRightMenuOpen)
+        setOpenMenu(!isRightMenuOpen);
     };
 
     const handleHide = () => {
-        setOpenMenu(false)
-        setOpenMenu(false)
+        setOpenMenu(false);
+        setOpenMenu(false);
     };
 
     const onFileChange = (e) => {
@@ -26,7 +26,7 @@ const SideBar = ({onPhotoSelect}) => {
         window.addEventListener('hideSidebar', handleHide);
         return () => {
             window.removeEventListener('hideSidebar', handleHide);
-        }
+        };
     });
 
     return (
@@ -62,7 +62,7 @@ const SideBar = ({onPhotoSelect}) => {
                 </Nav.Link>
             </div>
         </Nav>
-    )
+    );
 };
 
 SideBar.propTypes = {

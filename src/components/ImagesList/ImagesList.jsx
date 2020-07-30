@@ -15,10 +15,9 @@ const ImagesList = ({photos, isFetching, isSearched, onPhotoSelect, newPhotosLoa
 
     const handleScroll = (e) => {
         if (photos.length === photosToShow.length) {
-            return
+            return;
         }
         if (photos.length - photosToShow.length < newPhotosLoadCount) {
-            console.log('here')
             setIsPhotosLoading(true);
             setTimeout(() => {
                 setIsPhotosLoading(false);
@@ -42,10 +41,10 @@ const ImagesList = ({photos, isFetching, isSearched, onPhotoSelect, newPhotosLoa
                 ));
             }, 500);
         }
-    }
+    };
 
     if (isFetching) {
-        return <LoadingIndicator />
+        return <LoadingIndicator />;
     }
     if (isSearched && !photosToShow.length) {
         return (
@@ -62,7 +61,7 @@ const ImagesList = ({photos, isFetching, isSearched, onPhotoSelect, newPhotosLoa
                 </svg>
                 <h2 className='mt-2' style={{color: 'grey'}}>No result</h2>
             </div>
-        )
+        );
     }
     return (
         <div
@@ -81,8 +80,8 @@ const ImagesList = ({photos, isFetching, isSearched, onPhotoSelect, newPhotosLoa
                 isPhotosLoading && <LoadingIndicator />
             }
         </div>
-    )
-}
+    );
+};
 
 ImagesList.propTypes = {
     photos: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
@@ -92,6 +91,6 @@ ImagesList.propTypes = {
     onPhotoSelect: PropTypes.func.isRequired,
     newPhotosLoadCount: PropTypes.number.isRequired,
     firstLoadCount: PropTypes.number.isRequired
-}
+};
 
 export default ImagesList;

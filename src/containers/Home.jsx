@@ -13,13 +13,13 @@ const Home = ({onPhotoSelect, selectedPhoto}) => {
                 <Content selectedPhoto={selectedPhoto}/>
             </div>
         </div>
-    )
-}
+    );
+};
 
 Home.propTypes = {
     onPhotoSelect: PropTypes.func.isRequired,
     selectedPhoto: PropTypes.string.isRequired
-}
+};
 
 const mapStateToProps = (state) => ({
     selectedPhoto: state.selectedPhoto
