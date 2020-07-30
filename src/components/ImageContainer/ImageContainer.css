@@ -1,0 +1,19 @@
+.img-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 59px);
+}
+
+.edit-img {
+    background-color: #fff;
+}
+
+.crop-button {
+    margin: 8px 20px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}

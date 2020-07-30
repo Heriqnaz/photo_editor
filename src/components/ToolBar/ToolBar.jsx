@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
-import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import './ToolBar.css';
 
 const ToolBar = ({ activeTool, activeSubTool, setActiveTool, setActiveSubTool }) => {
@@ -17,7 +15,7 @@ const ToolBar = ({ activeTool, activeSubTool, setActiveTool, setActiveSubTool })
         effects: [
             { name: 'blur', title: 'Blur' },
             { name: 'magic', title: 'Magic' },
-            { name: 'pop art', title: 'Pop Art'}
+            { name: 'pop art', title: 'Pop Art' }
         ],
         frame: [
             { name: 'birthday', title: 'Birthday' },
@@ -45,11 +43,6 @@ const ToolBar = ({ activeTool, activeSubTool, setActiveTool, setActiveSubTool })
                 {subTools[activeTool].map((subTool, i) => <li
                     onClick={() => setActiveSubTool(subTool.name)}
                     className={activeSubTool === subTool.name ? 'tool-active' : ''} key={i}>{subTool.title}</li>)}
-            </ul>
-            }
-            {activeTool === 'crop' &&
-            <ul className='sub-tools crop'>
-                <Button className='crop-button' variant="dark">Crop</Button>
             </ul>
             }
         </div>

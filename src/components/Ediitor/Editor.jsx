@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import './Content.css';
+
+import ImageContainer from '../ImageContainer/ImageContainer';
 import ToolBar from '../ToolBar/ToolBar';
 
-const Content = ({ selectedPhoto }) => {
+import './Editor.css';
+
+const Editor = ({ selectedPhoto }) => {
+
 
     const [activeTool, setActiveTool] = useState(null);
-    const [activeSubTool, setActiveSubTool] = useState(null)
+    const [activeSubTool, setActiveSubTool] = useState(null);
 
     const handleContentClick = () => {
         const event = new CustomEvent('hideSidebar');
@@ -14,13 +18,14 @@ const Content = ({ selectedPhoto }) => {
     };
 
     const handleSetTool = (name) => {
-        if (activeTool === name) {
-            setActiveTool(null)
-        } else {
-            setActiveTool(name)
+        if (selectedPhoto) {
+            if (activeTool === name) {
+                setActiveTool(null)
+            } else {
+                setActiveTool(name)
+            }
         }
     };
-
     const handleSetSubTool = (name) => {
         if (activeSubTool === name) {
             setActiveSubTool(null)
@@ -29,29 +34,22 @@ const Content = ({ selectedPhoto }) => {
         }
     };
 
-    console.log(selectedPhoto);
 
     return (
         <div className='content' onClick={handleContentClick}>
             <ToolBar
                 activeTool={activeTool}
+                setActiveTool={handleSetTool}
                 activeSubTool={activeSubTool}
                 setActiveSubTool={handleSetSubTool}
-                setActiveTool={handleSetTool}/>
-            <div className="img-box">
-                <div className='edit-img'>
-                    {
-                        selectedPhoto &&
-                        <img src={selectedPhoto} style={{ width: '100%', height: '100%' }} alt='Not found'/>
-                    }
-                </div>
-            </div>
+            />
+            <ImageContainer setActiveTool={setActiveTool} activeTool={activeTool} selectedPhoto={selectedPhoto}/>
         </div>
     )
 }
 
-Content.propTypes = {
+Editor.propTypes = {
     selectedPhoto: PropTypes.string.isRequired
 };
 
-export default Content;
+export default Editor;
