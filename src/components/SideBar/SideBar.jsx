@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import '../css/sidebar.css'
-import {Nav} from 'react-bootstrap';
-import {Download, Image, Upload} from 'react-bootstrap-icons';
-import GoogleSearchPanel from '../containers/GoogleSearchPanel/GoogleSearchPanel.jsx';
+import React, { useEffect, useState } from 'react';
+import './Sidebar.css'
+import { Nav } from 'react-bootstrap';
+import { Download, Image, Upload } from 'react-bootstrap-icons';
+import GoogleSearchPanel from '../../containers/GoogleSearchPanel/GoogleSearchPanel.jsx';
 import PropTypes from 'prop-types';
 
-const SideBar = ({onPhotoSelect}) => {
-    const [ isRightMenuOpen, setOpenMenu ] = useState(false);
+const SideBar = ({ onPhotoSelect }) => {
+    const [isRightMenuOpen, setOpenMenu] = useState(false);
 
     const handleClick = () => {
         setOpenMenu(!isRightMenuOpen)
@@ -31,12 +31,12 @@ const SideBar = ({onPhotoSelect}) => {
 
     return (
         <Nav className="sidebar">
-            <div className="menu-left-part" style={{marginLeft: isRightMenuOpen ? '0' : '-30vw'}}>
+            <div className="menu-left-part" style={{ marginLeft: isRightMenuOpen ? '0' : '-30vw' }}>
                 <GoogleSearchPanel/>
             </div>
             <div className='menu-right-part'>
                 <form>
-                    <label htmlFor="imgInput" className='sidebar-nav-item' style={{cursor: 'pointer'}}>
+                    <label htmlFor="imgInput" className='sidebar-nav-item' style={{ cursor: 'pointer' }}>
                         <Upload color='#999' size={29}/>
                         <p>Upload</p>
                         <input
@@ -45,7 +45,7 @@ const SideBar = ({onPhotoSelect}) => {
                             id="imgInput"
                             accept='image/*'
                             onChange={onFileChange}
-                            style={{display: 'none'}}
+                            style={{ display: 'none' }}
                         />
                     </label>
                 </form>

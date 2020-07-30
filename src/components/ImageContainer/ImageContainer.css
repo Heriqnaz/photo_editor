@@ -1,0 +1,21 @@
+.img-box {
+    /*position: relative;*/
+    width: 100%;
+    height: calc(100vh - 59px);
+}
+
+.edit-img {
+    position: absolute;
+    top: calc(50% + 25px);
+    left: calc(50% + 50px);
+    transform: translate(-50%,-50%);
+    background-color: #fff;
+}
+
+.crop-button {
+    margin: 8px 20px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}

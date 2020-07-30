@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import SideBar from '../components/SideBar';
-import Content from '../components/Content';
+import SideBar from '../components/SideBar/SideBar';
+import Editor from '../components/Ediitor/Editor';
 import {selectPhoto} from '../redux/actions';
 
 const Home = ({onPhotoSelect, selectedPhoto}) => {
@@ -10,7 +10,7 @@ const Home = ({onPhotoSelect, selectedPhoto}) => {
         <div className='wrapper-box'>
             <div className="wrapper">
                 <SideBar onPhotoSelect={onPhotoSelect} />
-                <Content selectedPhoto={selectedPhoto}/>
+                <Editor selectedPhoto={selectedPhoto}/>
             </div>
         </div>
     )
