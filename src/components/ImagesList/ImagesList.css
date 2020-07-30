@@ -1,6 +1,6 @@
 .images_container{
     width: 95%;
-    height: 85vh;
+    height: 100%;
     overflow-y: auto;
     margin: 0 auto;
 }
