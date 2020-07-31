@@ -18,8 +18,10 @@ const SideBar = ({ onPhotoSelect }) => {
     };
 
     const onFileChange = (e) => {
-        const url = URL.createObjectURL(e.target.files[0]);
-        onPhotoSelect(url);
+        if (e.target.files[0]) {
+            const url = URL.createObjectURL(e.target.files[0]);
+            onPhotoSelect(url);
+        }
     };
 
     useEffect(() => {
@@ -31,12 +33,12 @@ const SideBar = ({ onPhotoSelect }) => {
 
     return (
         <Nav className="sidebar">
-            <div className="menu-left-part" style={{ marginLeft: isRightMenuOpen ? '0' : '-30vw' }}>
-                <GoogleSearchPanel/>
+            <div className="menu-left-part" style={{marginLeft: isRightMenuOpen ? '0' : '-30vw'}}>
+                <GoogleSearchPanel handleHide={handleHide}/>
             </div>
             <div className='menu-right-part'>
                 <form>
-                    <label htmlFor="imgInput" className='sidebar-nav-item' style={{ cursor: 'pointer' }}>
+                    <label htmlFor="imgInput" className='sidebar-nav-item' style={{cursor: 'pointer'}}>
                         <Upload color='#999' size={29}/>
                         <p>Upload</p>
                         <input
