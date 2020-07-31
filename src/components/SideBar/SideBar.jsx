@@ -6,7 +6,7 @@ import GoogleSearchPanel from '../../containers/GoogleSearchPanel/GoogleSearchPa
 import PropTypes from 'prop-types';
 
 const SideBar = ({ onPhotoSelect }) => {
-    const [isRightMenuOpen, setOpenMenu] = useState(false);
+    const [ isRightMenuOpen, setOpenMenu ] = useState(false);
 
     const handleClick = () => {
         setOpenMenu(!isRightMenuOpen)
