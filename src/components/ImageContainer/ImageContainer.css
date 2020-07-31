@@ -10,6 +10,7 @@
     left: calc(50% + 50px);
     transform: translate(-50%,-50%);
     background-color: #fff;
+    height: 500px;
 }
 
 .crop-button {

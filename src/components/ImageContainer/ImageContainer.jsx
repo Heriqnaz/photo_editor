@@ -56,7 +56,6 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
 
             ctx.clearRect(0, 0, canvas.current.width, canvas.current.height);
             ctx.drawImage(img, cropDimensions.left, cropDimensions.top, cropDimensions.width, cropDimensions.height, 0, 0, canvas.current.width, canvas.current.height);
-
             setCanvasCords(provideCord(canvas.current));
             setActiveTool(null)
         }
