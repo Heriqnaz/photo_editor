@@ -7,19 +7,16 @@ import ToolBar from '../ToolBar/ToolBar';
 import './Editor.css';
 
 const Editor = ({ selectedPhoto }) => {
-
-
-    const [activeTool, setActiveTool] = useState(null);
-    const [activeSubTool, setActiveSubTool] = useState(null);
+    const [ activeTool, setActiveTool ] = useState(null);
+    const [ activeSubTool, setActiveSubTool ] = useState(null);
+    const [ lineWidth, setLineWidth ] = useState('1');
+    const [ lineColor, setLineColor ] = useState('#000000');
+    const [ lineStyle, setLineStyle ] = useState('round');
 
     const handleContentClick = () => {
         const event = new CustomEvent('hideSidebar');
         dispatchEvent(event);
     };
-
-    useEffect(() => {
-        setActiveTool(null)
-    }, [selectedPhoto])
 
     const handleSetTool = (name) => {
         if (selectedPhoto) {
@@ -30,6 +27,7 @@ const Editor = ({ selectedPhoto }) => {
             }
         }
     };
+
     const handleSetSubTool = (name) => {
         if (activeSubTool === name) {
             setActiveSubTool(null)
@@ -38,7 +36,9 @@ const Editor = ({ selectedPhoto }) => {
         }
     };
 
-    console.log(selectedPhoto);
+    useEffect(() => {
+        setActiveTool(null)
+    }, [ selectedPhoto ]);
 
     return (
         <div className='content' onClick={handleContentClick}>
@@ -47,8 +47,21 @@ const Editor = ({ selectedPhoto }) => {
                 setActiveTool={handleSetTool}
                 activeSubTool={activeSubTool}
                 setActiveSubTool={handleSetSubTool}
+                setLineWidth={setLineWidth}
+                setLineColor={setLineColor}
+                setLineStyle={setLineStyle}
+                lineStyle={lineStyle}
+                lineWidth={lineWidth}
+                lineColor={lineColor}
             />
-            <ImageContainer setActiveTool={setActiveTool} activeTool={activeTool} selectedPhoto={selectedPhoto}/>
+            <ImageContainer
+                setActiveTool={setActiveTool}
+                activeTool={activeTool}
+                selectedPhoto={selectedPhoto}
+                lineStyle={lineStyle}
+                lineColor={lineColor}
+                lineWidth={lineWidth}
+            />
         </div>
     )
 }
