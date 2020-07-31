@@ -43,3 +43,40 @@
     background: rgba(128, 128, 128, 0.45);
 }
 
+.sub-tools-drawing{
+    transform: translateY(46%);
+    display: flex;
+    justify-content: space-around;
+}
+
+.sub-tools-drawing > li{
+    text-align: center;
+    height: 100%;
+}
+.sub-tools-drawing input{
+    cursor: pointer;
+}
+
+.sub-tools-drawing > li:hover{
+    background: transparent;
+    cursor: auto;
+}
+
+.line-cap, .line-color{
+    width: 30%;
+}
+.line-thickness{
+    width: 40%;
+}
+input[type='color']{
+    width: 20%;
+    margin: 0 auto;
+}
+/*input[type='range']::-webkit-slider-thumb{*/
+/*    color: black;*/
+/*    !*background-color: black;*!*/
+/*}*/
+/*input[type='range']::-webkit-slider-thumb{*/
+/*    color: black;*/
+/*    !*background-color: black;*!*/
+/*}*/

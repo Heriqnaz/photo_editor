@@ -7,17 +7,17 @@ const ImageRow = ({ imagePair, onPhotoClick }) => (
         className={`img_pair_cont mb-1 d-flex 
                     ${imagePair.length === 2 ? 'justify-content-between' : 'justify-content-center'}`}>
         <img
-            onDoubleClick={() => onPhotoClick(imagePair[0])}
+            onClick={() => onPhotoClick(imagePair[0])}
             src={imagePair[0]}
             className='img-thumbnail'
-            alt="Not Found"/>
+            alt='Not Found'/>
         {
             imagePair[1] &&
             <img
-                onDoubleClick={() => onPhotoClick(imagePair[1])}
+                onClick={() => onPhotoClick(imagePair[1])}
                 src={imagePair[1]}
                 className='img-thumbnail'
-                alt="Not Found"/>
+                alt='Not Found'/>
         }
     </div>
 );
