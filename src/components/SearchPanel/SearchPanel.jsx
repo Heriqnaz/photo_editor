@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Search} from 'react-bootstrap-icons';
+import { Search } from 'react-bootstrap-icons';
+import { fetchPhotos } from '../../redux/actions';
+import { connect } from 'react-redux';
 
 const SearchPanel = ({ onSearch }) => {
     let input;
@@ -8,7 +10,7 @@ const SearchPanel = ({ onSearch }) => {
         e.preventDefault();
         const searchText = input.value.replace(/ +/g, '+');
         onSearch(searchText);
-    }       
+    }
 
     return (
         <form onSubmit={handleSubmit}>
@@ -30,7 +32,7 @@ const SearchPanel = ({ onSearch }) => {
                     placeholder="Search..."
                     ref={node => (input = node)}
                 />
-                <input type="submit" style={{display: 'none'}}/>
+                <input type="submit" style={{ display: 'none' }}/>
             </div>
         </form>
     )
@@ -38,6 +40,12 @@ const SearchPanel = ({ onSearch }) => {
 
 SearchPanel.propTypes = {
     onSearch: PropTypes.func.isRequired
-}
+};
 
-export default SearchPanel;
+const mapDispatchToProps = (dispatch) => ({
+    onSearch: (searchString) => {
+        dispatch(fetchPhotos(searchString));
+    }
+});
+
+export default connect(null, mapDispatchToProps)(SearchPanel);

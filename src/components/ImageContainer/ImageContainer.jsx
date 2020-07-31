@@ -11,7 +11,7 @@ let lineStyleLocal, lineWidthLocal, lineColorLocal;
 const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, lineStyle, lineWidth, lineColor }) => {
 
     const canvas = useRef();
-    const [ canvasCords, setCanvasCords ] = useState(null);
+    const [canvasCords, setCanvasCords] = useState(null);
 
     const provideCord = (element) => {
         return element.getBoundingClientRect()
@@ -84,6 +84,7 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, lineStyle, l
     }
 
     function drawLine(e) {
+
         if (isDrawing) {
             const ctx = canvas.current.getContext('2d');
             ctx.lineTo(e.pageX - canvasCords.left, e.pageY - canvasCords.top);
@@ -93,15 +94,15 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, lineStyle, l
 
     useEffect(() => {
         lineStyleLocal = lineStyle;
-    }, [ lineStyle ]);
+    }, [lineStyle]);
 
     useEffect(() => {
         lineWidthLocal = lineWidth;
-    }, [ lineWidth ]);
+    }, [lineWidth]);
 
     useEffect(() => {
         lineColorLocal = lineColor;
-    }, [ lineColor ]);
+    }, [lineColor]);
 
     useEffect(() => {
         if (activeTool === 'draw') {
@@ -115,16 +116,18 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, lineStyle, l
             canvas.current.removeEventListener('mouseout', stopDrawingLine);
             canvas.current.removeEventListener('mousemove', drawLine);
         }
-    }, [ activeTool ])
+    }, [activeTool])
 
     useEffect(() => {
         draw(selectedPhoto);
-    }, [ selectedPhoto ]);
+    }, [selectedPhoto]);
+
+    console.log(canvasCords);
 
     return (
         <div className="img-box">
             {activeTool === 'crop' && <Cropper handleCrop={handleCrop} canvasCords={canvasCords}/>}
-            <div className={`edit-img ${activeTool === 'draw' ? 'edit-img-draw' : ''}`} >
+            <div className={`edit-img ${activeTool === 'draw' ? 'edit-img-draw' : ''}`}>
                 <canvas ref={canvas} id="canvas"/>
             </div>
         </div>

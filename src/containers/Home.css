@@ -1,0 +1,11 @@
+.wrapper-box {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.wrapper {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}

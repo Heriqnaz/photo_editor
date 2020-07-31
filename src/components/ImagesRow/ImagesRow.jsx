@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import {connect} from 'react-redux';
+
 import './ImageRow.css';
+import { closeSideBar, selectPhoto } from '../../redux/actions';
 
 const ImageRow = ({ imagePair, onPhotoClick }) => (
     <div
@@ -25,6 +29,13 @@ const ImageRow = ({ imagePair, onPhotoClick }) => (
 ImageRow.propTypes = {
     imagePair: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     onPhotoClick: PropTypes.func.isRequired
-}
+};
 
-export default ImageRow;
+const mapDispatchToProps = (dispatch) => ({
+    onPhotoClick: (url) => {
+        dispatch(selectPhoto(url));
+        dispatch(closeSideBar())
+    }
+});
+
+export default connect(null, mapDispatchToProps)(ImageRow);

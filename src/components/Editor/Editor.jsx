@@ -5,18 +5,15 @@ import ImageContainer from '../ImageContainer/ImageContainer';
 import ToolBar from '../ToolBar/ToolBar';
 
 import './Editor.css';
+import { connect } from 'react-redux';
 
 const Editor = ({ selectedPhoto }) => {
+
     const [ activeTool, setActiveTool ] = useState(null);
     const [ activeSubTool, setActiveSubTool ] = useState(null);
     const [ lineWidth, setLineWidth ] = useState('1');
     const [ lineColor, setLineColor ] = useState('#000000');
     const [ lineStyle, setLineStyle ] = useState('round');
-
-    const handleContentClick = () => {
-        const event = new CustomEvent('hideSidebar');
-        dispatchEvent(event);
-    };
 
     const handleSetTool = (name) => {
         if (selectedPhoto) {
@@ -38,10 +35,10 @@ const Editor = ({ selectedPhoto }) => {
 
     useEffect(() => {
         setActiveTool(null)
-    }, [ selectedPhoto ]);
+    }, [selectedPhoto]);
 
     return (
-        <div className='content' onClick={handleContentClick}>
+        <div className='content'>
             <ToolBar
                 activeTool={activeTool}
                 setActiveTool={handleSetTool}
@@ -70,4 +67,8 @@ Editor.propTypes = {
     selectedPhoto: PropTypes.string.isRequired
 };
 
-export default Editor;
+const mapStateToProps = (state) => ({
+    selectedPhoto: state.photo.selectedPhoto
+});
+
+export default connect(mapStateToProps)(Editor);

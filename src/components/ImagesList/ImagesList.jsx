@@ -2,16 +2,18 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import LoadingIndicator from '../LoadingIndicator/LoadingIndicator';
 import ImageRow from '../ImagesRow/ImagesRow';
-import {zip} from '../../helpers';
+import { zip } from '../../helpers';
 import './ImagesList.css';
+import { connect } from 'react-redux';
 
-const ImagesList = ({photos, isFetching, isSearched, onPhotoSelect, newPhotosLoadCount, firstLoadCount}) => {
-    const [ photosToShow, setPhotosToShow ] = useState([]);
-    const [ isPhotosLoading, setIsPhotosLoading ] = useState(false);
+const ImagesList = ({ photos, isFetching, isSearched, newPhotosLoadCount, firstLoadCount }) => {
+
+    const [photosToShow, setPhotosToShow] = useState([]);
+    const [isPhotosLoading, setIsPhotosLoading] = useState(false);
 
     useEffect(() => {
         setPhotosToShow(photos.slice(0, firstLoadCount));
-    }, [ photos, firstLoadCount ]);
+    }, [photos, firstLoadCount]);
 
     const handleScroll = (e) => {
         if (photos.length === photosToShow.length) {
@@ -45,7 +47,7 @@ const ImagesList = ({photos, isFetching, isSearched, onPhotoSelect, newPhotosLoa
     }
 
     if (isFetching) {
-        return <LoadingIndicator />
+        return <LoadingIndicator/>
     }
     if (isSearched && !photosToShow.length) {
         return (
@@ -60,7 +62,7 @@ const ImagesList = ({photos, isFetching, isSearched, onPhotoSelect, newPhotosLoa
 
                     </path>
                 </svg>
-                <h2 className='mt-2' style={{color: 'grey'}}>No result</h2>
+                <h2 className='mt-2' style={{ color: 'grey' }}>No result</h2>
             </div>
         )
     }
@@ -73,12 +75,11 @@ const ImagesList = ({photos, isFetching, isSearched, onPhotoSelect, newPhotosLoa
                     <ImageRow
                         key={index}
                         imagePair={imagePair}
-                        onPhotoClick={onPhotoSelect}
                     />
                 ))
             }
             {
-                isPhotosLoading && <LoadingIndicator />
+                isPhotosLoading && <LoadingIndicator/>
             }
         </div>
     )
@@ -88,10 +89,15 @@ ImagesList.propTypes = {
     photos: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     isFetching: PropTypes.bool.isRequired,
     isSearched: PropTypes.bool.isRequired,
-    selectedPhoto:PropTypes.string.isRequired,
-    onPhotoSelect: PropTypes.func.isRequired,
     newPhotosLoadCount: PropTypes.number.isRequired,
     firstLoadCount: PropTypes.number.isRequired
-}
+};
 
-export default ImagesList;
+
+const mapStateToProps = (state) => ({
+    photos: state.photo.photos,
+    isFetching: state.photo.isFetchingPhotos,
+    isSearched: state.photo.isSearched
+});
+
+export default connect(mapStateToProps)(ImagesList);
