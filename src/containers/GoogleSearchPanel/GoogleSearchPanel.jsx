@@ -6,7 +6,7 @@ import ImagesList from '../../components/ImagesList/ImagesList';
 import {fetchPhotos, selectPhoto} from '../../redux/actions';
 import './GoogleSearchPanel.css';
 
-const GoogleSearchPanel = ({onSearch, onPhotoSelect, photos, isFetchingPhotos, selectedPhoto, isSearched}) => (
+const GoogleSearchPanel = ({onSearch, handleHide, onPhotoSelect, photos, isFetchingPhotos, selectedPhoto, isSearched}) => (
     <div className='d-flex'>
         <div className='search_panel_container pt-3'>
             <SearchPanel
@@ -20,6 +20,7 @@ const GoogleSearchPanel = ({onSearch, onPhotoSelect, photos, isFetchingPhotos, s
                 onPhotoSelect={onPhotoSelect}
                 newPhotosLoadCount={19}
                 firstLoadCount={20}
+                handleHide={handleHide}
             />
         </div>
     </div>
@@ -31,7 +32,8 @@ GoogleSearchPanel.propTypes = {
     photos: PropTypes.arrayOf(PropTypes.string.isRequired),
     isFetchingPhotos: PropTypes.bool.isRequired,
     selectedPhoto: PropTypes.string.isRequired,
-    isSearched: PropTypes.bool.isRequired
+    isSearched: PropTypes.bool.isRequired,
+    handleHide: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({
@@ -41,9 +43,10 @@ const mapStateToProps = (state) => ({
     isSearched: state.isSearched
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
     onPhotoSelect: (url) => {
         dispatch(selectPhoto(url));
+        ownProps.handleHide();
     },
     onSearch: (searchString) => {
         dispatch(fetchPhotos(searchString));
