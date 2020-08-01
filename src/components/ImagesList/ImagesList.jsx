@@ -70,7 +70,7 @@ const ImagesList = ({photos, isFetching, isSearched, newPhotosLoadCount, firstLo
             onScroll={handleScroll}
             className='images_container'>
             {
-                <CardColumns>
+                <CardColumns className='google-photo'>
                     {photosToShow.map((imagePair, index) => (
                         <Card key={index}>
                             <Card.Img
