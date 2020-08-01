@@ -191,6 +191,11 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
         ctx.restore();
     };
 
+    const handleCancelApply = () => {
+        const {ctx} = prepareCanvasImage();
+        ctx.restore();
+    };
+
     function startDrawingLine(e) {
         const ctx = canvas.current.getContext('2d');
         isDrawing = true;
@@ -242,6 +247,7 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
                 handleGrayscaleFilter={handleGrayscaleFilter}
                 handleApplyFilter={handleApply}
                 handleLineColor={handleLineColor}
+                handleCancelApplyFilter={handleCancelApply}
             />}
             {activeTool === 'draw' &&
             <DrawImageTool
@@ -256,6 +262,7 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
             <ImageFrameTool
                 handleSelectedFrame={handleSelectedFrame}
                 handleApplyFrame={handleApply}
+                handleCancelApplyFrame={handleCancelApply}
             />}
         </div>
     )

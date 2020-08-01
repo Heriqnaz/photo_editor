@@ -11,10 +11,11 @@ const loveFramesUrl = `${framesBaseUrl}/Love`;
 const partyTimeFramesUrl = `${framesBaseUrl}/PartyTime`;
 
 const ImageFrameTool = ({
-                            activeSubTool,
-                            handleSelectedFrame,
-                            handleApplyFrame
-                        }) => {
+    activeSubTool,
+    handleSelectedFrame,
+    handleApplyFrame,
+    handleCancelApplyFrame
+}) => {
 
     const birthdayFrame = [
         `${birthdayFramesUrl}/Birthday_1.png`,
@@ -43,9 +44,18 @@ const ImageFrameTool = ({
         `${partyTimeFramesUrl}/PartyTime_4.png`,
     ];
 
+    let isApply = false;
+
+    useEffect(() => {
+        return () => {
+            if (!isApply) handleCancelApplyFrame()
+        }
+    }, );
+
     const handleSelectFrame = (index) => {
         return (
             () => {
+                isApply = false;
                 switch (activeSubTool) {
                     case 'birthday':
                         handleSelectedFrame(birthdayFrame[index]);
@@ -62,6 +72,7 @@ const ImageFrameTool = ({
         )
     };
     const onApply = () => {
+        isApply = true;
         handleApplyFrame();
     };
 
@@ -108,6 +119,7 @@ const ImageFrameTool = ({
 ImageFrameTool.propTypes = {
     handleSelectedFrame: PropTypes.func,
     handleApplyFrame: PropTypes.func,
+    handleCancelApplyFrame: PropTypes.func,
     activeSubTool: PropTypes.string,
 };
 
