@@ -7,4 +7,4 @@ export function zip(arr) {
         arr[i + 1] && tempArr[tempArr.length - 1].push(arr[i + 1])
     }
     return tempArr;
-};
+}
