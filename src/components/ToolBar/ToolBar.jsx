@@ -21,7 +21,7 @@ const ToolBar = ({activeTool, activeSubTool, setActiveTool, setActiveSubTool}) =
         frame: [
             {name: 'birthday', title: 'Birthday'},
             {name: 'love', title: 'Love'},
-            {name: 'party time', title: 'Party Time'}
+            {name: 'party-time', title: 'Party Time'}
         ],
         stickers: [
             {name: 'flower', title: 'Flower'},
