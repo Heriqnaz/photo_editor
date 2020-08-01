@@ -15,7 +15,7 @@ const SearchedImage = ({ photo }) => {
         const img = new Image();
         img.src = photo.src;
         img.onload = () => {
-            setSrc(img.src);
+            setSrc(photo.previewSrc);
             setLoading(false)
         }
 
@@ -23,13 +23,13 @@ const SearchedImage = ({ photo }) => {
 
     const Loader = () => {
         return (
-            <img style={{width: '50px'}} src={loader} alt="loading"/>
+            <img style={{ width: '50px' }} src={loader} alt="loading"/>
         );
     };
 
     return (
         <div className='search-img-container' style={{ height }}>
-            {isLoading ? <Loader/> : <img style={{width: '100%'}} src={src} alt=""/>}
+            {isLoading ? <Loader/> : <img style={{ width: '100%' }} src={src} alt=""/>}
         </div>
     )
 };

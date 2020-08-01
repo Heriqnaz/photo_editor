@@ -1,33 +1,34 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import {Col, Container, Row} from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import './ImageFilterTool.css'
+import { connect } from "react-redux";
 
 const ImageFilterTool = ({
-    handleBrightnessFilter,
-    handleBlurFilter,
-    handleGrayscaleFilter,
-    handleApplyFilter,
-    handleLineColor,
-    activeSubTool,
-    lineColor,
-}) => {
-    const [ rangeValue, setRangeValue ] = useState(0);
+                             handleBrightnessFilter,
+                             handleBlurFilter,
+                             handleGrayscaleFilter,
+                             handleApplyFilter,
+                             handleLineColor,
+                             activeSubTool,
+                             lineColor,
+                         }) => {
+    const [rangeValue, setRangeValue] = useState(0);
 
     const handleFilterRange = (event) => {
         const value = event.target.value;
         setRangeValue(event.target.value)
         switch (activeSubTool) {
-        case 'filter-brightness':
-            handleBrightnessFilter(value);
-            break;
-        case 'filter-blur':
-            handleBlurFilter(value);
-            break;
-        case 'filter-grayscale':
-            handleGrayscaleFilter(value);
-            break;
-        default:
+            case 'filter-brightness':
+                handleBrightnessFilter(value);
+                break;
+            case 'filter-blur':
+                handleBlurFilter(value);
+                break;
+            case 'filter-grayscale':
+                handleGrayscaleFilter(value);
+                break;
+            default:
         }
     };
 
@@ -84,4 +85,8 @@ ImageFilterTool.propTypes = {
     handleLineColor: PropTypes.func,
 };
 
-export default ImageFilterTool;
+const mapStateToProps = state => ({
+    activeSubTool: state.tool.activeSubTool
+});
+
+export default connect(mapStateToProps)(ImageFilterTool);

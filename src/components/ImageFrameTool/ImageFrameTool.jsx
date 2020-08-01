@@ -1,18 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Col, Container, Row} from "react-bootstrap";
+import { Col, Container, Row } from 'react-bootstrap';
 
 import './ImageFrameTool.css';
+import { connect } from "react-redux";
+
 const framesBaseUrl = `${window.location.origin}/frames/`;
 const birthdayFramesUrl = `${framesBaseUrl}/Birthday`;
 const loveFramesUrl = `${framesBaseUrl}/Love`;
 const partyTimeFramesUrl = `${framesBaseUrl}/PartyTime`;
 
 const ImageFrameTool = ({
-    activeSubTool,
-    handleSelectedFrame,
-    handleApplyFrame
-}) => {
+                            activeSubTool,
+                            handleSelectedFrame,
+                            handleApplyFrame
+                        }) => {
 
     const birthdayFrame = [
         `${birthdayFramesUrl}/Birthday_1.png`,
@@ -109,4 +111,8 @@ ImageFrameTool.propTypes = {
     activeSubTool: PropTypes.string,
 };
 
-export default ImageFrameTool
+const mapStateToProps = (state) => ({
+    activeSubTool: state.tool.activeSubTool
+});
+
+export default connect(mapStateToProps)(ImageFrameTool)

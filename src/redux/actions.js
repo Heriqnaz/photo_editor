@@ -1,8 +1,26 @@
 export const REQUEST_PHOTOS = 'REQUEST_PHOTOS';
 export const RECEIVE_PHOTOS = 'RECEIVE_PHOTOS';
 export const SELECT_PHOTO = 'SELECT_PHOTO';
+
 export const OPEN_SIDEBAR = 'OPEN_SIDEBAR';
 export const CLOSE_SIDEBAR = 'CLOSE_SIDEBAR';
+
+export const SET_ACTIVE_TOOL = 'SET_ACTIVE_TOOL';
+export const SET_ACTIVE_SUB_TOOL = 'SET_ACTIVE_SUB_TOOL';
+
+export function setActiveTool(activeTool) {
+    return {
+        type: SET_ACTIVE_TOOL,
+        activeTool
+    }
+}
+
+export function setActiveSubTool(activeSubTool) {
+    return {
+        type: SET_ACTIVE_SUB_TOOL,
+        activeSubTool
+    }
+}
 
 export function openSideBar() {
     return {
