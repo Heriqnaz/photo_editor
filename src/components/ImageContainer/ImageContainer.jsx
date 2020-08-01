@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import Cropper from '../Cropper/Cropper';
 
 import './ImageContainer.css';
-import ImageFilterTool from '../ImageFilter/ImageFilterTool';
-import DrawImageTool from '../DrawImage/DrawImageTool';
+import ImageFilterTool from '../ImageFilterTool/ImageFilterTool';
+import DrawImageTool from '../DrawImageTool/DrawImageTool';
 
 
 let isDrawing = false;
@@ -30,12 +30,14 @@ const ImageContainer = ({selectedPhoto, activeTool, setActiveTool, activeSubTool
             canvas.current.addEventListener('mouseup', stopDrawingLine);
             canvas.current.addEventListener('mouseout', stopDrawingLine);
             canvas.current.addEventListener('mousemove', drawLine);
-        } else {
+        }
+        return () => {
             canvas.current.removeEventListener('mousedown', startDrawingLine);
             canvas.current.removeEventListener('mouseup', stopDrawingLine);
             canvas.current.removeEventListener('mouseout', stopDrawingLine);
             canvas.current.removeEventListener('mousemove', drawLine);
         }
+
     }, [ activeTool ])
 
     const provideCord = (element) => {
@@ -217,13 +219,13 @@ const ImageContainer = ({selectedPhoto, activeTool, setActiveTool, activeSubTool
             {activeTool === 'filter' &&
             <ImageFilterTool
                 activeSubTool={activeSubTool}
+                lineColor={lineColor}
+                setActiveTool={setActiveTool}
                 handleBrightnessFilter={handleBrightnessFilter}
                 handleBlurFilter={handleBlurFilter}
                 handleGrayscaleFilter={handleGrayscaleFilter}
                 handleApplyFilter={handleApplyFilter}
-                lineColor={lineColor}
                 handleLineColor={handleLineColor}
-                setActiveTool={setActiveTool}
             />}
             {activeTool === 'draw' &&
             <DrawImageTool
