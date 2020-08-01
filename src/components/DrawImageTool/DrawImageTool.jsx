@@ -13,7 +13,6 @@ const DrawImageTool = ({lineStyle, lineWidth, lineColor, handleLineStyle, handle
     const onLineColor = (e) => {
         handleLineColor(e.target.value)
     };
-
     return (
         <Container className='draw-image-tools'>
             <Row>

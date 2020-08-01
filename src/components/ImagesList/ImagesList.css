@@ -1,11 +1,11 @@
-.images_container{
+.images_container {
     width: 95%;
     height: 100%;
     overflow-y: auto;
     margin: 0 auto;
 }
 
-.images_container::-webkit-scrollbar{
+.images_container::-webkit-scrollbar {
     width: 10px;
 }
 
@@ -30,7 +30,7 @@
     height: 2em;
 }
 
-.no_res{
+.no_res {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -45,4 +45,12 @@
 .svg-icon circle {
     stroke: gray;
     stroke-width: 1;
+}
+
+.google-photo {
+    column-count: 2
+}
+
+.google-photo .card{
+    border: 0;
 }
