@@ -38,7 +38,7 @@ const ImageContainer = ({selectedPhoto, activeTool, setActiveTool, activeSubTool
             canvas.current.removeEventListener('mousemove', drawLine);
         }
 
-    }, [ activeTool ])
+    }, [ activeTool ]);
 
     const provideCord = (element) => {
         return element.getBoundingClientRect()

@@ -2,10 +2,10 @@ import {combineReducers} from 'redux';
 import {CLOSE_SIDEBAR, OPEN_SIDEBAR, RECEIVE_PHOTOS, REQUEST_PHOTOS, SELECT_PHOTO} from './actions';
 
 const initialPhotoState = {
-    selectedPhoto: 'https://image.shutterstock.com/image-photo/beautiful-water-drop-on-dandelion-260nw-789676552.jpg',
+    selectedPhoto: '',
     isFetchingPhotos: false,
     photos: [],
-    isSearched: false
+    isSearched: false,
 };
 
 function photo(state = initialPhotoState, action) {

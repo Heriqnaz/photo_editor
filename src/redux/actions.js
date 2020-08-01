@@ -34,7 +34,16 @@ export function receivePhotos(searchString, response) {
     return {
         type: RECEIVE_PHOTOS,
         searchString,
-        photos: response.hits.map(hit => hit.largeImageURL)
+        photos: response.hits.map(hit => {
+
+            const ratio = hit.previewWidth / hit.previewHeight;
+
+            return {
+                src: hit.largeImageURL,
+                previewSrc: hit.previewURL,
+                height: 150 / ratio
+            }
+        })
     }
 }
 

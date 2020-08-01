@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 
 const Editor = ({ selectedPhoto }) => {
 
+    console.log(selectedPhoto)
+
     const [ activeTool, setActiveTool ] = useState(null);
     const [ activeSubTool, setActiveSubTool ] = useState(null);
 

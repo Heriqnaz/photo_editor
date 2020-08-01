@@ -1,19 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import LoadingIndicator from '../LoadingIndicator/LoadingIndicator';
-import {Card, CardColumns} from 'react-bootstrap';
+import { Card, CardColumns } from 'react-bootstrap';
 import './ImagesList.css';
-import {connect} from 'react-redux';
-import {closeSideBar, selectPhoto} from '../../redux/actions';
+import { connect } from 'react-redux';
+import { closeSideBar, selectPhoto } from '../../redux/actions';
+import SearchedImage from "../SearchedImage/SearchedImage";
 
-const ImagesList = ({photos, isFetching, isSearched, newPhotosLoadCount, firstLoadCount, onPhotoClick}) => {
+const ImagesList = ({ photos, isFetching, isSearched, newPhotosLoadCount, firstLoadCount, onPhotoClick }) => {
 
-    const [ photosToShow, setPhotosToShow ] = useState([]);
-    const [ isPhotosLoading, setIsPhotosLoading ] = useState(false);
+    const [photosToShow, setPhotosToShow] = useState([]);
+    const [isPhotosLoading, setIsPhotosLoading] = useState(false);
 
     useEffect(() => {
         setPhotosToShow(photos.slice(0, firstLoadCount));
-    }, [ photos, firstLoadCount ]);
+    }, [photos, firstLoadCount]);
 
     const handleScroll = (e) => {
         if (photos.length === photosToShow.length) {
@@ -61,7 +62,7 @@ const ImagesList = ({photos, isFetching, isSearched, newPhotosLoadCount, firstLo
 
                     </path>
                 </svg>
-                <h2 className='mt-2' style={{color: 'grey'}}>No result</h2>
+                <h2 className='mt-2' style={{ color: 'grey' }}>No result</h2>
             </div>
         )
     }
@@ -71,16 +72,20 @@ const ImagesList = ({photos, isFetching, isSearched, newPhotosLoadCount, firstLo
             className='images_container'>
             {
                 <CardColumns className='google-photo'>
-                    {photosToShow.map((imagePair, index) => (
-                        <Card key={index}>
+                    {photosToShow.map((photo, index) => {
+
+                        console.log(photo)
+
+                        return <Card key={index}>
                             <Card.Img
-                                onClick={() => onPhotoClick(imagePair)}
-                                src={imagePair}
+                                onClick={() => onPhotoClick(photo.src)}
+                                src={photo.previewSrc}
                                 alt='Not Found'
                                 variant="top"
                             />
+                            {/*<SearchedImage photo={photo}/>*/}
                         </Card>
-                    ))}
+                    })}
                 </CardColumns>
             }
             {
@@ -91,7 +96,7 @@ const ImagesList = ({photos, isFetching, isSearched, newPhotosLoadCount, firstLo
 };
 
 ImagesList.propTypes = {
-    photos: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    photos: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
     isFetching: PropTypes.bool.isRequired,
     isSearched: PropTypes.bool.isRequired,
     newPhotosLoadCount: PropTypes.number.isRequired,
@@ -99,18 +104,16 @@ ImagesList.propTypes = {
     onPhotoClick: PropTypes.func.isRequired
 };
 
-
 const mapStateToProps = (state) => ({
     photos: state.photo.photos,
     isFetching: state.photo.isFetchingPhotos,
     isSearched: state.photo.isSearched
-
-
 });
+
 const mapDispatchToProps = (dispatch) => ({
     onPhotoClick: (url) => {
         dispatch(selectPhoto(url));
-        dispatch(closeSideBar())
+        dispatch(closeSideBar());
     }
 });
 
