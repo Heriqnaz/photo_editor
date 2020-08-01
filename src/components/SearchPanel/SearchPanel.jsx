@@ -10,7 +10,7 @@ const SearchPanel = ({ onSearch }) => {
         e.preventDefault();
         const searchText = input.value.replace(/ +/g, '+');
         onSearch(searchText);
-    }
+    };
 
     return (
         <form onSubmit={handleSubmit}>
@@ -36,7 +36,7 @@ const SearchPanel = ({ onSearch }) => {
             </div>
         </form>
     )
-}
+};
 
 SearchPanel.propTypes = {
     onSearch: PropTypes.func.isRequired

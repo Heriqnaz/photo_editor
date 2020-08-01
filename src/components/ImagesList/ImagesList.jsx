@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import LoadingIndicator from '../LoadingIndicator/LoadingIndicator';
 import ImageRow from '../ImagesRow/ImagesRow';
-import { zip } from '../../helpers';
+import {zip} from '../../helpers';
 import './ImagesList.css';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
-const ImagesList = ({ photos, isFetching, isSearched, newPhotosLoadCount, firstLoadCount }) => {
+const ImagesList = ({photos, isFetching, isSearched, newPhotosLoadCount, firstLoadCount}) => {
 
-    const [photosToShow, setPhotosToShow] = useState([]);
-    const [isPhotosLoading, setIsPhotosLoading] = useState(false);
+    const [ photosToShow, setPhotosToShow ] = useState([]);
+    const [ isPhotosLoading, setIsPhotosLoading ] = useState(false);
 
     useEffect(() => {
         setPhotosToShow(photos.slice(0, firstLoadCount));
-    }, [photos, firstLoadCount]);
+    }, [ photos, firstLoadCount ]);
 
     const handleScroll = (e) => {
         if (photos.length === photosToShow.length) {
@@ -44,7 +44,7 @@ const ImagesList = ({ photos, isFetching, isSearched, newPhotosLoadCount, firstL
                 ));
             }, 500);
         }
-    }
+    };
 
     if (isFetching) {
         return <LoadingIndicator/>
@@ -62,7 +62,7 @@ const ImagesList = ({ photos, isFetching, isSearched, newPhotosLoadCount, firstL
 
                     </path>
                 </svg>
-                <h2 className='mt-2' style={{ color: 'grey' }}>No result</h2>
+                <h2 className='mt-2' style={{color: 'grey'}}>No result</h2>
             </div>
         )
     }
@@ -83,7 +83,7 @@ const ImagesList = ({ photos, isFetching, isSearched, newPhotosLoadCount, firstL
             }
         </div>
     )
-}
+};
 
 ImagesList.propTypes = {
     photos: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,

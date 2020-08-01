@@ -1,41 +1,35 @@
-import { combineReducers } from 'redux';
-import {
-    REQUEST_PHOTOS,
-    RECEIVE_PHOTOS,
-    SELECT_PHOTO,
-    CLOSE_SIDEBAR,
-    OPEN_SIDEBAR
-} from './actions';
+import {combineReducers} from 'redux';
+import {CLOSE_SIDEBAR, OPEN_SIDEBAR, RECEIVE_PHOTOS, REQUEST_PHOTOS, SELECT_PHOTO} from './actions';
 
 const initialPhotoState = {
-    selectedPhoto: '',
+    selectedPhoto: 'https://image.shutterstock.com/image-photo/beautiful-water-drop-on-dandelion-260nw-789676552.jpg',
     isFetchingPhotos: false,
     photos: [],
     isSearched: false
-}
+};
 
 function photo(state = initialPhotoState, action) {
     switch (action.type) {
-        case REQUEST_PHOTOS:
-            return {
-                ...state,
-                isFetchingPhotos: true,
-                selectedPhoto: '',
-                isSearched: state.isSearched ? state.isSearched : true
-            };
-        case RECEIVE_PHOTOS:
-            return {
-                ...state,
-                isFetchingPhotos: false,
-                photos: action.photos
-            };
-        case SELECT_PHOTO:
-            return {
-                ...state,
-                selectedPhoto: action.url
-            };
-        default:
-            return state
+    case REQUEST_PHOTOS:
+        return {
+            ...state,
+            isFetchingPhotos: true,
+            selectedPhoto: '',
+            isSearched: state.isSearched ? state.isSearched : true
+        };
+    case RECEIVE_PHOTOS:
+        return {
+            ...state,
+            isFetchingPhotos: false,
+            photos: action.photos
+        };
+    case SELECT_PHOTO:
+        return {
+            ...state,
+            selectedPhoto: action.url
+        };
+    default:
+        return state
     }
 }
 
@@ -82,12 +76,12 @@ function photo(state = initialPhotoState, action) {
 
 function isOpenedSideBar(state = false, action) {
     switch (action.type) {
-        case OPEN_SIDEBAR:
-            return true;
-        case CLOSE_SIDEBAR:
-            return false;
-        default:
-            return state;
+    case OPEN_SIDEBAR:
+        return true;
+    case CLOSE_SIDEBAR:
+        return false;
+    default:
+        return state;
     }
 }
 
