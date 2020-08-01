@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {Col, Container, Row} from "react-bootstrap";
 
@@ -11,7 +11,8 @@ const partyTimeFramesUrl = `${framesBaseUrl}/PartyTime`;
 const ImageFrameTool = ({
     activeSubTool,
     handleSelectedFrame,
-    handleApplyFrame
+    handleApplyFrame,
+    handleCancelApplyFrame
 }) => {
 
     const birthdayFrame = [
@@ -41,9 +42,18 @@ const ImageFrameTool = ({
         `${partyTimeFramesUrl}/PartyTime_4.png`,
     ];
 
+    let isApply = false;
+
+    useEffect(() => {
+        return () => {
+            if (!isApply) handleCancelApplyFrame()
+        }
+    }, );
+
     const handleSelectFrame = (index) => {
         return (
             () => {
+                isApply = false;
                 switch (activeSubTool) {
                     case 'birthday':
                         handleSelectedFrame(birthdayFrame[index]);
@@ -60,6 +70,7 @@ const ImageFrameTool = ({
         )
     };
     const onApply = () => {
+        isApply = true;
         handleApplyFrame();
     };
 
@@ -106,6 +117,7 @@ const ImageFrameTool = ({
 ImageFrameTool.propTypes = {
     handleSelectedFrame: PropTypes.func,
     handleApplyFrame: PropTypes.func,
+    handleCancelApplyFrame: PropTypes.func,
     activeSubTool: PropTypes.string,
 };
 
