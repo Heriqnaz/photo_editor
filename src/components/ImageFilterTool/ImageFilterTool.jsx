@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types';
 import {Col, Container, Row} from 'react-bootstrap';
 import './ImageFilterTool.css'
@@ -11,10 +11,14 @@ const ImageFilterTool = ({
     handleLineColor,
     activeSubTool,
     lineColor,
+    handleCancelApplyFilter
 }) => {
     const [ rangeValue, setRangeValue ] = useState(0);
 
+    let isApply = false;
+
     const handleFilterRange = (event) => {
+        isApply = false;
         const value = event.target.value;
         setRangeValue(event.target.value)
         switch (activeSubTool) {
@@ -35,8 +39,15 @@ const ImageFilterTool = ({
         handleLineColor(e.target.value)
     };
     const onApply = () => {
+        isApply = true;
         handleApplyFilter();
     };
+
+    useEffect(() => {
+        return () => {
+            if (!isApply) handleCancelApplyFilter()
+        }
+    }, []);
 
     return (
         <Container className='image-filter-tools'>
@@ -79,6 +90,7 @@ ImageFilterTool.propTypes = {
     handleGrayscaleFilter: PropTypes.func,
     handleApplyFilter: PropTypes.func,
     handleBlurFilter: PropTypes.func,
+    handleCancelApplyFilter: PropTypes.func,
     activeSubTool: PropTypes.string,
     lineColor: PropTypes.string.isRequired,
     handleLineColor: PropTypes.func,
