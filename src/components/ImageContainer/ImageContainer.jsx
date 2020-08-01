@@ -6,7 +6,7 @@ import Cropper from '../Cropper/Cropper';
 import './ImageContainer.css';
 import ImageFilterTool from '../ImageFilterTool/ImageFilterTool';
 import DrawImageTool from '../DrawImageTool/DrawImageTool';
-
+import ImageFrameTool from "../ImageFrameTool/ImageFrameTool";
 
 let isDrawing = false;
 let lineStyleLocal, lineWidthLocal, lineColorLocal;
@@ -44,7 +44,7 @@ const ImageContainer = ({selectedPhoto, activeTool, setActiveTool, activeSubTool
         return element.getBoundingClientRect()
     };
 
-    function draw(src) {
+    function draw(src, frameUrl) {
         const ctx = canvas.current.getContext('2d');
         const img = new Image();
         img.src = src;
@@ -56,6 +56,14 @@ const ImageContainer = ({selectedPhoto, activeTool, setActiveTool, activeSubTool
             ctx.drawImage(img, 0, 0, canvas.current.width, canvas.current.height);
             setCanvasCords(provideCord(canvas.current))
         };
+        if (frameUrl) {
+            const frameImg = new Image();
+            frameImg.src = frameUrl;
+            frameImg.crossOrigin = 'anonymous';
+            frameImg.onload = () => {
+                ctx.drawImage(frameImg, 0, 0, canvas.current.width, canvas.current.height);
+            }
+        }
         setImg(img)
     }
 
@@ -167,10 +175,17 @@ const ImageContainer = ({selectedPhoto, activeTool, setActiveTool, activeSubTool
     };
 
 
-    const handleApplyFilter = () => {
+    const handleApply = () => {
         const url = canvas.current.toDataURL('image/png');
         draw(url)
         setActiveTool(null)
+    };
+
+    const handleSelectedFrame = (frameUrl) => {
+        const {ctx} = prepareCanvasImage();
+        const url = canvas.current.toDataURL('image/png');
+        draw(url, frameUrl);
+        ctx.restore();
     };
 
     function startDrawingLine(e) {
@@ -224,7 +239,8 @@ const ImageContainer = ({selectedPhoto, activeTool, setActiveTool, activeSubTool
                 handleBrightnessFilter={handleBrightnessFilter}
                 handleBlurFilter={handleBlurFilter}
                 handleGrayscaleFilter={handleGrayscaleFilter}
-                handleApplyFilter={handleApplyFilter}
+                handleApplyFilter={handleApply}
+                lineColor={lineColor}
                 handleLineColor={handleLineColor}
             />}
             {activeTool === 'draw' &&
@@ -235,6 +251,12 @@ const ImageContainer = ({selectedPhoto, activeTool, setActiveTool, activeSubTool
                 lineWidth={lineWidth}
                 lineColor={lineColor}
                 lineStyle={lineStyle}
+            />}
+            {activeTool === 'frame' &&
+            <ImageFrameTool
+                activeSubTool={activeSubTool}
+                handleSelectedFrame={handleSelectedFrame}
+                handleApplyFrame={handleApply}
             />}
         </div>
     )
