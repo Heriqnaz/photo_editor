@@ -7,6 +7,7 @@ import './ImageContainer.css';
 import ImageFilterTool from '../ImageFilter/ImageFilterTool';
 import DrawImageTool from '../DrawImage/DrawImageTool';
 
+
 let isDrawing = false;
 let lineStyleLocal, lineWidthLocal, lineColorLocal;
 
@@ -143,7 +144,6 @@ const ImageContainer = ({selectedPhoto, activeTool, setActiveTool, activeSubTool
     };
 
     const handleBlurFilter = (value) => {
-        console.log(lineColor)
         const {ctx, width, height} = prepareCanvasImage();
 
         ctx.globalCompositeOperation = 'lighten';
@@ -223,6 +223,7 @@ const ImageContainer = ({selectedPhoto, activeTool, setActiveTool, activeSubTool
                 handleApplyFilter={handleApplyFilter}
                 lineColor={lineColor}
                 handleLineColor={handleLineColor}
+                setActiveTool={setActiveTool}
             />}
             {activeTool === 'draw' &&
             <DrawImageTool

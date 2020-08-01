@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 import GoogleSearchPanel from '../../containers/GoogleSearchPanel/GoogleSearchPanel.jsx';
-import { Download, Image, Upload } from 'react-bootstrap-icons';
-import { Nav } from 'react-bootstrap';
-import { closeSideBar, selectPhoto, openSideBar } from '../../redux/actions';
+import {Download, Image, Upload} from 'react-bootstrap-icons';
+import {Nav} from 'react-bootstrap';
+import {closeSideBar, openSideBar, selectPhoto} from '../../redux/actions';
 
 import './Sidebar.css'
 
-const SideBar = ({ onPhotoSelect, isOpenedSideBar, openSideBar, closeSideBar }) => {
+const SideBar = ({onPhotoSelect, isOpenedSideBar, openSideBar, closeSideBar}) => {
 
     const handleToggleClick = () => {
         if (isOpenedSideBar) {
@@ -32,7 +32,7 @@ const SideBar = ({ onPhotoSelect, isOpenedSideBar, openSideBar, closeSideBar }) 
     return (
         <>
             <Nav className="sidebar">
-                <div className="menu-left-part" style={{ marginLeft: isOpenedSideBar ? '0' : '-30vw' }}>
+                <div className="menu-left-part" style={{marginLeft: isOpenedSideBar ? '0' : '-30vw'}}>
                     <GoogleSearchPanel handleHide={closeSideBar}/>
                 </div>
                 <div className='menu-right-part back-opened'>

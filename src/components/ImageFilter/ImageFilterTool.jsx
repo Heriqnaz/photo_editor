@@ -1,5 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import {Col, Container, Row} from 'react-bootstrap';
+import './ImageFilterTool.css'
 
 const ImageFilterTool = ({
     handleBrightnessFilter,
@@ -37,33 +39,38 @@ const ImageFilterTool = ({
     };
 
     return (
-        <div>
-            {activeSubTool &&
-            <div>
-                <input
-                    id="slider"
-                    type="range"
-                    min={activeSubTool === 'filter-brightness' ? '-100' : '0'}
-                    max="100"
-                    value={rangeValue}
-                    step="1"
-                    onChange={handleFilterRange}/>
-                <span id='val'/>
-                <button onClick={onApply}>Apply</button>
-            </div>
-            }
-            {activeSubTool === 'filter-blur' &&
-            <div>
-                <label htmlFor="color">Color: </label>
-                <input
-                    type="color"
-                    className="form-control"
-                    value={lineColor}
-                    onChange={onLineColor}
-                    id="color"/>
-            </div>
-            }
-        </div>
+        <Container className='image-filter-tools'>
+            <Row>
+
+                {activeSubTool &&
+                <>
+                    <Col md="auto">
+                        <button className='apply-button' onClick={onApply}>Apply</button>
+                    </Col>
+                    <Col>
+                        <label htmlFor="formControlRange">Color: {rangeValue}</label>
+                        <input
+                            type="range"
+                            min={activeSubTool === 'filter-brightness' ? '-100' : '0'}
+                            max="100"
+                            value={rangeValue}
+                            step="1"
+                            onChange={handleFilterRange}/>
+                    </Col>
+                </>
+                }
+                {activeSubTool === 'filter-blur' &&
+                <Col xs='2' lg="2">
+                    <input
+                        type="color"
+                        className="form-control"
+                        value={lineColor}
+                        onChange={onLineColor}
+                        id="color"/>
+                </Col>
+                }
+            </Row>
+        </Container>
     )
 };
 

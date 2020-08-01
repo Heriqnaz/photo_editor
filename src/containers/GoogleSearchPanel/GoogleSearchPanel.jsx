@@ -1,9 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import SearchPanel from '../../components/SearchPanel/SearchPanel';
 import ImagesList from '../../components/ImagesList/ImagesList';
-import { closeSideBar, fetchPhotos, selectPhoto } from '../../redux/actions';
 import './GoogleSearchPanel.css';
 
 const GoogleSearchPanel = () => (
