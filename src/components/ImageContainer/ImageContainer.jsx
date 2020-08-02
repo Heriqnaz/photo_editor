@@ -33,7 +33,7 @@ const ImageContainer = ({selectedPhoto, activeTool, activeSubTool, setActiveTool
     }, [ selectedPhoto ]);
 
     useEffect(() => {
-        if (activeTool == 'crop' && activeTool !== 'draw') {
+        if (activeTool !== 'crop' && activeTool !== 'draw') {
             resetCanvasState();
         }
     }, [ activeTool ]);
