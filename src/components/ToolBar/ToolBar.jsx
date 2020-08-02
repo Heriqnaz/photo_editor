@@ -1,14 +1,18 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import './ToolBar.css';
-import { setActiveTool, setActiveSubTool } from '../../redux/actions';
-import { connect } from 'react-redux';
+import {setActiveSubTool, setActiveTool} from '../../redux/actions';
+import {connect} from 'react-redux';
 
-const ToolBar = ({ activeTool, activeSubTool, selectedPhoto, setActiveTool, setActiveSubTool }) => {
+const ToolBar = ({activeTool, activeSubTool, selectedPhoto, setActiveTool, setActiveSubTool}) => {
+
+    useEffect(() => {
+        setActiveSubTool(null)
+    }, [ activeTool ]);
 
     useEffect(() => {
         setActiveTool(null)
-    }, [selectedPhoto]);
+    }, [ selectedPhoto ]);
 
     const handleSetTool = (name) => {
         if (selectedPhoto) {
@@ -17,31 +21,31 @@ const ToolBar = ({ activeTool, activeSubTool, selectedPhoto, setActiveTool, setA
     };
 
     const tools = [
-        { name: 'filter', title: 'Filter' },
-        { name: 'frame', title: 'Frame' },
-        { name: 'stickers', title: 'Stickers' },
-        { name: 'crop', title: 'Crop' },
-        { name: 'draw', title: 'Draw' }
+        {name: 'filter', title: 'Filter'},
+        {name: 'frame', title: 'Frame'},
+        {name: 'stickers', title: 'Stickers'},
+        {name: 'crop', title: 'Crop'},
+        {name: 'draw', title: 'Draw'}
     ];
 
     const subTools = {
         filter: [
-            { name: 'filter-blur', title: 'Blur' },
-            { name: 'filter-brightness', title: 'Brightness' },
-            { name: 'filter-grayscale', title: 'Grayscale' },
+            {name: 'filter-blur', title: 'Blur'},
+            {name: 'filter-brightness', title: 'Brightness'},
+            {name: 'filter-grayscale', title: 'Grayscale'},
             {name: 'filter-color', title: 'Color'},
             {name: 'filter-saturation', title: 'Saturation'},
             {name: 'filter-contrast', title: 'Contrast'},
         ],
         frame: [
-            { name: 'birthday', title: 'Birthday' },
-            { name: 'love', title: 'Love' },
-            { name: 'party-time', title: 'Party Time' }
+            {name: 'birthday', title: 'Birthday'},
+            {name: 'love', title: 'Love'},
+            {name: 'party-time', title: 'Party Time'}
         ],
         stickers: [
-            { name: 'flower', title: 'Flower' },
-            { name: 'butterfly', title: 'Butterfly' },
-            { name: 'tree', title: 'Tree' }
+            {name: 'flower', title: 'Flower'},
+            {name: 'butterfly', title: 'Butterfly'},
+            {name: 'tree', title: 'Tree'}
         ]
     };
 
@@ -60,7 +64,7 @@ const ToolBar = ({ activeTool, activeSubTool, selectedPhoto, setActiveTool, setA
             </ul>
             {
                 subTools[activeTool] &&
-                <ul className={`sub-tools ${(activeSubTool ) ? 'sub-tools-hide' : ''}`}>
+                <ul className={`sub-tools ${(activeSubTool) ? 'sub-tools-hide' : ''}`}>
                     {
                         subTools[activeTool].map((subTool, i) => (
                             <li

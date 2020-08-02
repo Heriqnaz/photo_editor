@@ -10,7 +10,6 @@ const DrawImageTool = ({
     handleLineStyle,
     handleLineWidth,
     handleLineColor,
-    handleApplyFilter
 }) => {
     const onLineStyle = (e) => {
         handleLineStyle(e.target.value)
@@ -21,15 +20,9 @@ const DrawImageTool = ({
     const onLineColor = (e) => {
         handleLineColor(e.target.value)
     };
-    const onApply = () => {
-        handleApplyFilter();
-    };
     return (
         <Container className='draw-image-tools'>
             <Row>
-                <Col md="auto">
-                    <button className='apply-button' onClick={onApply}>Apply</button>
-                </Col>
                 <Col md="auto">
                     Line style:
                     <div className="form-check">
@@ -96,7 +89,6 @@ DrawImageTool.propTypes = {
     handleLineStyle: PropTypes.func,
     handleLineColor: PropTypes.func,
     handleLineWidth: PropTypes.func,
-    handleApplyFilter: PropTypes.func,
     lineStyle: PropTypes.string.isRequired,
     lineWidth: PropTypes.string.isRequired,
     lineColor: PropTypes.string.isRequired

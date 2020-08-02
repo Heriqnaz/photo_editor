@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import LoadingIndicator from '../LoadingIndicator/LoadingIndicator';
-import { Card, CardColumns , Row} from 'react-bootstrap';
+import {Card, Row} from 'react-bootstrap';
 import './ImagesList.css';
-import { connect } from 'react-redux';
-import { closeSideBar, selectPhoto } from '../../redux/actions';
-import SearchedImage from "../SearchedImage/SearchedImage";
+import {connect} from 'react-redux';
+import {closeSideBar, selectPhoto} from '../../redux/actions';
 
-const ImagesList = ({ photos, isFetching, isSearched, newPhotosLoadCount, firstLoadCount, onPhotoClick }) => {
+const ImagesList = ({photos, isFetching, isSearched, newPhotosLoadCount, firstLoadCount, onPhotoClick}) => {
 
-    const [photosToShow, setPhotosToShow] = useState([]);
-    const [isPhotosLoading, setIsPhotosLoading] = useState(false);
+    const [ photosToShow, setPhotosToShow ] = useState([]);
+    const [ isPhotosLoading, setIsPhotosLoading ] = useState(false);
 
     useEffect(() => {
         setPhotosToShow(photos.slice(0, firstLoadCount));
-    }, [photos, firstLoadCount]);
+    }, [ photos, firstLoadCount ]);
 
     const handleScroll = (e) => {
         if (photos.length === photosToShow.length) {
@@ -62,7 +61,7 @@ const ImagesList = ({ photos, isFetching, isSearched, newPhotosLoadCount, firstL
 
                     </path>
                 </svg>
-                <h2 className='mt-2' style={{ color: 'grey' }}>No result</h2>
+                <h2 className='mt-2' style={{color: 'grey'}}>No result</h2>
             </div>
         )
     }
@@ -72,14 +71,12 @@ const ImagesList = ({ photos, isFetching, isSearched, newPhotosLoadCount, firstL
             className='images_container'>
             <Row>
                 {photosToShow.map((photo, index) => {
-                   console.log(photo)
-
-                        return <div key={index} className='google-photo col-6'>
+                    return <div key={index} className='google-photo col-6'>
                         <Card.Img className='fluid'
-                            onClick={() => onPhotoClick(photo.src)}
-                            src={photo.previewSrc}
-                            alt='Not Found'
-                            variant="top"
+                                  onClick={() => onPhotoClick(photo.src)}
+                                  src={photo.previewSrc}
+                                  alt='Not Found'
+                                  variant="top"
                         />{/*<SearchedImage photo={photo}/>*/}
                     </div>
                 })}

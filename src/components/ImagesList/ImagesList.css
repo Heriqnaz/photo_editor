@@ -46,9 +46,11 @@
     stroke: gray;
     stroke-width: 1;
 }
-.images_container .row{
+
+.images_container .row {
     width: 100%;
 }
+
 .google-photo .card {
     border: 0;
 }
@@ -57,7 +59,7 @@
     column-count: 1;
 }
 
-.card-img, .card-img-top{
+.card-img, .card-img-top {
     height: auto;
     /*height: 100%;*/
     /*object-fit: cover;*/
@@ -72,6 +74,6 @@
     column-count: 2
 }
 
-.google-photo .card{
+.google-photo .card {
     border: 0;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import Cropper from '../Cropper/Cropper';
 import ImageFilterTool from '../ImageFilterTool/ImageFilterTool';
@@ -13,30 +13,31 @@ import {
     handleGrayscaleFilter,
     handleSaturationFilter
 } from '../ImageFilterTool/ImageFilters'
-import { connect } from "react-redux";
-import { setActiveTool } from '../../redux/actions';
+import {connect} from 'react-redux';
+import {setActiveTool} from '../../redux/actions';
 
 let isDrawing = false;
 let lineStyleLocal, lineWidthLocal, lineColorLocal;
 
-const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
+const ImageContainer = ({selectedPhoto, activeTool, activeSubTool, setActiveTool}) => {
 
     const canvas = useRef();
-    const [canvasCords, setCanvasCords] = useState(null);
-    const [img, setImg] = useState(null);
-    const [lineWidth, setLineWidth] = useState('1');
-    const [lineColor, setLineColor] = useState('#000000');
-    const [lineStyle, setLineStyle] = useState('round');
+    const [ canvasCords, setCanvasCords ] = useState(null);
+    const [ img, setImg ] = useState(null);
+    const [ lineWidth, setLineWidth ] = useState('1');
+    const [ lineColor, setLineColor ] = useState('#000000');
+    const [ lineStyle, setLineStyle ] = useState('round');
 
     useEffect(() => {
         draw(selectedPhoto);
-    }, [selectedPhoto]);
+    }, [ selectedPhoto ]);
 
     useEffect(() => {
-        if (activeTool !== 'crop' && activeTool !== 'crop-button') {
+        if (activeTool == 'crop' && activeTool !== 'draw') {
             resetCanvasState();
         }
     }, [ activeTool ]);
+
     useEffect(() => {
         if (activeTool === 'draw') {
             canvas.current.addEventListener('mousedown', startDrawingLine);
@@ -93,7 +94,7 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
         setImg(img);
     }
 
-    function handleCrop({ left, top, width, height }) {
+    function handleCrop({left, top, width, height}) {
         const url = canvas.current.toDataURL('image/png');
         const ctx = canvas.current.getContext('2d');
         const img = new Image();
@@ -126,7 +127,7 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
                 canvas.current.height);
 
             setCanvasCords(provideCord(canvas.current));
-            setActiveTool('crop-button');
+            setActiveTool('crop');
 
             const newimg = new Image();
             const url = canvas.current.toDataURL('image/png');
@@ -164,13 +165,12 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
         image.src = url;
         ctx.drawImage(img, 0, 0, width, height);
         ctx.save();
-        return { ctx, image, width, height };
+        return {ctx, image, width, height};
     };
 
 
     const handleImageFilter = (rangeValue) => {
-        const { ctx, image, width, height } = prepareCanvasImage();
-
+        const {ctx, image, width, height} = prepareCanvasImage();
         switch (activeSubTool) {
         case 'filter-blur':
             handleBlurFilter(ctx, image, width, height, rangeValue);
@@ -202,7 +202,7 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
     };
 
     const handleSelectedFrame = (frameUrl) => {
-        const { ctx } = prepareCanvasImage();
+        const {ctx} = prepareCanvasImage();
         const url = canvas.current.toDataURL('image/png');
         draw(url, frameUrl);
         ctx.restore();
@@ -270,11 +270,13 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
 ImageContainer.propTypes = {
     selectedPhoto: PropTypes.string,
     activeTool: PropTypes.string,
+    activeSubTool: PropTypes.string,
     setActiveTool: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
     activeTool: state.tool.activeTool,
+    activeSubTool: state.tool.activeSubTool,
     selectedPhoto: state.photo.selectedPhoto
 });
 
