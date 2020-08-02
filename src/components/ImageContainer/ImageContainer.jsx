@@ -1,5 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
+import { applyImageChange } from '../../redux/actions';
+
 
 import Cropper from '../Cropper/Cropper';
 
@@ -7,13 +11,12 @@ import './ImageContainer.css';
 import ImageFilterTool from '../ImageFilterTool/ImageFilterTool';
 import DrawImageTool from '../DrawImageTool/DrawImageTool';
 import ImageFrameTool from '../ImageFrameTool/ImageFrameTool';
-import { connect } from 'react-redux';
 import { setActiveTool } from '../../redux/actions';
 
 let isDrawing = false;
 let lineStyleLocal, lineWidthLocal, lineColorLocal;
 
-const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
+const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubTool, onImageChangeApply }) => {
 
     const canvas = useRef();
     const [canvasCords, setCanvasCords] = useState(null);
@@ -24,12 +27,25 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
     const [lineStyle, setLineStyle] = useState('round');
 
     useEffect(() => {
+        if (selectedPhoto) {
+            onImageChangeApply(selectedPhoto);
+        }
+    }, []);
+
+    useEffect(() => {
+        console.log('ARRARARARRARAR')
         draw(selectedPhoto);
     }, [selectedPhoto]);
+
+
     useEffect(() => {
         if (activeTool === 'draw') {
             canvas.current.addEventListener('mousedown', startDrawingLine);
-            canvas.current.addEventListener('mouseup', stopDrawingLine);
+            canvas.current.addEventListener('mouseup', () => {
+                stopDrawingLine();
+                const url = canvas.current.toDataURL('image/jpeg');
+                onImageChangeApply(url);
+            });
             canvas.current.addEventListener('mouseout', stopDrawingLine);
             canvas.current.addEventListener('mousemove', drawLine);
         }
@@ -71,7 +87,7 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
     }
 
     function handleCrop({ left, top, width, height }) {
-        const url = canvas.current.toDataURL('image/png')
+        const url = canvas.current.toDataURL('image/jpeg')
         const ctx = canvas.current.getContext('2d');
         const img = new Image();
         img.src = url;
@@ -105,11 +121,11 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
             setCanvasCords(provideCord(canvas.current));
             setActiveTool(null)
 
-            const newimg = new Image();
-            const url = canvas.current.toDataURL('image/png');
-            console.log(url);
-            newimg.src = url;
-            setImg(newimg)
+            // const newimg = new Image();
+            const url = canvas.current.toDataURL('image/jpeg');
+            // newimg.src = url;
+            // setImg(newimg)
+            onImageChangeApply(url);
         }
     }
 
@@ -124,7 +140,7 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
     };
 
     const prepareCanvasImage = () => {
-        const url = canvas.current.toDataURL('image/png');
+        const url = canvas.current.toDataURL('image/jpeg');
         const ctx = canvas.current.getContext('2d');
         const width = canvas.current.width;
         const height = canvas.current.height;
@@ -180,14 +196,15 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
 
 
     const handleApply = () => {
-        const url = canvas.current.toDataURL('image/png');
-        draw(url)
-        setActiveTool(null)
+        const url = canvas.current.toDataURL('image/jpeg');
+        draw(url);
+        onImageChangeApply(url);
+        setActiveTool(null);
     };
 
     const handleSelectedFrame = (frameUrl) => {
         const { ctx } = prepareCanvasImage();
-        const url = canvas.current.toDataURL('image/png');
+        const url = canvas.current.toDataURL('image/jpeg');
         draw(url, frameUrl);
         ctx.restore();
     };
@@ -242,7 +259,9 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
             </div>
             {activeTool === 'filter' &&
             <ImageFilterTool
+                activeSubTool={activeSubTool}
                 lineColor={lineColor}
+                setActiveTool={setActiveTool}
                 handleBrightnessFilter={handleBrightnessFilter}
                 handleBlurFilter={handleBlurFilter}
                 handleGrayscaleFilter={handleGrayscaleFilter}
@@ -273,6 +292,8 @@ ImageContainer.propTypes = {
     selectedPhoto: PropTypes.string,
     activeTool: PropTypes.string,
     setActiveTool: PropTypes.func,
+    activeSubTool: PropTypes.string,
+    onImageChangeApply: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -281,7 +302,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setActiveTool: (tool) => dispatch(setActiveTool(tool))
+    setActiveTool: (tool) => dispatch(setActiveTool(tool)),
+    onImageChangeApply: url => {
+        dispatch(applyImageChange(url));
+    }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ImageContainer)

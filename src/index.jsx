@@ -8,6 +8,12 @@ import configureStore from './redux/configureStore';
 
 const store = configureStore();
 
+
+store.subscribe(() => {
+    console.log(store.getState().photo.imageHistory);
+    console.log(store.getState().photo.currentIndex);
+})
+
 render(
     <React.StrictMode>
         <Provider store={store}>

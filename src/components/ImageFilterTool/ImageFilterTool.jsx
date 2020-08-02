@@ -52,7 +52,6 @@ const ImageFilterTool = ({
 
     return (
         <Container className='image-filter-tools'>
-            <Row>
 
                 {activeSubTool &&
                 <>
@@ -81,7 +80,6 @@ const ImageFilterTool = ({
                         id="color"/>
                 </Col>
                 }
-            </Row>
         </Container>
     )
 };
