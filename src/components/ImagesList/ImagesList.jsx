@@ -5,16 +5,16 @@ import { Card, CardColumns } from 'react-bootstrap';
 import './ImagesList.css';
 import { connect } from 'react-redux';
 import { closeSideBar, selectPhoto } from '../../redux/actions';
-import SearchedImage from "../SearchedImage/SearchedImage";
+import SearchedImage from '../SearchedImage/SearchedImage';
 
 const ImagesList = ({ photos, isFetching, isSearched, newPhotosLoadCount, firstLoadCount, onPhotoClick }) => {
 
-    const [photosToShow, setPhotosToShow] = useState([]);
-    const [isPhotosLoading, setIsPhotosLoading] = useState(false);
+    const [ photosToShow, setPhotosToShow ] = useState([]);
+    const [ isPhotosLoading, setIsPhotosLoading ] = useState(false);
 
     useEffect(() => {
         setPhotosToShow(photos.slice(0, firstLoadCount));
-    }, [photos, firstLoadCount]);
+    }, [ photos, firstLoadCount ]);
 
     const handleScroll = (e) => {
         if (photos.length === photosToShow.length) {
@@ -74,7 +74,7 @@ const ImagesList = ({ photos, isFetching, isSearched, newPhotosLoadCount, firstL
                 <CardColumns className='google-photo'>
                     {photosToShow.map((photo, index) => {
 
-                        console.log(photo)
+                        // console.log(photo)
 
                         return <Card key={index}>
                             <Card.Img

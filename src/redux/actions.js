@@ -4,6 +4,9 @@ export const SELECT_PHOTO = 'SELECT_PHOTO';
 
 export const OPEN_SIDEBAR = 'OPEN_SIDEBAR';
 export const CLOSE_SIDEBAR = 'CLOSE_SIDEBAR';
+export const APPLY_IMAGE_CHANGE = 'DRAW_IMAGE';
+export const UNDO_IMAGE_CHANGE = 'UNDO_IMAGE_CHANGE';
+export const REDO_IMAGE_CHANGE = 'REDO_IMAGE_CHANGE';
 
 export const SET_ACTIVE_TOOL = 'SET_ACTIVE_TOOL';
 export const SET_ACTIVE_SUB_TOOL = 'SET_ACTIVE_SUB_TOOL';
@@ -71,9 +74,26 @@ export function fetchPhotos(searchString) {
         const url = `https://pixabay.com/api/?key=17649790-b694a99a34bea3bd8ef0e0292&q=${searchString}&per_page=200`;
         return fetch(url)
             .then(res => res.json())
-            .then(result => {
-                dispatch(receivePhotos(searchString, result));
-            })
+            .then(result => dispatch(receivePhotos(searchString, result)))
             .catch(err => console.log(err.message))
+    }
+}
+
+export function applyImageChange(imgUrl) {
+    return {
+        type: APPLY_IMAGE_CHANGE,
+        url: imgUrl
+    }
+}
+
+export function undoImageChange() {
+    return {
+        type: UNDO_IMAGE_CHANGE
+    }
+}
+
+export function redoImageChange() {
+    return {
+        type: REDO_IMAGE_CHANGE
     }
 }
