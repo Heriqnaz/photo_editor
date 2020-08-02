@@ -50,17 +50,19 @@ const DrawImageTool = ({lineStyle, lineWidth, lineColor, handleLineStyle, handle
                     </div>
                 </Col>
                 <Col>
-                    <div className='line-thickness'>
-                        <label htmlFor="formControlRange">Line Thickness: {lineWidth}</label>
-                        <input
-                            type="range"
-                            value={lineWidth}
-                            onChange={onLineWidth}
-                            max={20}
-                            step={0.1}
-                            min={0.1}
-                            className="form-control-range bg-dark text-dark"
-                            id="formControlRange"/>
+                    <div className='line_thickness'>
+                        <div>
+                            <label htmlFor="formControlRange">Line Thickness: {lineWidth}</label>
+                            <input
+                                type="range"
+                                value={lineWidth}
+                                onChange={onLineWidth}
+                                max={20}
+                                step={0.1}
+                                min={0.1}
+                                className="form-control-range bg-dark text-dark"
+                                id="formControlRange"/>
+                        </div>
                     </div>
 
                 </Col>

@@ -15,3 +15,14 @@ input[type='color'] {
     width: 80%;
     margin: 0 auto;
 }
+
+.line_thickness{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.line_thickness > div{
+    width: 100%;
+}

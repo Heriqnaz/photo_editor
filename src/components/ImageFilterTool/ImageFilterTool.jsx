@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from "react-redux";
+import {connect} from 'react-redux';
 import {Col, Container, Row} from 'react-bootstrap';
 import './ImageFilterTool.css'
 
@@ -23,16 +23,16 @@ const ImageFilterTool = ({
         const value = event.target.value;
         setRangeValue(event.target.value)
         switch (activeSubTool) {
-            case 'filter-brightness':
-                handleBrightnessFilter(value);
-                break;
-            case 'filter-blur':
-                handleBlurFilter(value);
-                break;
-            case 'filter-grayscale':
-                handleGrayscaleFilter(value);
-                break;
-            default:
+        case 'filter-brightness':
+            handleBrightnessFilter(value);
+            break;
+        case 'filter-blur':
+            handleBlurFilter(value);
+            break;
+        case 'filter-grayscale':
+            handleGrayscaleFilter(value);
+            break;
+        default:
         }
     };
 
@@ -53,7 +53,6 @@ const ImageFilterTool = ({
     return (
         <Container className='image-filter-tools'>
             <Row>
-
                 {activeSubTool &&
                 <>
                     <Col md="auto">
