@@ -10,12 +10,12 @@ import Column from "./Column";
 
 const ImagesList = ({ photos, isFetching, isSearched, newPhotosLoadCount, firstLoadCount, onPhotoClick }) => {
 
-    const [photosToShow, setPhotosToShow] = useState([]);
-    const [isPhotosLoading, setIsPhotosLoading] = useState(false);
+    const [ photosToShow, setPhotosToShow ] = useState([]);
+    const [ isPhotosLoading, setIsPhotosLoading ] = useState(false);
 
     useEffect(() => {
         setPhotosToShow(photos.slice(0, firstLoadCount));
-    }, [photos, firstLoadCount]);
+    }, [ photos, firstLoadCount ]);
 
     const handleScroll = (e) => {
         if (photos.length === photosToShow.length) {
