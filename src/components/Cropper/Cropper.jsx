@@ -135,7 +135,6 @@ const Cropper = ({ canvasCords, handleCrop }) => {
         redraw = false;
 
         if (clicked && clicked.isResizing) {
-            // console.log(canvasCords)
             if (clicked.onRightEdge) {
                 if (e.clientX > canvasCords.right) {
                     crop.current.style.width = canvasCords.right - cropCords.left - 1 + 'px'
@@ -150,7 +149,6 @@ const Cropper = ({ canvasCords, handleCrop }) => {
                     crop.current.style.height = Math.max(y, minHeight) + 'px'
                 }
             }
-            ;
 
             if (clicked.onLeftEdge && e.clientX > canvasCords.left) {
                 let currentWidth = Math.max(clicked.cx - e.clientX + clicked.w, minWidth);
@@ -159,7 +157,6 @@ const Cropper = ({ canvasCords, handleCrop }) => {
                     crop.current.style.left = e.clientX + 'px';
                 }
             }
-            ;
 
             if (clicked.onTopEdge && e.clientY > canvasCords.top) {
 
