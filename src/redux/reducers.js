@@ -75,12 +75,14 @@ function photo(state = initialPhotoState, action) {
     case REDO_IMAGE_CHANGE:
         return {
             ...state,
-            currentIndex: state.currentIndex + 1
+            currentIndex: state.currentIndex + 1,
+            selectedPhoto: state.imageHistory[state.currentIndex + 1]
         };
     case UNDO_IMAGE_CHANGE:
         return {
             ...state,
-            currentIndex: state.currentIndex - 1
+            currentIndex: state.currentIndex - 1,
+            selectedPhoto: state.imageHistory[state.currentIndex - 1]
         }
     default:
         return state

@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './ToolBar.css';
-import { setActiveTool, setActiveSubTool } from '../../redux/actions';
+import {setActiveTool, setActiveSubTool, undoImageChange, redoImageChange} from '../../redux/actions';
 import { connect } from 'react-redux';
 
-const ToolBar = ({ activeTool, activeSubTool, selectedPhoto, setActiveTool, setActiveSubTool }) => {
+const ToolBar = ({ activeTool, activeSubTool, selectedPhoto, setActiveTool, setActiveSubTool, undoImageChange, redoImageChange, canUndoChange, canRedoChange }) => {
 
     useEffect(() => {
         setActiveTool(null)
-    }, [selectedPhoto]);
+    }, [ selectedPhoto ]);
 
     const handleSetTool = (name) => {
         if (selectedPhoto) {
@@ -41,7 +41,6 @@ const ToolBar = ({ activeTool, activeSubTool, selectedPhoto, setActiveTool, setA
             { name: 'tree', title: 'Tree' }
         ]
     };
-
     return (
         <div className='tool-bar'>
             <ul className='tools'>
@@ -54,6 +53,10 @@ const ToolBar = ({ activeTool, activeSubTool, selectedPhoto, setActiveTool, setA
                         </li>
                     ))
                 }
+                <div>
+                    <button disabled={!canUndoChange} onClick={undoImageChange}>Undo</button>
+                    <button disabled={!canRedoChange} onClick={redoImageChange}>Redo</button>
+                </div>
             </ul>
             {
                 subTools[activeTool] &&
@@ -79,17 +82,25 @@ ToolBar.propTypes = {
     setActiveTool: PropTypes.func,
     setActiveSubTool: PropTypes.func,
     selectedPhoto: PropTypes.string,
+    undoImageChange: PropTypes.func,
+    redoImageChange: PropTypes.func,
+    canUndoChange: PropTypes.bool,
+    canRedoChange: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
     selectedPhoto: state.photo.selectedPhoto,
     activeTool: state.tool.activeTool,
-    activeSubTool: state.tool.activeSubTool
+    activeSubTool: state.tool.activeSubTool,
+    canUndoChange: state.photo.currentIndex > 0,
+    canRedoChange: state.photo.currentIndex < state.photo.imageHistory.length - 1
 });
 
 const mapDispatchToProps = (dispatch) => ({
     setActiveTool: (tool) => dispatch(setActiveTool(tool)),
-    setActiveSubTool: (tool) => dispatch(setActiveSubTool(tool))
+    setActiveSubTool: (tool) => dispatch(setActiveSubTool(tool)),
+    undoImageChange: () => dispatch(undoImageChange()),
+    redoImageChange: () => dispatch(redoImageChange())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ToolBar);

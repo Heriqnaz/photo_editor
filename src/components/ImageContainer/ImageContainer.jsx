@@ -33,17 +33,18 @@ const ImageContainer = ({selectedPhoto, activeTool, setActiveTool, activeSubTool
     }, [])
 
     useEffect(() => {
-        console.log(selectedPhoto)
+        console.log(activeTool)
         draw(selectedPhoto);
     }, [ selectedPhoto ]);
 
     useEffect(() => {
         if (activeTool === 'draw') {
+            console.log('hello')
             canvas.current.addEventListener('mousedown', startDrawingLine);
             canvas.current.addEventListener('mouseup', () => {
                 stopDrawingLine();
                 const url = canvas.current.toDataURL('image/png');
-                console.log(url)
+                console.log('suka')
                 onImageChangeApply(url);
             });
             canvas.current.addEventListener('mouseout', stopDrawingLine);

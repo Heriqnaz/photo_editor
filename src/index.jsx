@@ -12,6 +12,8 @@ const store = configureStore();
 store.subscribe(() => {
     console.log(store.getState().photo.imageHistory);
     console.log(store.getState().photo.currentIndex);
+    console.log(store.getState().photo.selectedPhoto);
+
 })
 
 render(
