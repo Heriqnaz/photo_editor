@@ -6,8 +6,8 @@ import Cropper from '../Cropper/Cropper';
 import './ImageContainer.css';
 import ImageFilterTool from '../ImageFilterTool/ImageFilterTool';
 import DrawImageTool from '../DrawImageTool/DrawImageTool';
-import ImageFrameTool from "../ImageFrameTool/ImageFrameTool";
-import { connect } from "react-redux";
+import ImageFrameTool from '../ImageFrameTool/ImageFrameTool';
+import { connect } from 'react-redux';
 import { setActiveTool } from '../../redux/actions';
 
 let isDrawing = false;
@@ -107,6 +107,7 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
 
             const newimg = new Image();
             const url = canvas.current.toDataURL('image/png');
+            console.log(url);
             newimg.src = url;
             setImg(newimg)
         }
