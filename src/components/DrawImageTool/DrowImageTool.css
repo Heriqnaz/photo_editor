@@ -1,0 +1,17 @@
+.draw-image-tools {
+    margin-top: 17px;
+}
+
+.draw-image-tools > li {
+    text-align: center;
+    height: 100%;
+}
+
+.draw-image-tools input {
+    cursor: pointer;
+}
+
+input[type='color'] {
+    width: 80%;
+    margin: 0 auto;
+}
