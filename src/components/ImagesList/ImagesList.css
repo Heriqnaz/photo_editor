@@ -54,3 +54,15 @@
 .google-photo .card{
     border: 0;
 }
+
+/*.google-photo img{*/
+/*    width: 100px;*/
+/*}*/
+
+.google-photo {
+    column-count: 2
+}
+
+.google-photo .card{
+    border: 0;
+}
