@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types';
 import { Col, Container, Row } from 'react-bootstrap';
 
 import './ImageFrameTool.css';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 const framesBaseUrl = `${window.location.origin}/frames/`;
 const birthdayFramesUrl = `${framesBaseUrl}/Birthday`;
@@ -15,6 +15,7 @@ const ImageFrameTool = ({
     handleSelectedFrame,
     handleApplyFrame,
 }) => {
+    const [ activeFrame, setActiveFrame ] = useState('');
 
     const birthdayFrame = [
         `${birthdayFramesUrl}/Birthday_1.png`,
@@ -47,12 +48,15 @@ const ImageFrameTool = ({
             () => {
                 switch (activeSubTool) {
                 case 'birthday':
-                    handleSelectedFrame(birthdayFrame[index]);
-                    break;
-                case 'love':
-                    handleSelectedFrame(loveFrame[index]);
-                    break;
-                case 'party-time':
+                    setActiveFrame('birthday' + index);
+                        handleSelectedFrame(birthdayFrame[index]);
+                        break;
+                    case 'love':
+                        setActiveFrame('love' + index);
+                        handleSelectedFrame(loveFrame[index]);
+                        break;
+                    case 'party-time':
+                        setActiveFrame('partyTime' + index);
                     handleSelectedFrame(partyTimeFrame[index]);
                     break;
                 default:
@@ -67,16 +71,16 @@ const ImageFrameTool = ({
     return (
         <Container className='image-frame'>
             <Row>
-                {activeSubTool &&
+                {activeSubTool && (activeSubTool === 'birthday' || activeSubTool === 'love' || activeSubTool === 'party-time') &&
                 <>
-                    <Col md="auto">
+                    <Col md="auto" className="m-auto">
                         <button className='apply-button' onClick={onApply}>Apply</button>
                     </Col>
                     {
                         activeSubTool === 'birthday' &&
                         birthdayFrame.map((frame, index) => (
-                            <Col onClick={handleSelectFrame(index)} key={'birthday' + index}>
-                                <img src={frame} alt='Not found' className='frame-img'/>
+                            <Col onClick={handleSelectFrame(index)} key={'birthday' + index} >
+                                <img src={frame} alt='Not found' className={`frame-img ${activeFrame === 'birthday' + index && 'active'}`}/>
                             </Col>
                         ))
                     }
@@ -84,7 +88,7 @@ const ImageFrameTool = ({
                         activeSubTool === 'love' &&
                         loveFrame.map((frame, index) => (
                             <Col onClick={handleSelectFrame(index)} key={'love' + index}>
-                                <img src={frame} alt='Not found' className='frame-img'/>
+                                <img src={frame} alt='Not found' className={`frame-img ${activeFrame === 'love' + index && 'active'}`}/>
                             </Col>
                         ))
                     }
@@ -92,7 +96,7 @@ const ImageFrameTool = ({
                         activeSubTool === 'party-time' &&
                         partyTimeFrame.map((frame, index) => (
                             <Col onClick={handleSelectFrame(index)} key={'partyTime' + index}>
-                                <img src={frame} alt='Not found' className='frame-img'/>
+                                <img src={frame} alt='Not found' className={`frame-img ${activeFrame === 'partyTime' + index && 'active'}`}/>
                             </Col>
                         ))
                     }

@@ -133,7 +133,6 @@ const Cropper = ({canvasCords, handleCrop}) => {
         redraw = false;
 
         if (clicked && clicked.isResizing) {
-            // console.log(canvasCords)
             if (clicked.onRightEdge) {
                 if (e.clientX > canvasCords.right) {
                     crop.current.style.width = canvasCords.right - cropCords.left - 1 + 'px';
