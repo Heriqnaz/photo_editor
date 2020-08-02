@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import LoadingIndicator from '../LoadingIndicator/LoadingIndicator';
-import { Card, CardColumns } from 'react-bootstrap';
+import { Card, CardColumns , Row} from 'react-bootstrap';
 import './ImagesList.css';
 import { connect } from 'react-redux';
 import { closeSideBar, selectPhoto } from '../../redux/actions';
@@ -70,24 +70,21 @@ const ImagesList = ({ photos, isFetching, isSearched, newPhotosLoadCount, firstL
         <div
             onScroll={handleScroll}
             className='images_container'>
-            {
-                <CardColumns className='google-photo'>
-                    {photosToShow.map((photo, index) => {
+            <Row>
+                {photosToShow.map((photo, index) => {
+                   console.log(photo)
 
-                        console.log(photo)
+                        return <div key={index} className='google-photo col-6'>
+                        <Card.Img className='fluid'
+                            onClick={() => onPhotoClick(photo.src)}
+                            src={photo.previewSrc}
+                            alt='Not Found'
+                            variant="top"
+                        />{/*<SearchedImage photo={photo}/>*/}
+                    </div>
+                })}
+            </Row>
 
-                        return <Card key={index}>
-                            <Card.Img
-                                onClick={() => onPhotoClick(photo.src)}
-                                src={photo.previewSrc}
-                                alt='Not Found'
-                                variant="top"
-                            />
-                            {/*<SearchedImage photo={photo}/>*/}
-                        </Card>
-                    })}
-                </CardColumns>
-            }
             {
                 isPhotosLoading && <LoadingIndicator/>
             }

@@ -3,7 +3,15 @@ import PropTypes from 'prop-types';
 import {Col, Container, Row} from 'react-bootstrap';
 import './DrowImageTool.css'
 
-const DrawImageTool = ({lineStyle, lineWidth, lineColor, handleLineStyle, handleLineWidth, handleLineColor}) => {
+const DrawImageTool = ({
+    lineStyle,
+    lineWidth,
+    lineColor,
+    handleLineStyle,
+    handleLineWidth,
+    handleLineColor,
+    handleApplyFilter
+}) => {
     const onLineStyle = (e) => {
         handleLineStyle(e.target.value)
     };
@@ -13,9 +21,15 @@ const DrawImageTool = ({lineStyle, lineWidth, lineColor, handleLineStyle, handle
     const onLineColor = (e) => {
         handleLineColor(e.target.value)
     };
+    const onApply = () => {
+        handleApplyFilter();
+    };
     return (
         <Container className='draw-image-tools'>
             <Row>
+                <Col md="auto">
+                    <button className='apply-button' onClick={onApply}>Apply</button>
+                </Col>
                 <Col md="auto">
                     Line style:
                     <div className="form-check">
@@ -82,6 +96,7 @@ DrawImageTool.propTypes = {
     handleLineStyle: PropTypes.func,
     handleLineColor: PropTypes.func,
     handleLineWidth: PropTypes.func,
+    handleApplyFilter: PropTypes.func,
     lineStyle: PropTypes.string.isRequired,
     lineWidth: PropTypes.string.isRequired,
     lineColor: PropTypes.string.isRequired

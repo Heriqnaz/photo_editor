@@ -1,12 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-
 import Cropper from '../Cropper/Cropper';
-
-import './ImageContainer.css';
 import ImageFilterTool from '../ImageFilterTool/ImageFilterTool';
 import DrawImageTool from '../DrawImageTool/DrawImageTool';
-import ImageFrameTool from "../ImageFrameTool/ImageFrameTool";
+import ImageFrameTool from '../ImageFrameTool/ImageFrameTool';
+import './ImageContainer.css';
+import {
+    handleBlurFilter,
+    handleBrightnessFilter,
+    handleColorChangeFilter,
+    handleContrastFilter,
+    handleGrayscaleFilter,
+    handleSaturationFilter
+} from '../ImageFilterTool/ImageFilters'
 import { connect } from "react-redux";
 import { setActiveTool } from '../../redux/actions';
 
@@ -18,7 +24,6 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
     const canvas = useRef();
     const [canvasCords, setCanvasCords] = useState(null);
     const [img, setImg] = useState(null);
-
     const [lineWidth, setLineWidth] = useState('1');
     const [lineColor, setLineColor] = useState('#000000');
     const [lineStyle, setLineStyle] = useState('round');
@@ -26,6 +31,12 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
     useEffect(() => {
         draw(selectedPhoto);
     }, [selectedPhoto]);
+
+    useEffect(() => {
+        if (activeTool !== 'crop' && activeTool !== 'crop-button') {
+            resetCanvasState();
+        }
+    }, [ activeTool ]);
     useEffect(() => {
         if (activeTool === 'draw') {
             canvas.current.addEventListener('mousedown', startDrawingLine);
@@ -40,7 +51,19 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
             canvas.current.removeEventListener('mousemove', drawLine);
         }
 
-    }, [activeTool]);
+    }, [ activeTool ]);
+
+    useEffect(() => {
+        lineStyleLocal = lineStyle;
+    }, [ lineStyle ]);
+
+    useEffect(() => {
+        lineWidthLocal = lineWidth;
+    }, [ lineWidth ]);
+
+    useEffect(() => {
+        lineColorLocal = lineColor;
+    }, [ lineColor ]);
 
     const provideCord = (element) => {
         return element.getBoundingClientRect()
@@ -67,11 +90,11 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
                 ctx.drawImage(frameImg, 0, 0, canvas.current.width, canvas.current.height);
             }
         }
-        setImg(img)
+        setImg(img);
     }
 
     function handleCrop({ left, top, width, height }) {
-        const url = canvas.current.toDataURL('image/png')
+        const url = canvas.current.toDataURL('image/png');
         const ctx = canvas.current.getContext('2d');
         const img = new Image();
         img.src = url;
@@ -103,13 +126,13 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
                 canvas.current.height);
 
             setCanvasCords(provideCord(canvas.current));
-            setActiveTool(null)
+            setActiveTool('crop-button');
 
             const newimg = new Image();
             const url = canvas.current.toDataURL('image/png');
             newimg.src = url;
             setImg(newimg)
-        }
+        };
     }
 
     const handleLineStyle = (value) => {
@@ -122,66 +145,60 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
         setLineColor(value)
     };
 
+    const resetCanvasState = () => {
+        if (img) {
+            const ctx = canvas.current.getContext('2d');
+            const width = canvas.current.width;
+            const height = canvas.current.height;
+            ctx.drawImage(img, 0, 0, width, height);
+            ctx.save();
+        }
+    };
+
     const prepareCanvasImage = () => {
         const url = canvas.current.toDataURL('image/png');
         const ctx = canvas.current.getContext('2d');
         const width = canvas.current.width;
         const height = canvas.current.height;
         const image = new Image;
-        ctx.drawImage(img, 0, 0, width, height);
         image.src = url;
         ctx.drawImage(img, 0, 0, width, height);
         ctx.save();
         return { ctx, image, width, height };
     };
 
-    const handleBrightnessFilter = (value) => {
+
+    const handleImageFilter = (rangeValue) => {
         const { ctx, image, width, height } = prepareCanvasImage();
 
-        if (value < 0) {
-            ctx.globalCompositeOperation = 'multiply';
-            ctx.fillStyle = 'black';
-            ctx.globalAlpha = -value / 100;
-            ctx.fillRect(0, 0, width, height);
-
-        } else if (value > 0) {
-            ctx.fillStyle = 'white';
-            ctx.globalCompositeOperation = 'lighten';
-            ctx.globalAlpha = 1;
-            ctx.drawImage(image, 0, 0);
-            ctx.globalAlpha = value / 100;
-            ctx.fillRect(0, 0, width, height);
-
+        switch (activeSubTool) {
+        case 'filter-blur':
+            handleBlurFilter(ctx, image, width, height, rangeValue);
+            break;
+        case 'filter-brightness':
+            handleBrightnessFilter(ctx, image, width, height, rangeValue);
+            break;
+        case 'filter-grayscale':
+            handleGrayscaleFilter(ctx, width, height, rangeValue);
+            break;
+        case 'filter-color':
+            handleColorChangeFilter(ctx, width, height, rangeValue, lineColor);
+            break;
+        case 'filter-saturation':
+            handleSaturationFilter(ctx, width, height, rangeValue);
+            break;
+        case 'filter-contrast':
+            handleContrastFilter(ctx, image, width, height, rangeValue);
+            break;
+        default:
         }
-        ctx.restore();
-    };
-
-    const handleBlurFilter = (value) => {
-        const { ctx, width, height } = prepareCanvasImage();
-
-        ctx.globalCompositeOperation = 'lighten';
-        ctx.fillStyle = lineColor;
-        ctx.globalAlpha = value / 100;
-        ctx.fillRect(0, 0, width, height);
-        ctx.restore();
-
-    };
-    const handleGrayscaleFilter = (value) => {
-        const { ctx, width, height } = prepareCanvasImage();
-        if (value <= 100) {
-            ctx.globalCompositeOperation = 'color';
-            ctx.fillStyle = 'black';
-            ctx.globalAlpha = value / 100;
-            ctx.fillRect(0, 0, width, height);
-        }
-        ctx.restore();
     };
 
 
     const handleApply = () => {
         const url = canvas.current.toDataURL('image/png');
-        draw(url)
-        setActiveTool(null)
+        draw(url);
+        setActiveTool(null);
     };
 
     const handleSelectedFrame = (frameUrl) => {
@@ -191,10 +208,6 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
         ctx.restore();
     };
 
-    const handleCancelApply = () => {
-        const {ctx} = prepareCanvasImage();
-        ctx.restore();
-    };
 
     function startDrawingLine(e) {
         const ctx = canvas.current.getContext('2d');
@@ -219,18 +232,6 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
         }
     }
 
-    useEffect(() => {
-        lineStyleLocal = lineStyle;
-    }, [lineStyle]);
-
-    useEffect(() => {
-        lineWidthLocal = lineWidth;
-    }, [lineWidth]);
-
-    useEffect(() => {
-        lineColorLocal = lineColor;
-    }, [lineColor]);
-
     return (
         <div>
             <div className="img-box">
@@ -242,18 +243,17 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
             {activeTool === 'filter' &&
             <ImageFilterTool
                 lineColor={lineColor}
-                handleBrightnessFilter={handleBrightnessFilter}
-                handleBlurFilter={handleBlurFilter}
-                handleGrayscaleFilter={handleGrayscaleFilter}
+                setActiveTool={setActiveTool}
                 handleApplyFilter={handleApply}
                 handleLineColor={handleLineColor}
-                handleCancelApplyFilter={handleCancelApply}
+                handleImageFilter={handleImageFilter}
             />}
             {activeTool === 'draw' &&
             <DrawImageTool
                 handleLineStyle={handleLineStyle}
                 handleLineWidth={handleLineWidth}
                 handleLineColor={handleLineColor}
+                handleApplyFilter={handleApply}
                 lineWidth={lineWidth}
                 lineColor={lineColor}
                 lineStyle={lineStyle}
@@ -262,7 +262,6 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
             <ImageFrameTool
                 handleSelectedFrame={handleSelectedFrame}
                 handleApplyFrame={handleApply}
-                handleCancelApplyFrame={handleCancelApply}
             />}
         </div>
     )

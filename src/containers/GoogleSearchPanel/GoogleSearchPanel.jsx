@@ -9,7 +9,7 @@ const GoogleSearchPanel = () => (
             <SearchPanel/>
             <ImagesList
                 newPhotosLoadCount={19}
-                firstLoadCount={20}
+                firstLoadCount={25}
             />
         </div>
     </div>

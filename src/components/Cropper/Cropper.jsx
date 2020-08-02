@@ -1,11 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
-
-import { Button } from 'react-bootstrap';
-
+import {Button} from 'react-bootstrap';
 import './Cropper.css'
 
-const Cropper = ({ canvasCords, handleCrop }) => {
+const Cropper = ({canvasCords, handleCrop}) => {
 
     const crop = useRef();
     const requestRef = useRef();
@@ -29,7 +27,7 @@ const Cropper = ({ canvasCords, handleCrop }) => {
         requestRef.current = requestAnimationFrame(animate);
 
         return () => {
-            removeAllEvents()
+            removeAllEvents();
         }
 
     }, []);
@@ -39,7 +37,7 @@ const Cropper = ({ canvasCords, handleCrop }) => {
         document.removeEventListener('mouseup', onUp);
         document.removeEventListener('touchmove', onTouchMove);
         document.removeEventListener('touchend', onTouchEnd);
-        cancelAnimationFrame(requestRef.current)
+        cancelAnimationFrame(requestRef.current);
     };
 
     const handleCropping = () => {
@@ -76,7 +74,7 @@ const Cropper = ({ canvasCords, handleCrop }) => {
     const onDown = (e) => {
         calc(e);
 
-        let isResizing = onRightEdge || onBottomEdge || onTopEdge || onLeftEdge;
+        const isResizing = onRightEdge || onBottomEdge || onTopEdge || onLeftEdge;
 
 
         clicked = {
@@ -109,7 +107,7 @@ const Cropper = ({ canvasCords, handleCrop }) => {
         onLeftEdge = x < MARGINS;
         onRightEdge = x >= b.width - MARGINS;
         onBottomEdge = y >= b.height - MARGINS;
-    }
+    };
 
     const onMove = (ee) => {
 
@@ -138,32 +136,29 @@ const Cropper = ({ canvasCords, handleCrop }) => {
             // console.log(canvasCords)
             if (clicked.onRightEdge) {
                 if (e.clientX > canvasCords.right) {
-                    crop.current.style.width = canvasCords.right - cropCords.left - 1 + 'px'
+                    crop.current.style.width = canvasCords.right - cropCords.left - 1 + 'px';
                 } else {
                     crop.current.style.width = Math.max(x, minWidth) + 'px';
                 }
             }
             if (clicked.onBottomEdge) {
                 if (e.clientY > canvasCords.bottom) {
-                    crop.current.style.height = canvasCords.bottom - cropCords.top - 1 + 'px'
+                    crop.current.style.height = canvasCords.bottom - cropCords.top - 1 + 'px';
                 } else {
-                    crop.current.style.height = Math.max(y, minHeight) + 'px'
+                    crop.current.style.height = Math.max(y, minHeight) + 'px';
                 }
             }
-            ;
 
             if (clicked.onLeftEdge && e.clientX > canvasCords.left) {
-                let currentWidth = Math.max(clicked.cx - e.clientX + clicked.w, minWidth);
+                const currentWidth = Math.max(clicked.cx - e.clientX + clicked.w, minWidth);
                 if (currentWidth > minWidth) {
                     crop.current.style.width = currentWidth + 'px';
                     crop.current.style.left = e.clientX + 'px';
                 }
             }
-            ;
 
             if (clicked.onTopEdge && e.clientY > canvasCords.top) {
-
-                let currentHeight = Math.max(
+                const currentHeight = Math.max(
                     clicked.cy - 3 - e.clientY + clicked.h,
                     minHeight
                 );
@@ -176,7 +171,6 @@ const Cropper = ({ canvasCords, handleCrop }) => {
 
             return;
         }
-
 
         if (clicked && clicked.isMoving) {
 
@@ -233,12 +227,12 @@ const Cropper = ({ canvasCords, handleCrop }) => {
         } else {
             crop.current.style.cursor = 'default';
         }
-    }
+    };
 
     const onUp = (e) => {
         calc(e);
         clicked = null;
-    }
+    };
 
     return (
         <>
@@ -256,7 +250,7 @@ const Cropper = ({ canvasCords, handleCrop }) => {
             <Button onClick={handleCropping} className='crop-button' variant="dark">Crop</Button>
         </>
     )
-}
+};
 
 Cropper.propTypes = {
     canvasCords: PropTypes.object,

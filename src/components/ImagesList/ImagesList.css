@@ -46,13 +46,22 @@
     stroke: gray;
     stroke-width: 1;
 }
-
-.google-photo {
-    column-count: 2
+.images_container .row{
+    width: 100%;
+}
+.google-photo .card {
+    border: 0;
 }
 
-.google-photo .card{
-    border: 0;
+.card-columns {
+    column-count: 1;
+}
+
+.card-img, .card-img-top{
+    height: auto;
+    /*height: 100%;*/
+    /*object-fit: cover;*/
+    /*padding: 5px 0px;*/
 }
 
 /*.google-photo img{*/

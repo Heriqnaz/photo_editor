@@ -29,6 +29,9 @@ const ToolBar = ({ activeTool, activeSubTool, selectedPhoto, setActiveTool, setA
             { name: 'filter-blur', title: 'Blur' },
             { name: 'filter-brightness', title: 'Brightness' },
             { name: 'filter-grayscale', title: 'Grayscale' },
+            {name: 'filter-color', title: 'Color'},
+            {name: 'filter-saturation', title: 'Saturation'},
+            {name: 'filter-contrast', title: 'Contrast'},
         ],
         frame: [
             { name: 'birthday', title: 'Birthday' },
@@ -57,7 +60,7 @@ const ToolBar = ({ activeTool, activeSubTool, selectedPhoto, setActiveTool, setA
             </ul>
             {
                 subTools[activeTool] &&
-                <ul className='sub-tools'>
+                <ul className={`sub-tools ${(activeSubTool ) ? 'sub-tools-hide' : ''}`}>
                     {
                         subTools[activeTool].map((subTool, i) => (
                             <li

@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Col, Container, Row } from 'react-bootstrap';
 
@@ -14,7 +14,6 @@ const ImageFrameTool = ({
     activeSubTool,
     handleSelectedFrame,
     handleApplyFrame,
-    handleCancelApplyFrame
 }) => {
 
     const birthdayFrame = [
@@ -43,36 +42,25 @@ const ImageFrameTool = ({
         `${partyTimeFramesUrl}/PartyTime_3.png`,
         `${partyTimeFramesUrl}/PartyTime_4.png`,
     ];
-
-    let isApply = false;
-
-    useEffect(() => {
-        return () => {
-            if (!isApply) handleCancelApplyFrame()
-        }
-    }, );
-
     const handleSelectFrame = (index) => {
         return (
             () => {
-                isApply = false;
                 switch (activeSubTool) {
-                    case 'birthday':
-                        handleSelectedFrame(birthdayFrame[index]);
-                        break;
-                    case 'love':
-                        handleSelectedFrame(loveFrame[index]);
-                        break;
-                    case 'party-time':
-                        handleSelectedFrame(partyTimeFrame[index]);
-                        break;
-                    default:
+                case 'birthday':
+                    handleSelectedFrame(birthdayFrame[index]);
+                    break;
+                case 'love':
+                    handleSelectedFrame(loveFrame[index]);
+                    break;
+                case 'party-time':
+                    handleSelectedFrame(partyTimeFrame[index]);
+                    break;
+                default:
                 }
             }
         )
     };
     const onApply = () => {
-        isApply = true;
         handleApplyFrame();
     };
 
@@ -114,12 +102,12 @@ const ImageFrameTool = ({
             </Row>
         </Container>
     )
-}
+};
 
 ImageFrameTool.propTypes = {
     handleSelectedFrame: PropTypes.func,
     handleApplyFrame: PropTypes.func,
-    handleCancelApplyFrame: PropTypes.func,
+    // handleCancelApplyFrame: PropTypes.func,
     activeSubTool: PropTypes.string,
 };
 

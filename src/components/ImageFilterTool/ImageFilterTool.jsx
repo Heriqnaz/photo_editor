@@ -1,54 +1,31 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import {Col, Container, Row} from 'react-bootstrap';
 import './ImageFilterTool.css'
 
 const ImageFilterTool = ({
-    handleBrightnessFilter,
-    handleBlurFilter,
-    handleGrayscaleFilter,
+    handleImageFilter,
     handleApplyFilter,
     handleLineColor,
     activeSubTool,
     lineColor,
-    handleCancelApplyFilter
 }) => {
     const [ rangeValue, setRangeValue ] = useState(0);
 
-    let isApply = false;
-
     const handleFilterRange = (event) => {
-        isApply = false;
         const value = event.target.value;
         setRangeValue(event.target.value)
-        switch (activeSubTool) {
-            case 'filter-brightness':
-                handleBrightnessFilter(value);
-                break;
-            case 'filter-blur':
-                handleBlurFilter(value);
-                break;
-            case 'filter-grayscale':
-                handleGrayscaleFilter(value);
-                break;
-            default:
-        }
+        handleImageFilter(value)
     };
 
     const onLineColor = (e) => {
         handleLineColor(e.target.value)
     };
     const onApply = () => {
-        isApply = true;
         handleApplyFilter();
     };
 
-    useEffect(() => {
-        return () => {
-            if (!isApply) handleCancelApplyFilter()
-        }
-    }, []);
 
     return (
         <Container className='image-filter-tools'>
@@ -66,12 +43,13 @@ const ImageFilterTool = ({
                             min={activeSubTool === 'filter-brightness' ? '-100' : '0'}
                             max="100"
                             value={rangeValue}
+                            className="multi-range"
                             step="1"
                             onChange={handleFilterRange}/>
                     </Col>
                 </>
                 }
-                {activeSubTool === 'filter-blur' &&
+                {activeSubTool === 'filter-color' &&
                 <Col xs='2' lg="2">
                     <input
                         type="color"
@@ -87,11 +65,8 @@ const ImageFilterTool = ({
 };
 
 ImageFilterTool.propTypes = {
-    handleBrightnessFilter: PropTypes.func,
-    handleGrayscaleFilter: PropTypes.func,
+    handleImageFilter: PropTypes.func,
     handleApplyFilter: PropTypes.func,
-    handleBlurFilter: PropTypes.func,
-    handleCancelApplyFilter: PropTypes.func,
     activeSubTool: PropTypes.string,
     lineColor: PropTypes.string.isRequired,
     handleLineColor: PropTypes.func,

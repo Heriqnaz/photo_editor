@@ -19,6 +19,7 @@
     width: 100%;
     background: rgba(248, 249, 250, 0.79);
     transform: translateY(100%);
+    z-index: 9;
 }
 
 .sub-tools.crop {
@@ -41,4 +42,7 @@
 
 .sub-tools li.tool-active{
     background: rgba(128, 128, 128, 0.45);
+}
+.sub-tools-hide{
+    display: none;
 }
