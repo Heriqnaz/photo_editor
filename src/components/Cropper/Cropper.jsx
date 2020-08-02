@@ -251,6 +251,7 @@ const Cropper = ({ canvasCords, handleCrop }) => {
                 <div className="angles right-top"/>
                 <div className="angles right-bottom"/>
                 <div className="angles left-bottom"/>
+                {/*<div className='left-border'/>*/}
             </div>
             <Button onClick={handleCropping} className='crop-button' variant="dark">Crop</Button>
         </>

@@ -1,24 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import LoadingIndicator from '../LoadingIndicator/LoadingIndicator';
-import ImageRow from '../ImagesRow/ImagesRow';
-import {zip} from '../../helpers';
+import { Card, CardColumns } from 'react-bootstrap';
 import './ImagesList.css';
+import { connect } from 'react-redux';
+import { closeSideBar, selectPhoto } from '../../redux/actions';
+import SearchedImage from "../SearchedImage/SearchedImage";
 
-const ImagesList = ({photos, isFetching, isSearched, onPhotoSelect, newPhotosLoadCount, firstLoadCount}) => {
-    const [ photosToShow, setPhotosToShow ] = useState([]);
-    const [ isPhotosLoading, setIsPhotosLoading ] = useState(false);
+const ImagesList = ({ photos, isFetching, isSearched, newPhotosLoadCount, firstLoadCount, onPhotoClick }) => {
+
+    const [photosToShow, setPhotosToShow] = useState([]);
+    const [isPhotosLoading, setIsPhotosLoading] = useState(false);
 
     useEffect(() => {
         setPhotosToShow(photos.slice(0, firstLoadCount));
-    }, [ photos, firstLoadCount ]);
+    }, [photos, firstLoadCount]);
 
     const handleScroll = (e) => {
         if (photos.length === photosToShow.length) {
             return
         }
         if (photos.length - photosToShow.length < newPhotosLoadCount) {
-            console.log('here')
             setIsPhotosLoading(true);
             setTimeout(() => {
                 setIsPhotosLoading(false);
@@ -42,10 +44,10 @@ const ImagesList = ({photos, isFetching, isSearched, onPhotoSelect, newPhotosLoa
                 ));
             }, 500);
         }
-    }
+    };
 
     if (isFetching) {
-        return <LoadingIndicator />
+        return <LoadingIndicator/>
     }
     if (isSearched && !photosToShow.length) {
         return (
@@ -60,7 +62,7 @@ const ImagesList = ({photos, isFetching, isSearched, onPhotoSelect, newPhotosLoa
 
                     </path>
                 </svg>
-                <h2 className='mt-2' style={{color: 'grey'}}>No result</h2>
+                <h2 className='mt-2' style={{ color: 'grey' }}>No result</h2>
             </div>
         )
     }
@@ -69,29 +71,51 @@ const ImagesList = ({photos, isFetching, isSearched, onPhotoSelect, newPhotosLoa
             onScroll={handleScroll}
             className='images_container'>
             {
-                zip(photosToShow).map((imagePair, index) => (
-                    <ImageRow
-                        key={index}
-                        imagePair={imagePair}
-                        onPhotoClick={onPhotoSelect}
-                    />
-                ))
+                <CardColumns className='google-photo'>
+                    {photosToShow.map((photo, index) => {
+
+                        console.log(photo)
+
+                        return <Card key={index}>
+                            <Card.Img
+                                onClick={() => onPhotoClick(photo.src)}
+                                src={photo.previewSrc}
+                                alt='Not Found'
+                                variant="top"
+                            />
+                            {/*<SearchedImage photo={photo}/>*/}
+                        </Card>
+                    })}
+                </CardColumns>
             }
             {
-                isPhotosLoading && <LoadingIndicator />
+                isPhotosLoading && <LoadingIndicator/>
             }
         </div>
     )
-}
+};
 
 ImagesList.propTypes = {
-    photos: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    photos: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
     isFetching: PropTypes.bool.isRequired,
     isSearched: PropTypes.bool.isRequired,
-    selectedPhoto:PropTypes.string.isRequired,
-    onPhotoSelect: PropTypes.func.isRequired,
     newPhotosLoadCount: PropTypes.number.isRequired,
-    firstLoadCount: PropTypes.number.isRequired
-}
+    firstLoadCount: PropTypes.number.isRequired,
+    onPhotoClick: PropTypes.func.isRequired
+};
 
-export default ImagesList;
+const mapStateToProps = (state) => ({
+    photos: state.photo.photos,
+    isFetching: state.photo.isFetchingPhotos,
+    isSearched: state.photo.isSearched
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    onPhotoClick: (url) => {
+        dispatch(selectPhoto(url));
+        dispatch(closeSideBar());
+    }
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ImagesList);

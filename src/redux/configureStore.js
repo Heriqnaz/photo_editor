@@ -1,11 +1,9 @@
-import {createStore, applyMiddleware} from "redux";
+import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import reducer from './reducers';
 
-export default function configureStore(preloadedState){
+export default function configureStore(preloadedState) {
     return createStore(
-        reducer,
-        preloadedState,
-        applyMiddleware(thunk)
+        reducer, preloadedState, applyMiddleware(thunk)
     );
 }

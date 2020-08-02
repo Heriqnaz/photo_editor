@@ -3,18 +3,18 @@
     width: 50px;
     height: 50px;
     background: rgba(0, 0, 0, 0.2);
-    top: 25%;
-    left: 43%;
+    top: calc(50% - 25px);
+    left: calc(50% - 25px);
     /*transform: translate(-50%,-50%);*/
     margin: 0;
     padding: 0;
     z-index: 99;
-    border: 1.5px dashed black ;
-    /*border-style: dashed;*/
+    border: 1.5px dashed black;
 }
 
 .angles {
     position: absolute;
+    mix-blend-mode: difference;
     width: 8px;
     height: 8px;
     background: #2d3436;
@@ -62,4 +62,13 @@
 .left-bottom {
     left: -4px;
     bottom: -4px;
+}
+
+.left-border {
+    position: absolute;
+    width: 3px;
+    height: 100%;
+    mix-blend-mode: difference;
+    background: white;
+    z-index: 99;
 }
