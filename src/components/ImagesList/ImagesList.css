@@ -51,8 +51,22 @@
     column-count: 2
 }
 
-.google-photo .card{
+.google-photo .card {
     border: 0;
+}
+
+.image-list-column {
+    width: 50%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-list-columns{
+    display: flex;
+    justify-content: center;
 }
 
 /*.google-photo img{*/

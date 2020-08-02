@@ -6,6 +6,7 @@ import './ImagesList.css';
 import { connect } from 'react-redux';
 import { closeSideBar, selectPhoto } from '../../redux/actions';
 import SearchedImage from "../SearchedImage/SearchedImage";
+import Column from "./Column";
 
 const ImagesList = ({ photos, isFetching, isSearched, newPhotosLoadCount, firstLoadCount, onPhotoClick }) => {
 
@@ -71,22 +72,26 @@ const ImagesList = ({ photos, isFetching, isSearched, newPhotosLoadCount, firstL
             onScroll={handleScroll}
             className='images_container'>
             {
-                <CardColumns className='google-photo'>
-                    {photosToShow.map((photo, index) => {
-
-                        console.log(photo)
-
-                        return <Card key={index}>
-                            <Card.Img
-                                onClick={() => onPhotoClick(photo.src)}
-                                src={photo.previewSrc}
-                                alt='Not Found'
-                                variant="top"
-                            />
-                            {/*<SearchedImage photo={photo}/>*/}
-                        </Card>
-                    })}
-                </CardColumns>
+                // <CardColumns className='google-photo'>
+                //     {photosToShow.map((photo, index) => {
+                //
+                //         console.log(photo)
+                //
+                //         return <Card key={index}>
+                //             <Card.Img
+                //                 onClick={() => onPhotoClick(photo.src)}
+                //                 src={photo.previewSrc}
+                //                 alt='Not Found'
+                //                 variant="top"
+                //             />
+                //             {/*<SearchedImage photo={photo}/>*/}
+                //         </Card>
+                //     })}
+                // </CardColumns>
+                <div className='image-list-columns'>
+                    <Column data={photosToShow.slice(0, photosToShow.length / 2)}/>
+                    <Column data={photosToShow.slice(photosToShow.length / 2)}/>
+                </div>
             }
             {
                 isPhotosLoading && <LoadingIndicator/>

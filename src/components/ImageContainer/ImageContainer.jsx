@@ -192,7 +192,7 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool }) => {
     };
 
     const handleCancelApply = () => {
-        const {ctx} = prepareCanvasImage();
+        const { ctx } = prepareCanvasImage();
         ctx.restore();
     };
 

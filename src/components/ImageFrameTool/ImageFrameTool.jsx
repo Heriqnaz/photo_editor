@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Col, Container, Row } from 'react-bootstrap';
 
 import './ImageFrameTool.css';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 const framesBaseUrl = `${window.location.origin}/frames/`;
 const birthdayFramesUrl = `${framesBaseUrl}/Birthday`;
