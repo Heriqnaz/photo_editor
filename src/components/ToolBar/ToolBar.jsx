@@ -1,12 +1,10 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import './ToolBar.css';
-import {setActiveTool, setActiveSubTool, undoImageChange, redoImageChange} from '../../redux/actions';
-import { connect } from 'react-redux';
-import {setActiveSubTool, setActiveTool} from '../../redux/actions';
+import {redoImageChange, setActiveSubTool, setActiveTool, undoImageChange} from '../../redux/actions';
 import {connect} from 'react-redux';
 
-const ToolBar = ({ activeTool, activeSubTool, selectedPhoto, setActiveTool, setActiveSubTool, undoImageChange, redoImageChange, canUndoChange, canRedoChange }) => {
+const ToolBar = ({activeTool, activeSubTool, selectedPhoto, setActiveTool, setActiveSubTool, undoImageChange, redoImageChange, canUndoChange, canRedoChange}) => {
 
     useEffect(() => {
         setActiveSubTool(null)
@@ -84,7 +82,7 @@ const ToolBar = ({ activeTool, activeSubTool, selectedPhoto, setActiveTool, setA
                                 0.366c0.298-0.056,0.746-0.123,1.184-0.123c3.402,0,6.172,2.709,
                                 6.172,6.041c0,1.695-0.718,3.24-1.979,4.352c0.193-0.51,0.293-1.045,
                                 0.293-1.602c0-2.76-2.266-5-5.046-5c-0.256,0-0.528,0.018-0.747,0.05C8.465,
-                                9.653,8.328,9.81,8.328,9.995v2.074L4.027,7.771z`} />
+                                9.653,8.328,9.81,8.328,9.995v2.074L4.027,7.771z`}/>
                     </svg>
                 </button>
                 <button className='undo_redo_btn' disabled={!canRedoChange} onClick={redoImageChange}>
@@ -102,7 +100,7 @@ const ToolBar = ({ activeTool, activeSubTool, selectedPhoto, setActiveTool, setA
                                 0-5.046,2.241-5.046,5c0,0.557,0.099,1.092,0.292,
                                 1.602c-1.261-1.111-1.979-2.656-1.979-4.352c0-3.331,2.77-6.041,
                                 6.172-6.041c0.438,0,0.886,0.067,1.184,0.123c0.231,0.043,0.441-0.134,
-                                0.441-0.366V3.472l4.301,4.3L11.672,12.068z`} />
+                                0.441-0.366V3.472l4.301,4.3L11.672,12.068z`}/>
                     </svg>
                 </button>
             </div>

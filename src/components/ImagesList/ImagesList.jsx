@@ -1,14 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import LoadingIndicator from '../LoadingIndicator/LoadingIndicator';
-import {Card, Row} from 'react-bootstrap';
 import './ImagesList.css';
-import { connect } from 'react-redux';
-import { closeSideBar, selectPhoto } from '../../redux/actions';
-import SearchedImage from "../SearchedImage/SearchedImage";
-import Column from "./Column";
 import {connect} from 'react-redux';
 import {closeSideBar, selectPhoto} from '../../redux/actions';
+import Column from './Column';
 
 const ImagesList = ({photos, isFetching, isSearched, newPhotosLoadCount, firstLoadCount, onPhotoClick}) => {
 
