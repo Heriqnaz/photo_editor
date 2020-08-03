@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 const stickerBaseUrl = `${window.location.origin}/stickers`;
 const smileStickerUrl = `${stickerBaseUrl}/Smile`;
-const butterfly = `${stickerBaseUrl}/butterfly`;
+const butterfly = `${stickerBaseUrl}/Butterfly`;
 
 const ImageStickerTool = ({
     activeSubTool,
