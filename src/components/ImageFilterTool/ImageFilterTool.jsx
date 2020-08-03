@@ -1,20 +1,20 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
-import {connect} from "react-redux";
-import {Col, Container, Row} from 'react-bootstrap';
+import { connect } from "react-redux";
+import { Col, Container, Row } from 'react-bootstrap';
 import './ImageFilterTool.css'
 
 const ImageFilterTool = ({
-    handleBrightnessFilter,
-    handleBlurFilter,
-    handleGrayscaleFilter,
-    handleApplyFilter,
-    handleLineColor,
-    activeSubTool,
-    lineColor,
-    handleCancelApplyFilter
-}) => {
-    const [ rangeValue, setRangeValue ] = useState(0);
+                             handleBrightnessFilter,
+                             handleBlurFilter,
+                             handleGrayscaleFilter,
+                             handleApplyFilter,
+                             handleLineColor,
+                             activeSubTool,
+                             lineColor,
+                             handleCancelApplyFilter
+                         }) => {
+    const [rangeValue, setRangeValue] = useState(0);
 
     let isApply = false;
 
@@ -52,34 +52,33 @@ const ImageFilterTool = ({
 
     return (
         <Container className='image-filter-tools'>
-
-                {activeSubTool &&
-                <>
-                    <Col md="auto">
-                        <button className='apply-button' onClick={onApply}>Apply</button>
-                    </Col>
-                    <Col>
-                        <label htmlFor="formControlRange">Color: {rangeValue}</label>
-                        <input
-                            type="range"
-                            min={activeSubTool === 'filter-brightness' ? '-100' : '0'}
-                            max="100"
-                            value={rangeValue}
-                            step="1"
-                            onChange={handleFilterRange}/>
-                    </Col>
-                </>
-                }
-                {activeSubTool === 'filter-blur' &&
-                <Col xs='2' lg="2">
-                    <input
-                        type="color"
-                        className="form-control"
-                        value={lineColor}
-                        onChange={onLineColor}
-                        id="color"/>
+            {activeSubTool &&
+            <>
+                <Col md="auto">
+                    <button className='apply-button' onClick={onApply}>Apply</button>
                 </Col>
-                }
+                <Col>
+                    <label htmlFor="formControlRange">Color: {rangeValue}</label>
+                    <input
+                        type="range"
+                        min={activeSubTool === 'filter-brightness' ? '-100' : '0'}
+                        max="100"
+                        value={rangeValue}
+                        step="1"
+                        onChange={handleFilterRange}/>
+                </Col>
+            </>
+            }
+            {activeSubTool === 'filter-blur' &&
+            <Col xs='2' lg="2">
+                <input
+                    type="color"
+                    className="form-control"
+                    value={lineColor}
+                    onChange={onLineColor}
+                    id="color"/>
+            </Col>
+            }
         </Container>
     )
 };

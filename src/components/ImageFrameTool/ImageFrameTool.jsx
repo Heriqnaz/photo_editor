@@ -81,8 +81,7 @@ const ImageFrameTool = ({
     };
 
     return (
-        <Container className='image-frame'>
-            <Row>
+        <div className='image-frame'>
                 {activeSubTool && (activeSubTool === 'birthday' || activeSubTool === 'love' || activeSubTool === 'party-time') &&
                 <>
                     <Col md="auto" className="m-auto">
@@ -115,8 +114,7 @@ const ImageFrameTool = ({
 
                 </>
                 }
-            </Row>
-        </Container>
+        </div>
     )
 }
 
