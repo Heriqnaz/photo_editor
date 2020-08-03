@@ -1,13 +1,15 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 import {
     APPLY_IMAGE_CHANGE,
     CLOSE_SIDEBAR,
     OPEN_SIDEBAR,
-    RECEIVE_PHOTOS, REDO_IMAGE_CHANGE,
+    RECEIVE_PHOTOS,
+    REDO_IMAGE_CHANGE,
     REQUEST_PHOTOS,
     SELECT_PHOTO,
     SET_ACTIVE_SUB_TOOL,
-    SET_ACTIVE_TOOL, UNDO_IMAGE_CHANGE
+    SET_ACTIVE_TOOL,
+    UNDO_IMAGE_CHANGE
 } from './actions';
 
 const initialPhotoState = {
@@ -26,18 +28,21 @@ const initialToolState = {
 
 function tool(state = initialToolState, action) {
     switch (action.type) {
-    case SET_ACTIVE_TOOL:
+    case SET_ACTIVE_TOOL: {
         const activeTool = state.activeTool === action.activeTool ? null : action.activeTool;
         return {
             ...state,
             activeTool
         };
-    case SET_ACTIVE_SUB_TOOL:
+    }
+
+    case SET_ACTIVE_SUB_TOOL: {
         const activeSubTool = state.activeTool === action.activeSubTool ? null : action.activeSubTool;
         return {
             ...state,
             activeSubTool
         };
+    }
     default:
         return state
     }
