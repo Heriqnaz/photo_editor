@@ -123,9 +123,9 @@ const ImageFrameTool = ({
 }
 
 ImageFrameTool.propTypes = {
-    handleSelectedFrame: PropTypes.func,
-    handleApplyFrame: PropTypes.func,
-    handleCancelApplyFrame: PropTypes.func,
+    handleSelectedFrame: PropTypes.func.isRequired,
+    handleApplyFrame: PropTypes.func.isRequired,
+    handleCancelApplyFrame: PropTypes.func.isRequired,
     activeSubTool: PropTypes.string,
 };
 

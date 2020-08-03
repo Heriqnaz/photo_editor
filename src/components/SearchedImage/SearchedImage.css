@@ -1,7 +1,7 @@
 .search-img-container{
     width: 150px;
-    border: solid #6A6C6E 1px;
-    border-radius: 10px;
+    border: solid white 2px;
+    border-radius: 6px;
     overflow: hidden;
     display: flex;
     align-items: center;

@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { closeSideBar, openSideBar, selectPhoto } from '../../redux/actions';
+import { closeSideBar, openSideBar, selectPhoto, setActiveTool } from '../../redux/actions';
 
 import GoogleSearchPanel from '../../containers/GoogleSearchPanel/GoogleSearchPanel.jsx';
 
 import './Sidebar.css';
 
-const SideBar = ({ onPhotoSelect, isOpenedSideBar, openSideBar, closeSideBar, selectedPhoto }) => {
+const SideBar = ({ onPhotoSelect, isOpenedSideBar,setActiveTool, openSideBar, closeSideBar, selectedPhoto }) => {
 
     const handleToggleClick = () => {
         if (isOpenedSideBar) {
@@ -69,7 +69,8 @@ SideBar.propTypes = {
     isOpenedSideBar: PropTypes.bool.isRequired,
     openSideBar: PropTypes.func.isRequired,
     closeSideBar: PropTypes.func.isRequired,
-    selectedPhoto: PropTypes.string
+    selectedPhoto: PropTypes.string,
+    setActiveTool: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -78,7 +79,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onPhotoSelect: (url) => dispatch(selectPhoto(url)),
+    onPhotoSelect: (url) => {
+        dispatch(selectPhoto(url))
+        dispatch(setActiveTool(null))
+    },
     closeSideBar: () => dispatch(closeSideBar()),
     openSideBar: () => dispatch(openSideBar()),
 });

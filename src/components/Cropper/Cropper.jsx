@@ -250,8 +250,8 @@ const Cropper = ({ canvasCords, handleCrop }) => {
 }
 
 Cropper.propTypes = {
-    canvasCords: PropTypes.object,
-    handleCrop: PropTypes.func
+    canvasCords: PropTypes.object.isRequired,
+    handleCrop: PropTypes.func.isRequired
 };
 
 export default Cropper;

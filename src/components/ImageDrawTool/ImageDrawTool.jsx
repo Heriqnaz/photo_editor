@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './DrowImageTool.css';
+import './ImageDrawTool..css';
 
-const DrawImageTool = ({ lineStyle, lineWidth, lineColor, handleLineStyle, handleLineWidth, handleLineColor }) => {
+const ImageDrawTool = ({ lineStyle, lineWidth, lineColor, handleLineStyle, handleLineWidth, handleLineColor }) => {
     const onLineStyle = (e) => {
         handleLineStyle(e.target.value)
     };
@@ -69,7 +69,7 @@ const DrawImageTool = ({ lineStyle, lineWidth, lineColor, handleLineStyle, handl
     )
 };
 
-DrawImageTool.propTypes = {
+ImageDrawTool.propTypes = {
     handleLineStyle: PropTypes.func,
     handleLineColor: PropTypes.func,
     handleLineWidth: PropTypes.func,
@@ -78,5 +78,5 @@ DrawImageTool.propTypes = {
     lineColor: PropTypes.string.isRequired
 };
 
-export default DrawImageTool;
+export default ImageDrawTool;
 

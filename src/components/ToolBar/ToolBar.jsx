@@ -94,11 +94,11 @@ const ToolBar = ({ activeTool, activeSubTool, selectedPhoto, setActiveTool, setA
 ToolBar.propTypes = {
     activeTool: PropTypes.string,
     activeSubTool: PropTypes.string,
-    setActiveTool: PropTypes.func,
-    setActiveSubTool: PropTypes.func,
+    setActiveTool: PropTypes.func.isRequired,
+    setActiveSubTool: PropTypes.func.isRequired,
     selectedPhoto: PropTypes.string,
-    undoImageChange: PropTypes.func,
-    redoImageChange: PropTypes.func,
+    undoImageChange: PropTypes.func.isRequired,
+    redoImageChange: PropTypes.func.isRequired,
     canUndoChange: PropTypes.bool,
     canRedoChange: PropTypes.bool
 };

@@ -100,17 +100,17 @@ const ImageFilterTool = ({
 };
 
 ImageFilterTool.propTypes = {
-    handleBrightnessFilter: PropTypes.func,
-    handleGrayscaleFilter: PropTypes.func,
-    handleColorChangeFilter: PropTypes.func,
-    handleContrastFilter: PropTypes.func,
-    handleSaturationFilter: PropTypes.func,
-    handleApplyFilter: PropTypes.func,
-    handleBlurFilter: PropTypes.func,
-    handleCancelApplyFilter: PropTypes.func,
+    handleBrightnessFilter: PropTypes.func.isRequired,
+    handleGrayscaleFilter: PropTypes.func.isRequired,
+    handleColorChangeFilter: PropTypes.func.isRequired,
+    handleContrastFilter: PropTypes.func.isRequired,
+    handleSaturationFilter: PropTypes.func.isRequired,
+    handleApplyFilter: PropTypes.func.isRequired,
+    handleBlurFilter: PropTypes.func.isRequired,
+    handleCancelApplyFilter: PropTypes.func.isRequired,
     activeSubTool: PropTypes.string,
     lineColor: PropTypes.string.isRequired,
-    handleLineColor: PropTypes.func,
+    handleLineColor: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
