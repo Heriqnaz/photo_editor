@@ -10,11 +10,13 @@ export {
 export {
     REQUEST_PHOTOS,
     RECEIVE_PHOTOS,
+    IS_ERROR,
     SELECT_PHOTO,
     selectPhoto,
     fetchPhotos,
     requestPhotos,
-    receivePhotos
+    receivePhotos,
+    isError
 } from './photosActions';
 
 export {

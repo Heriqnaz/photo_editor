@@ -18,12 +18,6 @@ const SearchPanel = ({ onSearch }) => {
                 <div
                     className="input-group-append"
                 >
-                    {/*<button*/}
-                    {/*    type='submit'*/}
-                    {/*    className='btn d-flex align-items-center fa fa-search form-control-feedback'*/}
-                    {/*>*/}
-                    {/*    <Search color='#999' size={15}/>*/}
-                    {/*</button>*/}
                 </div>
                 <input
                     type="text"

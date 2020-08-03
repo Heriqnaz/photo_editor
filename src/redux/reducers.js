@@ -9,10 +9,12 @@ import {
     SET_ACTIVE_SUB_TOOL,
     SET_ACTIVE_TOOL, UNDO_IMAGE_CHANGE
 } from './actions';
+import {IS_ERROR} from './actions/photosActions';
 
 const initialPhotoState = {
     selectedPhoto: '',
     isFetchingPhotos: false,
+    isError: false,
     photos: [],
     isSearched: false,
     imageHistory: [],
@@ -56,8 +58,14 @@ function photo(state = initialPhotoState, action) {
         return {
             ...state,
             isFetchingPhotos: false,
+            isError: false,
             photos: action.photos
         };
+    case IS_ERROR:
+        return {
+            ...state,
+            isError: true,
+        }
     case SELECT_PHOTO:
         return {
             ...state,
@@ -83,7 +91,7 @@ function photo(state = initialPhotoState, action) {
             ...state,
             currentIndex: state.currentIndex - 1,
             selectedPhoto: state.imageHistory[state.currentIndex - 1]
-        }
+        };
     default:
         return state
     }
