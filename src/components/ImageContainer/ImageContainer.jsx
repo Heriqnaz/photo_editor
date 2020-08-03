@@ -52,15 +52,18 @@ const ImageContainer = ({selectedPhoto, activeTool, setActiveTool, activeSubTool
         draw(selectedPhoto);
     }, [selectedPhoto]);
 
+    const onMouseUpDraw = () => {
+        stopDrawingLine();
+        const url = canvas.current.toDataURL('image/jpeg');
+        onImageChangeApply(url);
+    };
 
     useEffect(() => {
+        console.log(activeTool)
+
         if (activeTool === 'draw') {
             canvas.current.addEventListener('mousedown', startDrawingLine);
-            canvas.current.addEventListener('mouseup', () => {
-                stopDrawingLine();
-                const url = canvas.current.toDataURL('image/jpeg');
-                onImageChangeApply(url);
-            });
+            canvas.current.addEventListener('mouseup', onMouseUpDraw);
             canvas.current.addEventListener('mouseout', stopDrawingLine);
             canvas.current.addEventListener('mousemove', drawLine);
         }
@@ -74,9 +77,10 @@ const ImageContainer = ({selectedPhoto, activeTool, setActiveTool, activeSubTool
 
         return () => {
             canvas.current.removeEventListener('mousedown', startDrawingLine);
-            canvas.current.removeEventListener('mouseup', stopDrawingLine);
+            canvas.current.removeEventListener('mouseup', onMouseUpDraw);
             canvas.current.removeEventListener('mouseout', stopDrawingLine);
             canvas.current.removeEventListener('mousemove', drawLine);
+
             if (canvasSticker.current) {
                 canvasSticker.current.removeEventListener('mousedown', handleMouseDown);
                 canvasSticker.current.removeEventListener('mouseup', handleMouseUp);
@@ -269,7 +273,6 @@ const ImageContainer = ({selectedPhoto, activeTool, setActiveTool, activeSubTool
         setActiveTool(null)
     };
 
-
     const drawSticker = (withAnchors, withBorders) => {
         const ctx = canvasSticker.current.getContext('2d');
         // clear the canvas
@@ -433,7 +436,6 @@ const ImageContainer = ({selectedPhoto, activeTool, setActiveTool, activeSubTool
     function hitImage(x, y) {
         return (x > stickerImageX && x < stickerImageX + imageWidth && y > stickerImageY && y < stickerImageY + imageHeight);
     }
-
 
     const handleApply = () => {
         const url = canvas.current.toDataURL('image/jpeg');
