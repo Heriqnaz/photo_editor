@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import GoogleSearchPanel from '../../containers/GoogleSearchPanel/GoogleSearchPanel.jsx';
-import { Download, Image, Upload } from 'react-bootstrap-icons';
-import { Nav } from 'react-bootstrap';
 import { closeSideBar, openSideBar, selectPhoto } from '../../redux/actions';
 
 import './Sidebar.css'
@@ -28,17 +26,16 @@ const SideBar = ({ onPhotoSelect, isOpenedSideBar, openSideBar, closeSideBar, se
         }
     };
 
-
     return (
         <>
-            <Nav className="sidebar">
+            <div className="sidebar">
                 <div className="menu-left-part" style={{ marginLeft: isOpenedSideBar ? '0' : '-30vw' }}>
                     <GoogleSearchPanel handleHide={closeSideBar}/>
                 </div>
                 <div className='menu-right-part back-opened'>
                     <form>
                         <label htmlFor="imgInput" className='sidebar-nav-item'>
-                            <Upload color='#999' size={29}/>
+                            <div className='sidebar-icons upload'/>
                             <p>Upload</p>
                             <input
                                 type="file"
@@ -50,19 +47,18 @@ const SideBar = ({ onPhotoSelect, isOpenedSideBar, openSideBar, closeSideBar, se
                             />
                         </label>
                     </form>
-                    <Nav.Link
-                        className={`sidebar-nav-item ${isOpenedSideBar && 'open'}`}
-                        onClick={handleToggleClick}
-                    >
-                        <Image color='#999' size={29}/>
+                    <div className={`sidebar-nav-item ${isOpenedSideBar && 'open'}`} onClick={handleToggleClick}>
+                        <div className='sidebar-icons search'/>
                         <p>Search</p>
-                    </Nav.Link>
-                    <a href={selectedPhoto} download className='sidebar-nav-item'>
-                        <Download color='#999' size={29}/>
+                    </div>
+                    <a href={selectedPhoto} download
+                       style={{ pointerEvents: !selectedPhoto && 'none', cursor: !selectedPhoto && 'default' }}
+                       className='sidebar-nav-item'>
+                        <div className='sidebar-icons download'/>
                         <p>Download</p>
                     </a>
                 </div>
-            </Nav>
+            </div>
             <div onClick={closeSideBar} className={`sidebar-back ${isOpenedSideBar && 'visible'}`}/>
         </>
     )

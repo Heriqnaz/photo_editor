@@ -42,7 +42,7 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubToo
             canvas.current.addEventListener('mousedown', startDrawingLine);
             canvas.current.addEventListener('mouseup', () => {
                 stopDrawingLine();
-                const url = canvas.current.toDataURL('image/png');
+                const url = canvas.current.toDataURL('image/jpeg');
                 onImageChangeApply(url);
             });
             canvas.current.addEventListener('mouseout', stopDrawingLine);
@@ -115,7 +115,7 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubToo
             setCanvasCords(provideCord(canvas.current));
             setActiveTool(null)
             const newimg = new Image();
-            const url = canvas.current.toDataURL('image/png');
+            const url = canvas.current.toDataURL('image/jpeg');
             newimg.src = url;
             setImg(newimg)
             onImageChangeApply(url);
@@ -165,7 +165,7 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubToo
     };
 
     const handleBlurFilter = (value) => {
-        const {ctx, width, height} = prepareCanvasImage();
+        const { ctx, width, height } = prepareCanvasImage();
         ctx.globalCompositeOperation = 'lighten';
         ctx.fillStyle = lineColor;
         ctx.globalAlpha = value / 100;

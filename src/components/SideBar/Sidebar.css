@@ -40,6 +40,36 @@
     font-weight: bold;
 }
 
+.sidebar-nav-item:hover .sidebar-icons {
+    background-color: white;
+}
+
+.sidebar-nav-item:hover {
+    color: white;
+}
+
+.sidebar-icons {
+    background-color: #999999;
+    height: 30px;
+    margin-bottom: 6px;
+}
+
+/*.sidebar-icons:hover{*/
+/*    background-color: white;*/
+/*}*/
+
+.sidebar-icons.download {
+    mask: url('../../assets/svgs/download-solid.svg') no-repeat center / contain;
+}
+
+.sidebar-icons.search {
+    mask: url('../../assets/svgs/search-solid.svg') no-repeat center / contain;
+}
+
+.sidebar-icons.upload {
+    mask: url('../../assets/svgs/upload-solid.svg') no-repeat center / contain;
+}
+
 .sidebar .menu-right-part {
     display: flex;
     flex-direction: column;
@@ -65,14 +95,6 @@
 
 .sidebar-nav-item.open {
     background: #293039;
-}
-
-.sidebar-nav-item:hover {
-    color: #fff
-}
-
-.sidebar-nav-item:hover svg {
-    fill: #fff;
 }
 
 .has-search .form-control {
