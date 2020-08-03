@@ -41,27 +41,35 @@
     background: #E7E7E7;
 }
 
-.sub-tools li.tool-active{
+.sub-tools li.tool-active {
     background: rgba(128, 128, 128, 0.45);
 }
 
-.undo_redo_cont{
+.undo_redo_cont {
     display: flex;
-    justify-content: space-around;
-    width: 15%;
-    margin-right: 5%;
     align-items: center;
+    margin-right: 80px;
 }
 
-.undo_redo_btn{
-    border: none;
-    border-radius: 25px;
-    padding: 5px 10px;
-    background-color: #000;
+.undo_btn {
+    width: 25px;
+    height: 25px;
+    background-color: black;
+    margin: 0 15px;
+    mask: url("../../assets/svgs/undo-alt-solid.svg") no-repeat center / contain;
 }
-.undo_redo_btn:disabled{
-    background-color: rgba(0, 0, 0, 0.5);
+
+.redo_btn {
+    width: 25px;
+    height: 25px;
+    background-color: black;
+    mask: url("../../assets/svgs/redo-alt-solid.svg") no-repeat center / contain;
 }
-.undo_redo_btn path{
-    fill: rgb(153, 153, 153);
+
+.redo_btn:disabled{
+    background-color: #999999;
+}
+
+.undo_btn:disabled{
+    background-color: #999999;
 }

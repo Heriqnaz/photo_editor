@@ -6,6 +6,10 @@
     width: 60%;
 }
 
+.line-style-ratios label{
+    margin: 0 0 0 6px;
+}
+
 .draw-image-tools > div {
     display: flex;
     flex-grow: 1;
@@ -29,5 +33,5 @@
 }
 
 .draw-image-tools input#formControlRange {
-    width: 300px;
+    width: 400px;
 }

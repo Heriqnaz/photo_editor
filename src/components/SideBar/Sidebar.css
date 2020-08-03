@@ -62,12 +62,23 @@
     mask: url('../../assets/svgs/download-solid.svg') no-repeat center / contain;
 }
 
+.menu-right-part a{
+    text-decoration: none;
+}
+
 .sidebar-icons.search {
     mask: url('../../assets/svgs/search-solid.svg') no-repeat center / contain;
 }
 
 .sidebar-icons.upload {
     mask: url('../../assets/svgs/upload-solid.svg') no-repeat center / contain;
+}
+
+.mini-search-icon{
+    background-color: #999999;
+    mask: url('../../assets/svgs/search-solid.svg') no-repeat center / contain;
+    height: 30px;
+    width: 30px;
 }
 
 .sidebar .menu-right-part {

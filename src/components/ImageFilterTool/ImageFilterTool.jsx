@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { Col, Container, Row } from 'react-bootstrap';
 import './ImageFilterTool.css'
+import Button from "../Button/Button";
 
 const ImageFilterTool = ({
                              handleBrightnessFilter,
@@ -55,7 +56,7 @@ const ImageFilterTool = ({
             {activeSubTool &&
             <>
                 <Col md="auto">
-                    <button className='apply-button' onClick={onApply}>Apply</button>
+                    <Button className='apply-button' color='#2980b9' onClick={onApply}>Apply</Button>
                 </Col>
                 <Col>
                     <label htmlFor="formControlRange">Color: {rangeValue}</label>

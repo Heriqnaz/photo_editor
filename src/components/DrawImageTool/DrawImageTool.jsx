@@ -17,7 +17,7 @@ const DrawImageTool = ({ lineStyle, lineWidth, lineColor, handleLineStyle, handl
         <div className='draw-image-tools'>
             <div>
                 <strong>Line style</strong>
-                <div>
+                <div className='line-style-ratios'>
                     <div>
                         <input
                             type="radio"

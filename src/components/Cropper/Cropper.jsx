@@ -1,9 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-import { Button } from 'react-bootstrap';
-
 import './Cropper.css'
+import Button from "../Button/Button";
 
 const Cropper = ({ canvasCords, handleCrop }) => {
 
@@ -250,7 +249,7 @@ const Cropper = ({ canvasCords, handleCrop }) => {
                 <div className="angles left-bottom"/>
                 {/*<div className='left-border'/>*/}
             </div>
-            <Button onClick={handleCropping} className='crop-button' variant="dark">Crop</Button>
+            <Button color='black' onClick={handleCropping} className='crop-button'>Crop</Button>
         </>
     )
 }

@@ -4,7 +4,7 @@ import ImagesList from '../../components/ImagesList/ImagesList';
 import './GoogleSearchPanel.css';
 
 const GoogleSearchPanel = () => (
-    <div className='d-flex'>
+    <div className='google-search-panel'>
         <div className='search_panel_container pt-3'>
             <SearchPanel/>
             <ImagesList

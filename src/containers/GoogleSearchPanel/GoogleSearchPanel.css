@@ -4,11 +4,6 @@
     height: calc(100vh - 56px);
 }
 
-/*@media screen and (max-width: 840px){*/
-/*    .search_panel_container{*/
-/*        width: 50%;*/
-/*    }*/
-/*    .temp_div{*/
-/*        width: 50%;*/
-/*    }*/
-/*}*/
+.google-search-panel{
+    display: flex;
+}

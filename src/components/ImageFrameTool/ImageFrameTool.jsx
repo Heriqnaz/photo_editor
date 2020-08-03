@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Col, Container, Row } from 'react-bootstrap';
+import Button from '../Button/Button';
 
 import './ImageFrameTool.css';
 import { connect } from 'react-redux';
@@ -11,12 +11,12 @@ const loveFramesUrl = `${framesBaseUrl}/Love`;
 const partyTimeFramesUrl = `${framesBaseUrl}/PartyTime`;
 
 const ImageFrameTool = ({
-    activeSubTool,
-    handleSelectedFrame,
-    handleApplyFrame,
-    handleCancelApplyFrame
-}) => {
-    const [ activeFrame, setActiveFrame ] = useState('');
+                            activeSubTool,
+                            handleSelectedFrame,
+                            handleApplyFrame,
+                            handleCancelApplyFrame
+                        }) => {
+    const [activeFrame, setActiveFrame] = useState('');
 
     const birthdayFrame = [
         `${birthdayFramesUrl}/Birthday_1.png`,
@@ -51,7 +51,7 @@ const ImageFrameTool = ({
         return () => {
             if (!isApply) handleCancelApplyFrame()
         }
-    }, );
+    },);
 
     const handleSelectFrame = (index) => {
         return (
@@ -82,38 +82,41 @@ const ImageFrameTool = ({
 
     return (
         <div className='image-frame'>
-                {activeSubTool && (activeSubTool === 'birthday' || activeSubTool === 'love' || activeSubTool === 'party-time') &&
-                <>
-                    <Col md="auto" className="m-auto">
-                        <button className='apply-button' onClick={onApply}>Apply</button>
-                    </Col>
-                    {
-                        activeSubTool === 'birthday' &&
-                        birthdayFrame.map((frame, index) => (
-                            <Col onClick={handleSelectFrame(index)} key={'birthday' + index} >
-                                <img src={frame} alt='Not found' className={`frame-img ${activeFrame === 'birthday' + index && 'active'}`}/>
-                            </Col>
-                        ))
-                    }
-                    {
-                        activeSubTool === 'love' &&
-                        loveFrame.map((frame, index) => (
-                            <Col onClick={handleSelectFrame(index)} key={'love' + index}>
-                                <img src={frame} alt='Not found' className={`frame-img ${activeFrame === 'love' + index && 'active'}`}/>
-                            </Col>
-                        ))
-                    }
-                    {
-                        activeSubTool === 'party-time' &&
-                        partyTimeFrame.map((frame, index) => (
-                            <Col onClick={handleSelectFrame(index)} key={'partyTime' + index}>
-                                <img src={frame} alt='Not found' className={`frame-img ${activeFrame === 'partyTime' + index && 'active'}`}/>
-                            </Col>
-                        ))
-                    }
-
-                </>
+            {activeSubTool && (activeSubTool === 'birthday' || activeSubTool === 'love' || activeSubTool === 'party-time') &&
+            <>
+                <div>
+                    <Button className='apply-button' color='#2980b9' onClick={onApply}>Apply</Button>
+                </div>
+                {
+                    activeSubTool === 'birthday' &&
+                    birthdayFrame.map((frame, index) => (
+                        <div onClick={handleSelectFrame(index)} key={'birthday' + index}>
+                            <img src={frame} alt='Not found'
+                                 className={`frame-img ${activeFrame === 'birthday' + index && 'active'}`}/>
+                        </div>
+                    ))
                 }
+                {
+                    activeSubTool === 'love' &&
+                    loveFrame.map((frame, index) => (
+                        <div onClick={handleSelectFrame(index)} key={'love' + index}>
+                            <img src={frame} alt='Not found'
+                                 className={`frame-img ${activeFrame === 'love' + index && 'active'}`}/>
+                        </div>
+                    ))
+                }
+                {
+                    activeSubTool === 'party-time' &&
+                    partyTimeFrame.map((frame, index) => (
+                        <div onClick={handleSelectFrame(index)} key={'partyTime' + index}>
+                            <img src={frame} alt='Not found'
+                                 className={`frame-img ${activeFrame === 'partyTime' + index && 'active'}`}/>
+                        </div>
+                    ))
+                }
+
+            </>
+            }
         </div>
     )
 }

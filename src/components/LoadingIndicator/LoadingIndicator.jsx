@@ -2,7 +2,7 @@ import React from 'react';
 import './LoadingIndicator.css';
 
 const LoadingIndicator = () => (
-    <div className='d-flex justify-content-center'>
+    <div className='loading-indicator'>
         <div className="lds-ellipsis">
             <div />
             <div />
