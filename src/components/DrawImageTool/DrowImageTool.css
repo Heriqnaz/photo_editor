@@ -1,0 +1,37 @@
+.draw-image-tools {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 60%;
+}
+
+.line-style-ratios label{
+    margin: 0 0 0 6px;
+}
+
+.draw-image-tools > div {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.draw-image-tools > li {
+    text-align: center;
+    height: 100%;
+}
+
+.draw-image-tools input {
+    cursor: pointer;
+}
+
+.draw-image-tools input[type='color'] {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.draw-image-tools input#formControlRange {
+    width: 400px;
+}

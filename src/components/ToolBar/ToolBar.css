@@ -1,0 +1,79 @@
+.tool-bar {
+    box-shadow: 0px 2px 6px #ccc;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    background-color: #F8F9FA;
+}
+
+.tools, .sub-tools {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    list-style-type: none;
+    margin: 0;
+}
+
+.sub-tools {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: rgba(248, 249, 250, 0.79);
+    transform: translateY(100%);
+}
+
+.sub-tools.crop {
+    justify-content: flex-end;
+}
+
+.tools li, .sub-tools li {
+    padding: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.tools li:hover, .sub-tools li:hover {
+    background: rgba(233, 233, 233, 0.64);
+}
+
+.tools li.tool-active {
+    background: #E7E7E7;
+}
+
+.sub-tools li.tool-active {
+    background: rgba(128, 128, 128, 0.45);
+}
+
+.undo_redo_cont {
+    display: flex;
+    align-items: center;
+    margin-right: 80px;
+}
+
+.undo_btn {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    background-color: black;
+    margin: 0 15px;
+    mask: url("../../assets/svgs/undo-alt-solid.svg") no-repeat center / contain;
+}
+
+.redo_btn {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    background-color: black;
+    mask: url("../../assets/svgs/redo-alt-solid.svg") no-repeat center / contain;
+}
+
+.redo_btn:disabled{
+    background-color: #999999;
+    cursor: inherit;
+}
+
+.undo_btn:disabled{
+    background-color: #999999;
+    cursor: inherit;
+}

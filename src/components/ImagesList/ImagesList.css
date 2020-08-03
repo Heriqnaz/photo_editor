@@ -1,0 +1,74 @@
+.images_container {
+    width: 95%;
+    height: 100%;
+    overflow-y: auto;
+    margin: 0 auto;
+}
+
+.images_container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.images_container::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+/* Handle */
+.images_container::-webkit-scrollbar-thumb {
+    background: #808080bb;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+.images_container::-webkit-scrollbar-thumb:hover {
+    background: #808080dd;
+}
+
+.svg-icon {
+    width: 2em;
+    height: 2em;
+}
+
+.no_res {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+    fill: gray;
+}
+
+.svg-icon circle {
+    stroke: gray;
+    stroke-width: 1;
+}
+
+.google-photo {
+    column-count: 2
+}
+
+.google-photo .card {
+    border: 0;
+}
+
+.image-list-column {
+    width: 50%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-list-columns{
+    display: flex;
+    justify-content: center;
+}
+
+/*.google-photo img{*/
+/*    width: 100px;*/
+/*}*/
