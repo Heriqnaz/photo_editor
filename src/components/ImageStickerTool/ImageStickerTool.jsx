@@ -2,17 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import Button from "../components/Button/Button";
+import Button from "../Button/Button";
 
 const stickerBaseUrl = `${window.location.origin}/stickers`;
 const smileStickerUrl = `${stickerBaseUrl}/Smile`;
-const butterfly = `${stickerBaseUrl}/butterfly`;
+const butterfly = `${stickerBaseUrl}/Butterfly`;
 
 const ImageStickerTool = ({
-                              activeSubTool,
-                              handleSelectedSticker,
-                              handleApplySticker,
-                          }) => {
+    activeSubTool,
+    handleSelectedSticker,
+    handleApplySticker,
+}) => {
     const smileSticker = [
         `${smileStickerUrl}/Smile_1.png`,
         `${smileStickerUrl}/Smile_2.png`,
@@ -73,8 +73,8 @@ const ImageStickerTool = ({
 };
 
 ImageStickerTool.propTypes = {
-    handleSelectedSticker: PropTypes.func,
-    handleApplySticker: PropTypes.func,
+    handleSelectedSticker: PropTypes.func.isRequired,
+    handleApplySticker: PropTypes.func.isRequired,
     activeSubTool: PropTypes.string,
 };
 

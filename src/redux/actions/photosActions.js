@@ -43,10 +43,11 @@ export function isError() {
 export function fetchPhotos(searchString) {
     return dispatch => {
         dispatch(requestPhotos(searchString));
+        // api has limits , and we couldnt load pages, so we imitate pages in scroll
         const url = `https://pixabay.com/api/?key=17649790-b694a99a34bea3bd8ef0e0292&q=${searchString}&per_page=200`;
         return fetch(url)
             .then(res => res.json())
             .then(result => dispatch(receivePhotos(searchString, result)))
-            .catch(err => dispatch(isError()))
+            .catch(() => dispatch(isError()))
     }
 }

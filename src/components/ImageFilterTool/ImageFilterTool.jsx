@@ -1,23 +1,26 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
-import './ImageFilterTool.css'
-import Button from "../Button/Button";
+import { connect } from 'react-redux';
+
+import Button from '../Button/Button';
+
+import './ImageFilterTool.css';
 
 
 const ImageFilterTool = ({
-                             handleBrightnessFilter,
-                             handleBlurFilter,
-                             handleGrayscaleFilter,
-                             handleColorChangeFilter,
-                             handleContrastFilter,
-                             handleSaturationFilter,
-                             handleApplyFilter,
-                             handleLineColor,
-                             activeSubTool,
-                             lineColor,
-                             handleCancelApplyFilter
-                         }) => {
+     handleBrightnessFilter,
+     handleBlurFilter,
+     handleGrayscaleFilter,
+     handleColorChangeFilter,
+     handleContrastFilter,
+     handleSaturationFilter,
+     handleApplyFilter,
+     handleLineColor,
+     activeSubTool,
+     lineColor,
+     handleCancelApplyFilter
+}) => {
+
     const [rangeValue, setRangeValue] = useState(0);
 
     let isApply = false;
@@ -97,17 +100,17 @@ const ImageFilterTool = ({
 };
 
 ImageFilterTool.propTypes = {
-    handleBrightnessFilter: PropTypes.func,
-    handleGrayscaleFilter: PropTypes.func,
-    handleColorChangeFilter: PropTypes.func,
-    handleContrastFilter: PropTypes.func,
-    handleSaturationFilter: PropTypes.func,
-    handleApplyFilter: PropTypes.func,
-    handleBlurFilter: PropTypes.func,
-    handleCancelApplyFilter: PropTypes.func,
+    handleBrightnessFilter: PropTypes.func.isRequired,
+    handleGrayscaleFilter: PropTypes.func.isRequired,
+    handleColorChangeFilter: PropTypes.func.isRequired,
+    handleContrastFilter: PropTypes.func.isRequired,
+    handleSaturationFilter: PropTypes.func.isRequired,
+    handleApplyFilter: PropTypes.func.isRequired,
+    handleBlurFilter: PropTypes.func.isRequired,
+    handleCancelApplyFilter: PropTypes.func.isRequired,
     activeSubTool: PropTypes.string,
     lineColor: PropTypes.string.isRequired,
-    handleLineColor: PropTypes.func,
+    handleLineColor: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

@@ -4,14 +4,13 @@ import PropTypes from 'prop-types';
 
 import {applyImageChange, setActiveTool} from '../../redux/actions';
 
-
 import Cropper from '../Cropper/Cropper';
+import ImageFilterTool from '../ImageFilterTool/ImageFilterTool';
+import ImageDrawTool from '../ImageDrawTool/ImageDrawTool';
+import ImageFrameTool from '../ImageFrameTool/ImageFrameTool';
+import ImageStickerTool from "../ImageStickerTool/ImageStickerTool";
 
 import './ImageContainer.css';
-import ImageFilterTool from '../ImageFilterTool/ImageFilterTool';
-import DrawImageTool from '../DrawImageTool/DrawImageTool';
-import ImageFrameTool from '../ImageFrameTool/ImageFrameTool';
-import ImageStickerTool from "../../ImageStickerTool/ImageStickerTool";
 
 let isDrawing = false;
 let lineStyleLocal, lineWidthLocal, lineColorLocal;
@@ -519,7 +518,7 @@ const ImageContainer = ({selectedPhoto, activeTool, setActiveTool, activeSubTool
                 handleCancelApplyFilter={handleCancelApply}
             />}
             {activeTool === 'draw' &&
-            <DrawImageTool
+            <ImageDrawTool
                 handleLineStyle={handleLineStyle}
                 handleLineWidth={handleLineWidth}
                 handleLineColor={handleLineColor}
@@ -545,9 +544,9 @@ const ImageContainer = ({selectedPhoto, activeTool, setActiveTool, activeSubTool
 ImageContainer.propTypes = {
     selectedPhoto: PropTypes.string,
     activeTool: PropTypes.string,
-    setActiveTool: PropTypes.func,
+    setActiveTool: PropTypes.func.isRequired,
     activeSubTool: PropTypes.string,
-    onImageChangeApply: PropTypes.func
+    onImageChangeApply: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

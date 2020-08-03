@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-import './Cropper.css'
-import Button from "../Button/Button";
+import Button from '../Button/Button';
+
+import './Cropper.css';
 
 const Cropper = ({ canvasCords, handleCrop }) => {
 
@@ -119,7 +120,6 @@ const Cropper = ({ canvasCords, handleCrop }) => {
 
     const animate = () => {
         requestRef.current = requestAnimationFrame(animate);
-
         const cropCords = {
             left: crop.current.getBoundingClientRect().left,
             right: crop.current.getBoundingClientRect().right,
@@ -172,10 +172,7 @@ const Cropper = ({ canvasCords, handleCrop }) => {
 
             return;
         }
-
-
         if (clicked && clicked.isMoving) {
-
             const limit = {
                 left: e.clientX < canvasCords.left + clicked.x,
                 top: e.clientY < canvasCords.top + clicked.y,
@@ -214,7 +211,6 @@ const Cropper = ({ canvasCords, handleCrop }) => {
 
             return;
         }
-
         // style cursor
         if ((onRightEdge && onBottomEdge) || (onLeftEdge && onTopEdge)) {
             crop.current.style.cursor = 'nwse-resize';
@@ -247,7 +243,6 @@ const Cropper = ({ canvasCords, handleCrop }) => {
                 <div className="angles right-top"/>
                 <div className="angles right-bottom"/>
                 <div className="angles left-bottom"/>
-                {/*<div className='left-border'/>*/}
             </div>
             <Button color='black' onClick={handleCropping} className='crop-button'>Crop</Button>
         </>
@@ -255,8 +250,8 @@ const Cropper = ({ canvasCords, handleCrop }) => {
 }
 
 Cropper.propTypes = {
-    canvasCords: PropTypes.object,
-    handleCrop: PropTypes.func
+    canvasCords: PropTypes.object.isRequired,
+    handleCrop: PropTypes.func.isRequired
 };
 
 export default Cropper;

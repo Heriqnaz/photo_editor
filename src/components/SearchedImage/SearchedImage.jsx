@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import loader from '../../assets/svgs/tail-spin.svg'
+import { connect } from 'react-redux';
+
+import { closeSideBar, selectPhoto, setActiveTool } from '../../redux/actions';
+
+import loader from '../../assets/svgs/tail-spin.svg';
 
 import './SearchedImage.css';
-import { closeSideBar, selectPhoto, setActiveTool } from "../../redux/actions";
-import { connect } from "react-redux";
 
 const SearchedImage = ({ photo, onPhotoClick }) => {
 

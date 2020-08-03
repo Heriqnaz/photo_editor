@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import LoadingIndicator from '../LoadingIndicator/LoadingIndicator';
-import './ImagesList.css';
 import { connect } from 'react-redux';
+
 import { closeSideBar, selectPhoto } from '../../redux/actions';
+
 import Column from './Column';
+import LoadingIndicator from '../LoadingIndicator/LoadingIndicator';
+
+import './ImagesList.css';
 
 const ImagesList = ({ photos, isFetching, isSearched, newPhotosLoadCount, firstLoadCount, onPhotoClick, isError }) => {
 

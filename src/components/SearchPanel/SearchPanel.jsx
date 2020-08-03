@@ -1,29 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { fetchPhotos } from '../../redux/actions';
 import { connect } from 'react-redux';
+
+import { fetchPhotos } from '../../redux/actions';
 
 const SearchPanel = ({ onSearch }) => {
     let input;
     const handleSubmit = (e) => {
         e.preventDefault();
         const searchText = input.value;
-        onSearch(searchText);
+        if (searchText) onSearch(searchText);
     };
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="form-group has-search search-panel">
-                <div
-                    className="input-group-append"
-                >
-                    <button
-                        type='submit'
-                        className='btn d-flex align-items-center fa fa-search form-control-feedback'
-                    >
-                        <div className='mini-search-icon'/>
-                    </button>
-                </div>
+            <div className="has-search search-panel">
+                <div className='mini-search-icon'/>
                 <input
                     type="text"
                     className="form-control"

@@ -1,6 +1,8 @@
 import React from 'react';
+
 import SearchPanel from '../../components/SearchPanel/SearchPanel';
 import ImagesList from '../../components/ImagesList/ImagesList';
+
 import './GoogleSearchPanel.css';
 
 const GoogleSearchPanel = () => (
@@ -13,7 +15,6 @@ const GoogleSearchPanel = () => (
             />
         </div>
     </div>
-)
-
+);
 
 export default GoogleSearchPanel;

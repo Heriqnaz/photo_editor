@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import './ToolBar.css';
-import { setActiveTool, setActiveSubTool, undoImageChange, redoImageChange } from '../../redux/actions';
 import { connect } from 'react-redux';
+
+import { setActiveTool, setActiveSubTool, undoImageChange, redoImageChange } from '../../redux/actions';
+
+import './ToolBar.css';
 
 const ToolBar = ({ activeTool, activeSubTool, selectedPhoto, setActiveTool, setActiveSubTool, undoImageChange, redoImageChange, canUndoChange, canRedoChange }) => {
 
@@ -92,11 +94,11 @@ const ToolBar = ({ activeTool, activeSubTool, selectedPhoto, setActiveTool, setA
 ToolBar.propTypes = {
     activeTool: PropTypes.string,
     activeSubTool: PropTypes.string,
-    setActiveTool: PropTypes.func,
-    setActiveSubTool: PropTypes.func,
+    setActiveTool: PropTypes.func.isRequired,
+    setActiveSubTool: PropTypes.func.isRequired,
     selectedPhoto: PropTypes.string,
-    undoImageChange: PropTypes.func,
-    redoImageChange: PropTypes.func,
+    undoImageChange: PropTypes.func.isRequired,
+    redoImageChange: PropTypes.func.isRequired,
     canUndoChange: PropTypes.bool,
     canRedoChange: PropTypes.bool
 };

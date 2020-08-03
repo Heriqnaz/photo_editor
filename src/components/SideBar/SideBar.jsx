@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
 
-import GoogleSearchPanel from '../../containers/GoogleSearchPanel/GoogleSearchPanel.jsx';
 import { closeSideBar, openSideBar, selectPhoto, setActiveTool } from '../../redux/actions';
 
-import './Sidebar.css'
+import GoogleSearchPanel from '../../containers/GoogleSearchPanel/GoogleSearchPanel.jsx';
+
+import './Sidebar.css';
 
 const SideBar = ({ onPhotoSelect, isOpenedSideBar,setActiveTool, openSideBar, closeSideBar, selectedPhoto }) => {
 
@@ -81,6 +81,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     onPhotoSelect: (url) => {
         dispatch(selectPhoto(url))
+        dispatch(setActiveTool(null))
     },
     closeSideBar: () => dispatch(closeSideBar()),
     openSideBar: () => dispatch(openSideBar()),

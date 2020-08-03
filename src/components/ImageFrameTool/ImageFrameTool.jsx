@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import Button from '../Button/Button';
 
 import './ImageFrameTool.css';
-import { connect } from 'react-redux';
 
 const framesBaseUrl = `${window.location.origin}/frames/`;
 const birthdayFramesUrl = `${framesBaseUrl}/Birthday`;
@@ -11,11 +12,11 @@ const loveFramesUrl = `${framesBaseUrl}/Love`;
 const partyTimeFramesUrl = `${framesBaseUrl}/PartyTime`;
 
 const ImageFrameTool = ({
-                            activeSubTool,
-                            handleSelectedFrame,
-                            handleApplyFrame,
-                            handleCancelApplyFrame
-                        }) => {
+     activeSubTool,
+     handleSelectedFrame,
+     handleApplyFrame,
+     handleCancelApplyFrame
+}) => {
     const [activeFrame, setActiveFrame] = useState('');
 
     const birthdayFrame = [
@@ -122,9 +123,9 @@ const ImageFrameTool = ({
 }
 
 ImageFrameTool.propTypes = {
-    handleSelectedFrame: PropTypes.func,
-    handleApplyFrame: PropTypes.func,
-    handleCancelApplyFrame: PropTypes.func,
+    handleSelectedFrame: PropTypes.func.isRequired,
+    handleApplyFrame: PropTypes.func.isRequired,
+    handleCancelApplyFrame: PropTypes.func.isRequired,
     activeSubTool: PropTypes.string,
 };
 
