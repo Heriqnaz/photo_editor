@@ -1,5 +1,10 @@
 .image-filter-tools {
     margin-top: 17px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding: 0 8%;
 }
 
 .image-filter-tools input {

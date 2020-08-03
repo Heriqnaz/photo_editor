@@ -1,5 +1,17 @@
 .draw-image-tools {
-    margin-top: 17px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 60%;
+}
+
+.draw-image-tools > div {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
 }
 
 .draw-image-tools > li {
@@ -11,7 +23,11 @@
     cursor: pointer;
 }
 
-input[type='color'] {
+.draw-image-tools input[type='color'] {
     width: 80%;
     margin: 0 auto;
+}
+
+.draw-image-tools input#formControlRange {
+    width: 300px;
 }

@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux';
 import {
+    APPLY_IMAGE_CHANGE,
     CLOSE_SIDEBAR,
     OPEN_SIDEBAR,
-    RECEIVE_PHOTOS,
+    RECEIVE_PHOTOS, REDO_IMAGE_CHANGE,
     REQUEST_PHOTOS,
     SELECT_PHOTO,
     SET_ACTIVE_SUB_TOOL,
-    SET_ACTIVE_TOOL
+    SET_ACTIVE_TOOL, UNDO_IMAGE_CHANGE
 } from './actions';
 
 const initialPhotoState = {
@@ -14,6 +15,8 @@ const initialPhotoState = {
     isFetchingPhotos: false,
     photos: [],
     isSearched: false,
+    imageHistory: [],
+    currentIndex: -1
 };
 
 const initialToolState = {
@@ -23,45 +26,66 @@ const initialToolState = {
 
 function tool(state = initialToolState, action) {
     switch (action.type) {
-        case SET_ACTIVE_TOOL:
-            const activeTool = state.activeTool === action.activeTool ? null : action.activeTool;
-            return {
-                ...state,
-                activeTool
-            };
-        case SET_ACTIVE_SUB_TOOL:
-            const activeSubTool = state.activeTool === action.activeSubTool ? null : action.activeSubTool;
-            return {
-                ...state,
-                activeSubTool
-            };
-        default:
-            return state
+    case SET_ACTIVE_TOOL:
+        const activeTool = state.activeTool === action.activeTool ? null : action.activeTool;
+        return {
+            ...state,
+            activeTool
+        };
+    case SET_ACTIVE_SUB_TOOL:
+        const activeSubTool = state.activeTool === action.activeSubTool ? null : action.activeSubTool;
+        return {
+            ...state,
+            activeSubTool
+        };
+    default:
+        return state
     }
 }
 
 function photo(state = initialPhotoState, action) {
     switch (action.type) {
-        case REQUEST_PHOTOS:
-            return {
-                ...state,
-                isFetchingPhotos: true,
-                selectedPhoto: '',
-                isSearched: state.isSearched ? state.isSearched : true
-            };
-        case RECEIVE_PHOTOS:
-            return {
-                ...state,
-                isFetchingPhotos: false,
-                photos: action.photos
-            };
-        case SELECT_PHOTO:
-            return {
-                ...state,
-                selectedPhoto: action.url
-            };
-        default:
-            return state
+    case REQUEST_PHOTOS:
+        return {
+            ...state,
+            isFetchingPhotos: true,
+            selectedPhoto: '',
+            isSearched: state.isSearched ? state.isSearched : true
+        };
+    case RECEIVE_PHOTOS:
+        return {
+            ...state,
+            isFetchingPhotos: false,
+            photos: action.photos
+        };
+    case SELECT_PHOTO:
+        return {
+            ...state,
+            selectedPhoto: action.url,
+            imageHistory: [ action.url ],
+            currentIndex: 0
+        };
+    case APPLY_IMAGE_CHANGE:
+        return {
+            ...state,
+            imageHistory: [ ...state.imageHistory.slice(0, state.currentIndex + 1), action.url ],
+            currentIndex: state.currentIndex + 1,
+            selectedPhoto: action.url
+        };
+    case REDO_IMAGE_CHANGE:
+        return {
+            ...state,
+            currentIndex: state.currentIndex + 1,
+            selectedPhoto: state.imageHistory[state.currentIndex + 1]
+        };
+    case UNDO_IMAGE_CHANGE:
+        return {
+            ...state,
+            currentIndex: state.currentIndex - 1,
+            selectedPhoto: state.imageHistory[state.currentIndex - 1]
+        }
+    default:
+        return state
     }
 }
 
@@ -108,12 +132,12 @@ function photo(state = initialPhotoState, action) {
 
 function isOpenedSideBar(state = false, action) {
     switch (action.type) {
-        case OPEN_SIDEBAR:
-            return true;
-        case CLOSE_SIDEBAR:
-            return false;
-        default:
-            return state;
+    case OPEN_SIDEBAR:
+        return true;
+    case CLOSE_SIDEBAR:
+        return false;
+    default:
+        return state;
     }
 }
 

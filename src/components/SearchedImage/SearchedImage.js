@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import loader from '../../assets/svgs/tail-spin.svg'
 
 import './SearchedImage.css';
+import { closeSideBar, selectPhoto } from "../../redux/actions";
+import { connect } from "react-redux";
 
-const SearchedImage = ({ photo }) => {
+const SearchedImage = ({ photo,onPhotoClick }) => {
 
     const [height, setHeight] = useState();
     const [src, setSrc] = useState('');
@@ -29,13 +31,21 @@ const SearchedImage = ({ photo }) => {
 
     return (
         <div className='search-img-container' style={{ height }}>
-            {isLoading ? <Loader/> : <img style={{ width: '100%' }} src={src} alt=""/>}
+            {isLoading ? <Loader/> : <img onClick={() => onPhotoClick(photo.src)} style={{ width: '100%' }} src={src} alt=""/>}
         </div>
     )
 };
 
 SearchedImage.propTypes = {
-    photo: PropTypes.object.isRequired
+    photo: PropTypes.object.isRequired,
+    onPhotoClick: PropTypes.func.isRequired
 };
 
-export default SearchedImage;
+const mapDispatchToProps = (dispatch) => ({
+    onPhotoClick: (url) => {
+        dispatch(selectPhoto(url));
+        dispatch(closeSideBar());
+    }
+});
+
+export default connect(null, mapDispatchToProps)(SearchedImage);
