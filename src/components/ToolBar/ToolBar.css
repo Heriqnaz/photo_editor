@@ -1,6 +1,9 @@
 .tool-bar {
     box-shadow: 0px 2px 6px #ccc;
     position: relative;
+    display: flex;
+    justify-content: space-between;
+    background-color: #F8F9FA;
 }
 
 .tools, .sub-tools {
@@ -9,7 +12,6 @@
     justify-content: flex-start;
     list-style-type: none;
     margin: 0;
-    background: #F8F9FA;
 }
 
 .sub-tools {
@@ -41,4 +43,25 @@
 
 .sub-tools li.tool-active{
     background: rgba(128, 128, 128, 0.45);
+}
+
+.undo_redo_cont{
+    display: flex;
+    justify-content: space-around;
+    width: 15%;
+    margin-right: 5%;
+    align-items: center;
+}
+
+.undo_redo_btn{
+    border: none;
+    border-radius: 25px;
+    padding: 5px 10px;
+    background-color: #000;
+}
+.undo_redo_btn:disabled{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.undo_redo_btn path{
+    fill: rgb(153, 153, 153);
 }

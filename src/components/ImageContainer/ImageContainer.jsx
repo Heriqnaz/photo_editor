@@ -33,7 +33,6 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubToo
     }, []);
 
     useEffect(() => {
-        console.log('ARRARARARRARAR')
         draw(selectedPhoto);
     }, [selectedPhoto]);
 
@@ -43,7 +42,7 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubToo
             canvas.current.addEventListener('mousedown', startDrawingLine);
             canvas.current.addEventListener('mouseup', () => {
                 stopDrawingLine();
-                const url = canvas.current.toDataURL('image/jpeg');
+                const url = canvas.current.toDataURL('image/png');
                 onImageChangeApply(url);
             });
             canvas.current.addEventListener('mouseout', stopDrawingLine);
@@ -92,9 +91,7 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubToo
         const img = new Image();
         img.src = url;
         img.onload = () => {
-
             const ratio = width / height;
-
             const cropDimensions = {
                 left: left - canvasCords.left,
                 top: top - canvasCords.top,
@@ -104,8 +101,6 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubToo
 
             canvas.current.width = 500 * ratio;
             canvas.current.height = 500;
-
-
             ctx.clearRect(0, 0, canvas.current.width, canvas.current.height);
             ctx.drawImage(
                 img,
@@ -117,14 +112,12 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubToo
                 0,
                 canvas.current.width,
                 canvas.current.height);
-
             setCanvasCords(provideCord(canvas.current));
             setActiveTool(null)
-
-            // const newimg = new Image();
-            const url = canvas.current.toDataURL('image/jpeg');
-            // newimg.src = url;
-            // setImg(newimg)
+            const newimg = new Image();
+            const url = canvas.current.toDataURL('image/png');
+            newimg.src = url;
+            setImg(newimg)
             onImageChangeApply(url);
         }
     }
@@ -160,7 +153,6 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubToo
             ctx.fillStyle = 'black';
             ctx.globalAlpha = -value / 100;
             ctx.fillRect(0, 0, width, height);
-
         } else if (value > 0) {
             ctx.fillStyle = 'white';
             ctx.globalCompositeOperation = 'lighten';
@@ -168,14 +160,12 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubToo
             ctx.drawImage(image, 0, 0);
             ctx.globalAlpha = value / 100;
             ctx.fillRect(0, 0, width, height);
-
         }
         ctx.restore();
     };
 
     const handleBlurFilter = (value) => {
-        const { ctx, width, height } = prepareCanvasImage();
-
+        const {ctx, width, height} = prepareCanvasImage();
         ctx.globalCompositeOperation = 'lighten';
         ctx.fillStyle = lineColor;
         ctx.globalAlpha = value / 100;
@@ -198,6 +188,7 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubToo
     const handleApply = () => {
         const url = canvas.current.toDataURL('image/jpeg');
         draw(url);
+
         onImageChangeApply(url);
         setActiveTool(null);
     };

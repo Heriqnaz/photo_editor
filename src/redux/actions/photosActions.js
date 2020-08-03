@@ -2,41 +2,6 @@ export const REQUEST_PHOTOS = 'REQUEST_PHOTOS';
 export const RECEIVE_PHOTOS = 'RECEIVE_PHOTOS';
 export const SELECT_PHOTO = 'SELECT_PHOTO';
 
-export const OPEN_SIDEBAR = 'OPEN_SIDEBAR';
-export const CLOSE_SIDEBAR = 'CLOSE_SIDEBAR';
-export const APPLY_IMAGE_CHANGE = 'DRAW_IMAGE';
-export const UNDO_IMAGE_CHANGE = 'UNDO_IMAGE_CHANGE';
-export const REDO_IMAGE_CHANGE = 'REDO_IMAGE_CHANGE';
-
-export const SET_ACTIVE_TOOL = 'SET_ACTIVE_TOOL';
-export const SET_ACTIVE_SUB_TOOL = 'SET_ACTIVE_SUB_TOOL';
-
-export function setActiveTool(activeTool) {
-    return {
-        type: SET_ACTIVE_TOOL,
-        activeTool
-    }
-}
-
-export function setActiveSubTool(activeSubTool) {
-    return {
-        type: SET_ACTIVE_SUB_TOOL,
-        activeSubTool
-    }
-}
-
-export function openSideBar() {
-    return {
-        type: OPEN_SIDEBAR
-    }
-}
-
-export function closeSideBar() {
-    return {
-        type: CLOSE_SIDEBAR
-    }
-}
-
 export function selectPhoto(url) {
     return {
         type: SELECT_PHOTO,
@@ -76,24 +41,5 @@ export function fetchPhotos(searchString) {
             .then(res => res.json())
             .then(result => dispatch(receivePhotos(searchString, result)))
             .catch(err => console.log(err.message))
-    }
-}
-
-export function applyImageChange(imgUrl) {
-    return {
-        type: APPLY_IMAGE_CHANGE,
-        url: imgUrl
-    }
-}
-
-export function undoImageChange() {
-    return {
-        type: UNDO_IMAGE_CHANGE
-    }
-}
-
-export function redoImageChange() {
-    return {
-        type: REDO_IMAGE_CHANGE
     }
 }
