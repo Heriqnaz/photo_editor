@@ -1,6 +1,7 @@
 export const REQUEST_PHOTOS = 'REQUEST_PHOTOS';
 export const RECEIVE_PHOTOS = 'RECEIVE_PHOTOS';
 export const SELECT_PHOTO = 'SELECT_PHOTO';
+export const IS_ERROR = 'IS_ERROR';
 
 export function selectPhoto(url) {
     return {
@@ -33,6 +34,12 @@ export function receivePhotos(searchString, response) {
     }
 }
 
+export function isError() {
+    return {
+        type: IS_ERROR
+    }
+}
+
 export function fetchPhotos(searchString) {
     return dispatch => {
         dispatch(requestPhotos(searchString));
@@ -40,6 +47,6 @@ export function fetchPhotos(searchString) {
         return fetch(url)
             .then(res => res.json())
             .then(result => dispatch(receivePhotos(searchString, result)))
-            .catch(err => console.log(err.message))
+            .catch(err => dispatch(isError()))
     }
 }

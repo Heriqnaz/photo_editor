@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Search } from 'react-bootstrap-icons';
 import { fetchPhotos } from '../../redux/actions';
 import { connect } from 'react-redux';
 
@@ -14,7 +13,7 @@ const SearchPanel = ({ onSearch }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="form-group has-search">
+            <div className="form-group has-search search-panel">
                 <div
                     className="input-group-append"
                 >

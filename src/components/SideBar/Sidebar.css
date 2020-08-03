@@ -30,7 +30,7 @@
     cursor: pointer;
     text-align: center;
     color: #999;
-    width: 100%;
+    width: 60%;
 }
 
 .sidebar-nav-item p {
@@ -111,6 +111,15 @@
 .has-search .form-control {
     padding-left: 2.2rem;
     border-radius: 3px;
+    background: transparent;
+    outline: none;
+    border: none;
+    width: 80%;
+    font-size: 20px;
+}
+
+.has-search .form-control::placeholder{
+    letter-spacing: 2px;
 }
 
 .has-search .form-control-feedback {
@@ -122,7 +131,11 @@
     line-height: 2.3rem;
     text-align: center;
     pointer-events: none;
+    border: none;
+    background: transparent;
     color: #aaa;
+    top: 6px;
+    left: 12px;
 }
 
 .card {
@@ -138,3 +151,15 @@
     font-weight: bold;
 }
 
+.search-panel{
+    height: 47px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    background: white;
+    position: relative;
+}
+
+.search-panel > .input-group-append input{
+    background: transparent;
+}

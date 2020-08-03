@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
-import { Col, Container, Row } from 'react-bootstrap';
 import './ImageFilterTool.css'
 import Button from "../Button/Button";
 
@@ -24,16 +23,16 @@ const ImageFilterTool = ({
         const value = event.target.value;
         setRangeValue(event.target.value)
         switch (activeSubTool) {
-        case 'filter-brightness':
-            handleBrightnessFilter(value);
-            break;
-        case 'filter-blur':
-            handleBlurFilter(value);
-            break;
-        case 'filter-grayscale':
-            handleGrayscaleFilter(value);
-            break;
-        default:
+            case 'filter-brightness':
+                handleBrightnessFilter(value);
+                break;
+            case 'filter-blur':
+                handleBlurFilter(value);
+                break;
+            case 'filter-grayscale':
+                handleGrayscaleFilter(value);
+                break;
+            default:
         }
     };
 
@@ -52,13 +51,13 @@ const ImageFilterTool = ({
     }, []);
 
     return (
-        <Container className='image-filter-tools'>
+        <div className='image-filter-tools'>
             {activeSubTool &&
             <>
-                <Col md="auto">
+                <div md="auto">
                     <Button className='apply-button' color='#2980b9' onClick={onApply}>Apply</Button>
-                </Col>
-                <Col>
+                </div>
+                <div>
                     <label htmlFor="formControlRange">Color: {rangeValue}</label>
                     <input
                         type="range"
@@ -67,20 +66,20 @@ const ImageFilterTool = ({
                         value={rangeValue}
                         step="1"
                         onChange={handleFilterRange}/>
-                </Col>
+                </div>
             </>
             }
             {activeSubTool === 'filter-blur' &&
-            <Col xs='2' lg="2">
+            <div>
                 <input
                     type="color"
                     className="form-control"
                     value={lineColor}
                     onChange={onLineColor}
                     id="color"/>
-            </Col>
+            </div>
             }
-        </Container>
+        </div>
     )
 };
 
