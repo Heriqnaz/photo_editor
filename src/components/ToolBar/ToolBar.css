@@ -54,12 +54,14 @@
 .undo_btn {
     width: 25px;
     height: 25px;
+    cursor: pointer;
     background-color: black;
     margin: 0 15px;
     mask: url("../../assets/svgs/undo-alt-solid.svg") no-repeat center / contain;
 }
 
 .redo_btn {
+    cursor: pointer;
     width: 25px;
     height: 25px;
     background-color: black;
@@ -68,8 +70,10 @@
 
 .redo_btn:disabled{
     background-color: #999999;
+    cursor: inherit;
 }
 
 .undo_btn:disabled{
     background-color: #999999;
+    cursor: inherit;
 }

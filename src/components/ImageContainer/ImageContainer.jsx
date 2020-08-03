@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { connect } from 'react-redux';
+import React, {useEffect, useRef, useState} from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { applyImageChange } from '../../redux/actions';
+import {applyImageChange, setActiveTool} from '../../redux/actions';
 
 
 import Cropper from '../Cropper/Cropper';
@@ -11,14 +11,30 @@ import './ImageContainer.css';
 import ImageFilterTool from '../ImageFilterTool/ImageFilterTool';
 import DrawImageTool from '../DrawImageTool/DrawImageTool';
 import ImageFrameTool from '../ImageFrameTool/ImageFrameTool';
-import { setActiveTool } from '../../redux/actions';
+import ImageStickerTool from "../../ImageStickerTool/ImageStickerTool";
 
 let isDrawing = false;
 let lineStyleLocal, lineWidthLocal, lineColorLocal;
 
-const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubTool, onImageChangeApply }) => {
+let stickerImageX = 50;
+let stickerImageY = 50;
+let imageWidth, imageRight, imageBottom, imageHeight, startX, startY, imageSticker;
+
+const pi2 = Math.PI * 2;
+const resizerRadius = 8;
+const rr = resizerRadius * resizerRadius;
+let draggingResizer = {
+    x: 0,
+    y: 0
+};
+let draggingImage = false;
+
+
+const ImageContainer = ({selectedPhoto, activeTool, setActiveTool, activeSubTool, onImageChangeApply}) => {
 
     const canvas = useRef();
+    const canvasSticker = useRef();
+
     const [canvasCords, setCanvasCords] = useState(null);
     const [img, setImg] = useState(null);
 
@@ -48,11 +64,25 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubToo
             canvas.current.addEventListener('mouseout', stopDrawingLine);
             canvas.current.addEventListener('mousemove', drawLine);
         }
+
+        if (activeTool === 'stickers') {
+            canvasSticker.current.addEventListener('mousedown', handleMouseDown);
+            canvasSticker.current.addEventListener('mouseup', handleMouseUp);
+            canvasSticker.current.addEventListener('mouseout', handleMouseOut);
+            canvasSticker.current.addEventListener('mousemove', handleMouseMove);
+        }
+
         return () => {
             canvas.current.removeEventListener('mousedown', startDrawingLine);
             canvas.current.removeEventListener('mouseup', stopDrawingLine);
             canvas.current.removeEventListener('mouseout', stopDrawingLine);
             canvas.current.removeEventListener('mousemove', drawLine);
+            if (canvasSticker.current) {
+                canvasSticker.current.removeEventListener('mousedown', handleMouseDown);
+                canvasSticker.current.removeEventListener('mouseup', handleMouseUp);
+                canvasSticker.current.removeEventListener('mouseout', handleMouseOut);
+                canvasSticker.current.removeEventListener('mousemove', handleMouseMove);
+            }
         }
 
     }, [activeTool]);
@@ -85,7 +115,7 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubToo
         setImg(img)
     }
 
-    function handleCrop({ left, top, width, height }) {
+    function handleCrop({left, top, width, height}) {
         const url = canvas.current.toDataURL('image/jpeg')
         const ctx = canvas.current.getContext('2d');
         const img = new Image();
@@ -142,11 +172,19 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubToo
         image.src = url;
         ctx.drawImage(img, 0, 0, width, height);
         ctx.save();
-        return { ctx, image, width, height };
+        return {ctx, image, width, height};
     };
 
+    const handleBlurFilter = (value) => {
+        const {ctx, width, image, height} = prepareCanvasImage();
+        ctx.filter = `blur(${value / 4}px)`;
+        ctx.drawImage(image, width, height);
+
+    };
+
+
     const handleBrightnessFilter = (value) => {
-        const { ctx, image, width, height } = prepareCanvasImage();
+        const {ctx, image, width, height} = prepareCanvasImage();
 
         if (value < 0) {
             ctx.globalCompositeOperation = 'multiply';
@@ -164,17 +202,8 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubToo
         ctx.restore();
     };
 
-    const handleBlurFilter = (value) => {
-        const { ctx, width, height } = prepareCanvasImage();
-        ctx.globalCompositeOperation = 'lighten';
-        ctx.fillStyle = lineColor;
-        ctx.globalAlpha = value / 100;
-        ctx.fillRect(0, 0, width, height);
-        ctx.restore();
-
-    };
     const handleGrayscaleFilter = (value) => {
-        const { ctx, width, height } = prepareCanvasImage();
+        const {ctx, width, height} = prepareCanvasImage();
         if (value <= 100) {
             ctx.globalCompositeOperation = 'color';
             ctx.fillStyle = 'black';
@@ -183,6 +212,227 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubToo
         }
         ctx.restore();
     };
+
+    const handleColorChangeFilter = (rangeValue) => {
+        const {ctx, width, height} = prepareCanvasImage();
+        if (lineColor === '#000000') {
+            ctx.globalCompositeOperation = 'multiply';
+        } else {
+            ctx.globalCompositeOperation = 'lighten';
+        }
+        ctx.fillStyle = lineColor;
+        ctx.globalAlpha = rangeValue / 100;
+        ctx.fillRect(0, 0, width, height);
+        ctx.restore();
+    };
+
+    const handleSaturationFilter = (rangeValue) => {
+        const {ctx, width, height} = prepareCanvasImage();
+        ctx.globalCompositeOperation = 'saturation';
+        ctx.fillStyle = 'red';
+        ctx.globalAlpha = rangeValue / 100;
+        ctx.fillRect(0, 0, width, height);
+        ctx.restore();
+    };
+
+    const handleContrastFilter = (rangeValue) => {
+        const {ctx, width, image, height} = prepareCanvasImage();
+        ctx.filter = `contrast(${rangeValue / 4})`;
+        ctx.drawImage(image, width, height);
+    };
+
+
+    const handleSelectedSticker = (frameUrl) => {
+        const img = new Image();
+        img.src = frameUrl;
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+            imageWidth = img.width;
+            imageHeight = img.height;
+            imageRight = stickerImageX + imageWidth;
+            imageBottom = stickerImageY + imageHeight;
+            imageSticker = img;
+            canvasSticker.current.height = canvas.current.height;
+            canvasSticker.current.width = canvas.current.width;
+            drawSticker(true, false, frameUrl);
+        };
+        img.src = frameUrl;
+    };
+
+    const handleApplySticker = () => {
+        const ctx = canvas.current.getContext('2d');
+        drawSticker(false, false)
+        ctx.drawImage(canvasSticker.current, 0, 0);
+        const url = canvas.current.toDataURL('image/jpeg');
+        draw(url)
+        onImageChangeApply(url);
+        setActiveTool(null)
+    };
+
+
+    const drawSticker = (withAnchors, withBorders) => {
+        const ctx = canvasSticker.current.getContext('2d');
+        // clear the canvas
+        ctx.clearRect(0, 0, canvasSticker.current.width, canvasSticker.current.height);
+        // debugger
+        ctx.drawImage(imageSticker, 0, 0, imageSticker.width, imageSticker.height, stickerImageX, stickerImageY, imageWidth, imageHeight);
+        if (withAnchors) {
+            drawDragAnchor(stickerImageX, stickerImageY, ctx);
+            drawDragAnchor(imageRight, stickerImageY, ctx);
+            drawDragAnchor(imageRight, imageBottom, ctx);
+            drawDragAnchor(stickerImageX, imageBottom, ctx);
+        }
+        if (withBorders) {
+            ctx.beginPath();
+            ctx.moveTo(stickerImageX, stickerImageY);
+            ctx.lineTo(imageRight, stickerImageY);
+            ctx.lineTo(imageRight, imageBottom);
+            ctx.lineTo(stickerImageX, imageBottom);
+            ctx.closePath();
+            ctx.stroke();
+        }
+    };
+
+    function drawDragAnchor(x, y, ctx) {
+        ctx.beginPath();
+        ctx.arc(x, y, resizerRadius, 0, pi2);
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    function handleMouseDown(e) {
+        if (imageSticker) {
+            const offsetX = canvasCords.left;
+            const offsetY = canvasCords.top;
+            startX = parseInt(e.clientX - offsetX);
+            startY = parseInt(e.clientY - offsetY);
+            draggingResizer = anchorHitTest(startX, startY);
+            draggingImage = draggingResizer < 0 && hitImage(startX, startY);
+        }
+    }
+
+    function handleMouseUp(e) {
+        if (imageSticker) {
+            draggingResizer = -1;
+            draggingImage = false;
+            drawSticker(true, false);
+        }
+    }
+
+    function handleMouseOut(e) {
+        if (imageSticker) {
+            handleMouseUp(e);
+        }
+    }
+
+    function handleMouseMove(e) {
+        if (!imageSticker) {
+            return
+        }
+
+        const offsetX = canvasCords.left;
+        const offsetY = canvasCords.top;
+        if (draggingResizer > -1) {
+            const mouseX = parseInt(e.clientX - offsetX);
+            const mouseY = parseInt(e.clientY - offsetY);
+
+            // resize the image
+            switch (draggingResizer) {
+                case 0:
+                    //top-left
+                    stickerImageX = mouseX;
+                    imageWidth = imageRight - mouseX;
+                    stickerImageY = mouseY;
+                    imageHeight = imageBottom - mouseY;
+                    break;
+                case 1:
+                    //top-right
+                    stickerImageY = mouseY;
+                    imageWidth = mouseX - stickerImageX;
+                    imageHeight = imageBottom - mouseY;
+                    break;
+                case 2:
+                    //bottom-right
+                    imageWidth = mouseX - stickerImageX;
+                    imageHeight = mouseY - stickerImageY;
+                    break;
+                case 3:
+                    //bottom-left
+                    stickerImageX = mouseX;
+                    imageWidth = imageRight - mouseX;
+                    imageHeight = mouseY - stickerImageY;
+                    break;
+            }
+
+            if (imageWidth < 25) {
+                imageWidth = 25;
+            }
+            if (imageHeight < 25) {
+                imageHeight = 25;
+            }
+
+            // set the image right and bottom
+            imageRight = stickerImageX + imageWidth;
+            imageBottom = stickerImageY + imageHeight;
+
+            // redraw the image with resizing anchors
+            drawSticker(true, true);
+
+        } else if (draggingImage) {
+
+            const mouseX = parseInt(e.clientX - offsetX);
+            const mouseY = parseInt(e.clientY - offsetY);
+
+            // move the image by the amount of the latest drag
+            const dx = mouseX - startX;
+            const dy = mouseY - startY;
+            stickerImageX += dx;
+            stickerImageY += dy;
+            imageRight += dx;
+            imageBottom += dy;
+            // reset the startXY for next time
+            startX = mouseX;
+            startY = mouseY;
+
+            // redraw the image with border
+            drawSticker(false, true);
+        }
+    }
+
+    function anchorHitTest(x, y) {
+        let dx, dy;
+
+        // top-left
+        dx = x - stickerImageX;
+        dy = y - stickerImageY;
+        if (dx * dx + dy * dy <= rr) {
+            return (0);
+        }
+        // top-right
+        dx = x - imageRight;
+        dy = y - stickerImageY;
+        if (dx * dx + dy * dy <= rr) {
+            return (1);
+        }
+        // bottom-right
+        dx = x - imageRight;
+        dy = y - imageBottom;
+        if (dx * dx + dy * dy <= rr) {
+            return (2);
+        }
+        // bottom-left
+        dx = x - stickerImageX;
+        dy = y - imageBottom;
+        if (dx * dx + dy * dy <= rr) {
+            return (3);
+        }
+        return (-1);
+
+    }
+
+    function hitImage(x, y) {
+        return (x > stickerImageX && x < stickerImageX + imageWidth && y > stickerImageY && y < stickerImageY + imageHeight);
+    }
 
 
     const handleApply = () => {
@@ -194,14 +444,14 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubToo
     };
 
     const handleSelectedFrame = (frameUrl) => {
-        const { ctx } = prepareCanvasImage();
+        const {ctx} = prepareCanvasImage();
         const url = canvas.current.toDataURL('image/jpeg');
         draw(url, frameUrl);
         ctx.restore();
     };
 
     const handleCancelApply = () => {
-        const { ctx } = prepareCanvasImage();
+        const {ctx} = prepareCanvasImage();
         ctx.restore();
     };
 
@@ -244,8 +494,11 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubToo
         <div>
             <div className="img-box">
                 {activeTool === 'crop' && <Cropper handleCrop={handleCrop} canvasCords={canvasCords}/>}
-                <div className={`edit-img ${activeTool === 'draw' ? 'edit-img-draw' : ''}`}>
+                <div className={`cnvs edit-img ${activeTool === 'draw' ? 'edit-img-draw' : ''}`}>
                     <canvas ref={canvas} id="canvas"/>
+                    {activeTool === 'stickers' &&
+                    <canvas ref={canvasSticker} id="canvasSticker" className="cnvs"/>
+                    }
                 </div>
             </div>
             {activeTool === 'filter' &&
@@ -256,6 +509,9 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubToo
                 handleBrightnessFilter={handleBrightnessFilter}
                 handleBlurFilter={handleBlurFilter}
                 handleGrayscaleFilter={handleGrayscaleFilter}
+                handleColorChangeFilter={handleColorChangeFilter}
+                handleContrastFilter={handleContrastFilter}
+                handleSaturationFilter={handleSaturationFilter}
                 handleApplyFilter={handleApply}
                 handleLineColor={handleLineColor}
                 handleCancelApplyFilter={handleCancelApply}
@@ -274,6 +530,11 @@ const ImageContainer = ({ selectedPhoto, activeTool, setActiveTool, activeSubToo
                 handleSelectedFrame={handleSelectedFrame}
                 handleApplyFrame={handleApply}
                 handleCancelApplyFrame={handleCancelApply}
+            />}
+            {activeTool === 'stickers' &&
+            <ImageStickerTool
+                handleSelectedSticker={handleSelectedSticker}
+                handleApplySticker={handleApplySticker}
             />}
         </div>
     )

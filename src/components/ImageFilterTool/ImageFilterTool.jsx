@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import './ImageFilterTool.css'
 import Button from "../Button/Button";
 
+
 const ImageFilterTool = ({
                              handleBrightnessFilter,
                              handleBlurFilter,
                              handleGrayscaleFilter,
+                             handleColorChangeFilter,
+                             handleContrastFilter,
+                             handleSaturationFilter,
                              handleApplyFilter,
                              handleLineColor,
                              activeSubTool,
@@ -31,6 +35,15 @@ const ImageFilterTool = ({
                 break;
             case 'filter-grayscale':
                 handleGrayscaleFilter(value);
+                break;
+            case 'filter-color':
+                handleColorChangeFilter(value,);
+                break;
+            case 'filter-saturation':
+                handleSaturationFilter(value,);
+                break;
+            case 'filter-contrast':
+                handleContrastFilter(value,);
                 break;
             default:
         }
@@ -69,8 +82,8 @@ const ImageFilterTool = ({
                 </div>
             </>
             }
-            {activeSubTool === 'filter-blur' &&
-            <div>
+            {activeSubTool === 'filter-color' &&
+            <div className='image-filter-input'>
                 <input
                     type="color"
                     className="form-control"
@@ -86,6 +99,9 @@ const ImageFilterTool = ({
 ImageFilterTool.propTypes = {
     handleBrightnessFilter: PropTypes.func,
     handleGrayscaleFilter: PropTypes.func,
+    handleColorChangeFilter: PropTypes.func,
+    handleContrastFilter: PropTypes.func,
+    handleSaturationFilter: PropTypes.func,
     handleApplyFilter: PropTypes.func,
     handleBlurFilter: PropTypes.func,
     handleCancelApplyFilter: PropTypes.func,

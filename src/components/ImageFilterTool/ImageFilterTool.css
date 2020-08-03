@@ -1,16 +1,25 @@
 .image-filter-tools {
-    margin-top: 17px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 100%;
-    padding: 0 8%;
+    width: 40%;
+    margin: auto;
+}
+
+.image-filter-input input[type='color'] {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.image-filter-input{
+    width: 30%;
 }
 
 .image-filter-tools input {
     cursor: pointer;
     width: 100%;
 }
+
 .apply-button{
     padding: 6px 30px;
     background: #1462be;
