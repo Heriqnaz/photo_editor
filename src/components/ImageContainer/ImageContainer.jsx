@@ -1,8 +1,8 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {connect} from 'react-redux';
+import React, { useEffect, useRef, useState } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {applyImageChange, setActiveTool} from '../../redux/actions';
+import { applyImageChange, setActiveTool } from '../../redux/actions';
 
 import Cropper from '../Cropper/Cropper';
 import ImageFilterTool from '../ImageFilterTool/ImageFilterTool';
@@ -21,7 +21,7 @@ import {
 let isDrawing = false;
 let lineStyleLocal, lineWidthLocal, lineColorLocal;
 
-const ImageContainer = ({selectedPhoto, activeTool, activeSubTool, setActiveTool, onImageChangeApply}) => {
+const ImageContainer = ({ selectedPhoto, activeTool, activeSubTool, setActiveTool, onImageChangeApply }) => {
 
     const canvas = useRef();
     const [ canvasCords, setCanvasCords ] = useState(null);
@@ -41,9 +41,7 @@ const ImageContainer = ({selectedPhoto, activeTool, activeSubTool, setActiveTool
     }, [ selectedPhoto ]);
 
     useEffect(() => {
-        if (activeTool !== 'crop' && activeTool !== 'draw') {
-            resetCanvasState();
-        }
+        resetCanvasState();
     }, [ activeTool ]);
 
     useEffect(() => {
@@ -106,7 +104,7 @@ const ImageContainer = ({selectedPhoto, activeTool, activeSubTool, setActiveTool
         setImg(img);
     }
 
-    function handleCrop({left, top, width, height}) {
+    function handleCrop({ left, top, width, height }) {
         const url = canvas.current.toDataURL('image/jpeg');
         const ctx = canvas.current.getContext('2d');
         const img = new Image();
@@ -172,12 +170,12 @@ const ImageContainer = ({selectedPhoto, activeTool, activeSubTool, setActiveTool
         image.src = url;
         ctx.drawImage(img, 0, 0, width, height);
         ctx.save();
-        return {ctx, image, width, height};
+        return { ctx, image, width, height };
     };
 
 
     const handleImageFilter = (rangeValue) => {
-        const {ctx, image, width, height} = prepareCanvasImage();
+        const { ctx, image, width, height } = prepareCanvasImage();
         switch (activeSubTool) {
         case 'filter-blur':
             handleBlurFilter(ctx, image, width, height, rangeValue);
@@ -211,14 +209,14 @@ const ImageContainer = ({selectedPhoto, activeTool, activeSubTool, setActiveTool
     };
 
     const handleSelectedFrame = (frameUrl) => {
-        const {ctx} = prepareCanvasImage();
+        const { ctx } = prepareCanvasImage();
         const url = canvas.current.toDataURL('image/jpeg');
         draw(url, frameUrl);
         ctx.restore();
     };
 
     const handleCancelApply = () => {
-        const {ctx} = prepareCanvasImage();
+        const { ctx } = prepareCanvasImage();
         ctx.restore();
     };
 
