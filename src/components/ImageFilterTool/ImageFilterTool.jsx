@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
-import { Col, Container, Row } from 'react-bootstrap';
+import {connect} from "react-redux";
+import {Col, Container} from 'react-bootstrap';
 import './ImageFilterTool.css'
+
 
 const ImageFilterTool = ({
                              handleBrightnessFilter,
                              handleBlurFilter,
                              handleGrayscaleFilter,
+                             handleColorChangeFilter,
+                             handleContrastFilter,
+                             handleSaturationFilter,
                              handleApplyFilter,
                              handleLineColor,
                              activeSubTool,
@@ -23,16 +27,25 @@ const ImageFilterTool = ({
         const value = event.target.value;
         setRangeValue(event.target.value)
         switch (activeSubTool) {
-        case 'filter-brightness':
-            handleBrightnessFilter(value);
-            break;
-        case 'filter-blur':
-            handleBlurFilter(value);
-            break;
-        case 'filter-grayscale':
-            handleGrayscaleFilter(value);
-            break;
-        default:
+            case 'filter-brightness':
+                handleBrightnessFilter(value);
+                break;
+            case 'filter-blur':
+                handleBlurFilter(value);
+                break;
+            case 'filter-grayscale':
+                handleGrayscaleFilter(value);
+                break;
+            case 'filter-color':
+                handleColorChangeFilter(value,);
+                break;
+            case 'filter-saturation':
+                handleSaturationFilter(value,);
+                break;
+            case 'filter-contrast':
+                handleContrastFilter(value,);
+                break;
+            default:
         }
     };
 
@@ -69,7 +82,7 @@ const ImageFilterTool = ({
                 </Col>
             </>
             }
-            {activeSubTool === 'filter-blur' &&
+            {activeSubTool === 'filter-color' &&
             <Col xs='2' lg="2">
                 <input
                     type="color"
@@ -86,6 +99,9 @@ const ImageFilterTool = ({
 ImageFilterTool.propTypes = {
     handleBrightnessFilter: PropTypes.func,
     handleGrayscaleFilter: PropTypes.func,
+    handleColorChangeFilter: PropTypes.func,
+    handleContrastFilter: PropTypes.func,
+    handleSaturationFilter: PropTypes.func,
     handleApplyFilter: PropTypes.func,
     handleBlurFilter: PropTypes.func,
     handleCancelApplyFilter: PropTypes.func,
