@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import './ToolBar.css';
-import { setActiveTool, setActiveSubTool, undoImageChange, redoImageChange } from '../../redux/actions';
 import { connect } from 'react-redux';
+
+import { setActiveTool, setActiveSubTool, undoImageChange, redoImageChange } from '../../redux/actions';
+
+import './ToolBar.css';
 
 const ToolBar = ({ activeTool, activeSubTool, selectedPhoto, setActiveTool, setActiveSubTool, undoImageChange, redoImageChange, canUndoChange, canRedoChange }) => {
 

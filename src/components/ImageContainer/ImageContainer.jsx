@@ -4,14 +4,13 @@ import PropTypes from 'prop-types';
 
 import {applyImageChange, setActiveTool} from '../../redux/actions';
 
-
 import Cropper from '../Cropper/Cropper';
-
-import './ImageContainer.css';
 import ImageFilterTool from '../ImageFilterTool/ImageFilterTool';
 import DrawImageTool from '../DrawImageTool/DrawImageTool';
 import ImageFrameTool from '../ImageFrameTool/ImageFrameTool';
 import ImageStickerTool from "../../ImageStickerTool/ImageStickerTool";
+
+import './ImageContainer.css';
 
 let isDrawing = false;
 let lineStyleLocal, lineWidthLocal, lineColorLocal;

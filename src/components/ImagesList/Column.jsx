@@ -1,8 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+
+import SearchedImage from '../SearchedImage/SearchedImage';
 
 import './ImagesList.css';
-import SearchedImage from "../SearchedImage/SearchedImage";
 
 const Column = ({ data}) => {
 

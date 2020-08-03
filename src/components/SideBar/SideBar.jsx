@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
 
-import GoogleSearchPanel from '../../containers/GoogleSearchPanel/GoogleSearchPanel.jsx';
 import { closeSideBar, openSideBar, selectPhoto } from '../../redux/actions';
 
-import './Sidebar.css'
+import GoogleSearchPanel from '../../containers/GoogleSearchPanel/GoogleSearchPanel.jsx';
+
+import './Sidebar.css';
 
 const SideBar = ({ onPhotoSelect, isOpenedSideBar, openSideBar, closeSideBar, selectedPhoto }) => {
 

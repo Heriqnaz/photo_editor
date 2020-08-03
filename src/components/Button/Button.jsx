@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './Button.css'
-
+import './Button.css';
 
 export default function Button({ onClick, children, color,className, disabled }) {
     return (

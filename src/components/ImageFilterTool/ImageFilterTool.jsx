@@ -1,23 +1,26 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
-import './ImageFilterTool.css'
-import Button from "../Button/Button";
+import { connect } from 'react-redux';
+
+import Button from '../Button/Button';
+
+import './ImageFilterTool.css';
 
 
 const ImageFilterTool = ({
-                             handleBrightnessFilter,
-                             handleBlurFilter,
-                             handleGrayscaleFilter,
-                             handleColorChangeFilter,
-                             handleContrastFilter,
-                             handleSaturationFilter,
-                             handleApplyFilter,
-                             handleLineColor,
-                             activeSubTool,
-                             lineColor,
-                             handleCancelApplyFilter
-                         }) => {
+     handleBrightnessFilter,
+     handleBlurFilter,
+     handleGrayscaleFilter,
+     handleColorChangeFilter,
+     handleContrastFilter,
+     handleSaturationFilter,
+     handleApplyFilter,
+     handleLineColor,
+     activeSubTool,
+     lineColor,
+     handleCancelApplyFilter
+}) => {
+
     const [rangeValue, setRangeValue] = useState(0);
 
     let isApply = false;

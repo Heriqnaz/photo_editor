@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './DrowImageTool.css'
+import './DrowImageTool.css';
 
 const DrawImageTool = ({ lineStyle, lineWidth, lineColor, handleLineStyle, handleLineWidth, handleLineColor }) => {
     const onLineStyle = (e) => {

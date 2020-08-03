@@ -8,10 +8,10 @@ const smileStickerUrl = `${stickerBaseUrl}/Smile`;
 const butterfly = `${stickerBaseUrl}/butterfly`;
 
 const ImageStickerTool = ({
-                              activeSubTool,
-                              handleSelectedSticker,
-                              handleApplySticker,
-                          }) => {
+    activeSubTool,
+    handleSelectedSticker,
+    handleApplySticker,
+}) => {
     const smileSticker = [
         `${smileStickerUrl}/Smile_1.png`,
         `${smileStickerUrl}/Smile_2.png`,

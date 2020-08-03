@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+
 import {
     APPLY_IMAGE_CHANGE,
     CLOSE_SIDEBAR,
@@ -9,6 +10,7 @@ import {
     SET_ACTIVE_SUB_TOOL,
     SET_ACTIVE_TOOL, UNDO_IMAGE_CHANGE
 } from './actions';
+
 import {IS_ERROR} from './actions/photosActions';
 
 const initialPhotoState = {
@@ -97,47 +99,6 @@ function photo(state = initialPhotoState, action) {
     }
 }
 
-// function selectedPhoto(state = '', action) {
-//     switch (action.type) {
-//         case SELECT_PHOTO:
-//             return action.url;
-//         case REQUEST_PHOTOS:
-//             return '';
-//         default:
-//             return state;
-//     }
-// }
-
-// function isFetchingPhotos(state = false, action) {
-//     switch (action.type) {
-//         case REQUEST_PHOTOS:
-//             return true;
-//         case RECEIVE_PHOTOS:
-//             return false;
-//         default:
-//             return state;
-//     }
-// }
-
-// function photos(state = [], action) {
-//     switch (action.type) {
-//         case RECEIVE_PHOTOS:
-//             return action.photos;
-//         default:
-//             return state;
-//     }
-// }
-//
-// function isSearched(state = false, action) {
-//     switch (action.type) {
-//         case REQUEST_PHOTOS:
-//             return state ? state : true;
-//         default:
-//             return state;
-//     }
-// }
-
-
 function isOpenedSideBar(state = false, action) {
     switch (action.type) {
     case OPEN_SIDEBAR:
@@ -149,12 +110,7 @@ function isOpenedSideBar(state = false, action) {
     }
 }
 
-
 export default combineReducers({
-    // selectedPhoto,
-    // // isFetchingPhotos,
-    // photos,
-    // isSearched,
     photo,
     isOpenedSideBar,
     tool

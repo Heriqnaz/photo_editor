@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { fetchPhotos } from '../../redux/actions';
 import { connect } from 'react-redux';
+
+import { fetchPhotos } from '../../redux/actions';
 
 const SearchPanel = ({ onSearch }) => {
     let input;
