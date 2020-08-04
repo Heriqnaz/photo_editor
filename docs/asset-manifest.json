@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.cb4f12d9.chunk.css",
+    "main.js": "/static/js/main.aa0b9015.chunk.js",
+    "main.js.map": "/static/js/main.aa0b9015.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.a17792d7.js",
+    "runtime-main.js.map": "/static/js/runtime-main.a17792d7.js.map",
+    "static/js/2.f6379fed.chunk.js": "/static/js/2.f6379fed.chunk.js",
+    "static/js/2.f6379fed.chunk.js.map": "/static/js/2.f6379fed.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.5f8ede4012bc0a6afb80da9b9103c66e.js": "/precache-manifest.5f8ede4012bc0a6afb80da9b9103c66e.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.cb4f12d9.chunk.css.map": "/static/css/main.cb4f12d9.chunk.css.map",
+    "static/js/2.f6379fed.chunk.js.LICENSE.txt": "/static/js/2.f6379fed.chunk.js.LICENSE.txt",
+    "static/media/Sidebar.css": "/static/media/upload-solid.2643a50b.svg",
+    "static/media/ToolBar.css": "/static/media/undo-alt-solid.4c10b4a7.svg",
+    "static/media/tail-spin.svg": "/static/media/tail-spin.a75a5f09.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a17792d7.js",
+    "static/js/2.f6379fed.chunk.js",
+    "static/css/main.cb4f12d9.chunk.css",
+    "static/js/main.aa0b9015.chunk.js"
+  ]
+}
